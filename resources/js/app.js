@@ -7,9 +7,7 @@ Contact: themesbrand@gmail.com
 File: Main Js File
 */
 
-
 (function ($) {
-
     'use strict';
 
     var language = localStorage.getItem('language');
@@ -48,11 +46,6 @@ File: Main Js File
                 $("[key='" + index + "']").text(val);
             });
         });
-    }
-
-    function initMetisMenu() {
-        //metis menu
-        $("#side-menu").metisMenu();
     }
 
     function initLeftMenuCollapse() {
@@ -322,7 +315,6 @@ File: Main Js File
     }
 
     function init() {
-        initMetisMenu();
         initLeftMenuCollapse();
         initActiveMenu();
         initMenuItemScroll();
