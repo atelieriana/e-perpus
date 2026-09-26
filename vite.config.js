@@ -1,24 +1,53 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
-import tailwindcss from '@tailwindcss/vite';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
-            refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
-        }),
-        tailwindcss(),
-    ],
-    server: {
-        watch: {
-            ignored: ['**/storage/framework/views/**'],
+    build: {
+        manifest: 'manifest.json',
+        outDir: 'public/build',
+        cssCodeSplit: true,
+        rollupOptions: {
+            output: {
+                assetFileNames: (assetInfo) => {
+                    if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+                        return 'css/[name]-[hash].min.css';
+                    }
+                    return 'icons/[name]';
+                },
+                entryFileNames: 'js/[name].min.js',
+            },
         },
     },
+    plugins: [
+        laravel({
+            input: [
+                'resources/scss/bootstrap.scss',
+                'resources/scss/icons.scss',
+                'resources/scss/app.scss',
+            ],
+            refresh: true,
+        }),
+        viteStaticCopy({
+            targets: [
+                {
+                    src: 'resources/fonts',
+                    dest: 'css/custom/plugins/fonts',
+                    rename: { stripBase: true },
+                },
+                {
+                    src: 'resources/images',
+                    dest: '',
+                },
+                {
+                    src: 'resources/js',
+                    dest: '',
+                },
+                {
+                    src: 'resources/libs',
+                    dest: '',
+                },
+            ],
+        }),
+    ],
 });
