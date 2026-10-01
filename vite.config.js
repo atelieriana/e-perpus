@@ -25,6 +25,7 @@ export default defineConfig({
                 'resources/scss/bootstrap.scss',
                 'resources/scss/icons.scss',
                 'resources/scss/app.scss',
+                'resources/js/extension.js'
             ],
             refresh: true,
         }),
@@ -47,6 +48,11 @@ export default defineConfig({
                     src: 'resources/libs',
                     dest: '',
                 },
+                {
+                    src: 'node_modules/sweetalert2/dist',
+                    dest: 'resources/plugins/sweetalert2',
+                    rename: { stripBase: true },
+                }
             ],
         }),
     ],
