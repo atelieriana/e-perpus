@@ -43,7 +43,7 @@
                             </div>
 
                             <div class="mt-4 text-center">
-                                <a href="{{ route('auth.forget.password') }}" class="text-muted"><i class="mdi mdi-login me-1"></i> Kembali ke Halaman Login</a>
+                                <a href="{{ route('auth.login') }}" class="text-muted"><i class="mdi mdi-login me-1"></i> Kembali ke Halaman Login</a>
                             </div>
                         </form>
                     </div>
