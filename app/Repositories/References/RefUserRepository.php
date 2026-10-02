@@ -14,6 +14,19 @@ class RefUserRepository extends RefUser
     public function findDataByUsername(string $username)
     {
         return self::where('username', $username)
+            ->where('deleted_at', null)
+            ->first();
+    }
+
+    /**
+     * Digunakan untuk melakukan pencarian data berdasarkan email
+     * @param string $email
+     * @return mixed
+     */
+    public function findDataByEmail(string $email)
+    {
+        return self::where('email', $email)
+            ->where('deleted_at', null)
             ->first();
     }
 }

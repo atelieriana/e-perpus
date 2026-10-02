@@ -1,6 +1,6 @@
 @if ($errors->any())
     <div class="alert alert-danger alert-dismissible fade show">
-        <p class="fw-semibold">Terdapat isian wajib yang masih kosong</p>
+        <p class="fw-semibold">Terdapat isian wajib yang salah</p>
         <ul>
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
