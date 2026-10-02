@@ -47,10 +47,24 @@
   dependencies:
     "@form-validation/core" "2.4.0"
 
+"@form-validation/validator-email-address@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/@form-validation/validator-email-address/-/validator-email-address-2.4.0.tgz"
+  integrity sha512-dqIonCT0dvAqhxoHOwYTYwHigtkTcrKWhEKmNFBjKmtjeZVS++xOugAcTD6D4wM3pzl7MufN0DAr6XqYfDGj/Q==
+  dependencies:
+    "@form-validation/core" "2.4.0"
+
 "@form-validation/validator-not-empty@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npmjs.org/@form-validation/validator-not-empty/-/validator-not-empty-2.4.0.tgz"
   integrity sha512-gTysbflHrO01Wx1q0IjCnXLS/LZFP4KvSDOnZrI2Yq1H93vt9VFzME9Wcq0W/u9AmnYlKuLbHm4/LieIeW3oJw==
+  dependencies:
+    "@form-validation/core" "2.4.0"
+
+"@form-validation/validator-regexp@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/@form-validation/validator-regexp/-/validator-regexp-2.4.0.tgz"
+  integrity sha512-cQD991hQwPMAM84iwAr54A6AUfZgsX4F/HGpai2ZNu/srrmQcYlN/ogd43bCSNbJG8Ifa5P39Gh1Df8OttaY+g==
   dependencies:
     "@form-validation/core" "2.4.0"
 

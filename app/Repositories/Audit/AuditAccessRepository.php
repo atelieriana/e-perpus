@@ -10,7 +10,7 @@ class AuditAccessRepository extends AuditAccess
     {
         return $this->select(
             'id',
-            'user_id',
+            'user',
             'method',
             'module',
             'url_access',
@@ -23,7 +23,7 @@ class AuditAccessRepository extends AuditAccess
     public function getExport($tanggalMulai, $tanggalAkhir, $filterMethod = null)
     {
         $query = $this->select(
-            'user_id',
+            'user',
             'method',
             'module',
             'url_access',

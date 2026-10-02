@@ -17,6 +17,7 @@ class AuditTrail extends Model implements Audit
     ];
 
     protected $fillable = [
+        'uuid',
         'executed_by',
         'event',
         'auditable_type',

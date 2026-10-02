@@ -50,7 +50,7 @@
                         </div>
 
                         <div class="mt-4 text-center">
-                            <a href="#" class="text-muted"><i class="mdi mdi-lock me-1"></i> Lupa Password Anda?</a>
+                            <a href="{{ route('auth.forget.password') }}" class="text-muted"><i class="mdi mdi-lock me-1"></i> Lupa Password Anda?</a>
                         </div>
                     </form>
                 </div>
