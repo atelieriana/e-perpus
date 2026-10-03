@@ -18,22 +18,26 @@ services:
       - "80:80"
     volumes:
       - ../:/application
+    environment:
+      TZ: "Asia/Jakarta"
   database:
     image: mysql:oraclelinux9
     container_name: "database"
     ports:
       - "3306:3306"
     volumes:
-      - YOUR_HOST_LOCATION:/var/lib/mysql
+      - /Users/ibnuaulianugrahaalihaq/Database/MySQL:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "P!sang#123"
+      TZ: "Asia/Jakarta"
   redis:
     image: redis:8.0-rc1-alpine3.21
     container_name: "redis"
     ports:
       - "6379:6379"
-    command: redis-server --requirepass "YOUR_PASSWORD"
-
+    command: redis-server --requirepass "kJnGMRgXd5FecoM9YrTeOWgQ6ABfVSiwt8rcm79tq2hr8Dq9Pj"
+    environment:
+      TZ: "Asia/Jakarta"
 ```
 
 # How To Run

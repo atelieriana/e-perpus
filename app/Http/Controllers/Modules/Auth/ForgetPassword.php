@@ -34,6 +34,8 @@ class ForgetPassword extends Controller
         $this->session = new Session();
         $this->refUserRepository = new RefUserRepository();
         $this->tokenForgetPasswordRepository = new TokenForgetPasswordRepository();
+
+        $this->logAccess();
     }
 
     public function index()
@@ -56,7 +58,8 @@ class ForgetPassword extends Controller
         $this->tokenForgetPasswordRepository->uuid = $this->str->uuid()->toString();
         $this->tokenForgetPasswordRepository->id_ref_user = $dataUser->id;
         $this->tokenForgetPasswordRepository->token = base64_encode($this->tokenForgetPasswordRepository->uuid.$this->refUserRepository->uuid);
-        $this->tokenForgetPasswordRepository->expired_at = $this->carbon->now()->addMinutes(30);
+        $this->tokenForgetPasswordRepository->expired_at = $this->carbon->now('Asia/Jakarta')->addMinutes(30);
+        $this->tokenForgetPasswordRepository->status = 1;
         $this->tokenForgetPasswordRepository->created_by = $dataUser->nama;
         $this->tokenForgetPasswordRepository->updated_by = $dataUser->nama;
         $this->tokenForgetPasswordRepository->save();

@@ -30,6 +30,7 @@
         "@form-validation/plugin-bootstrap5": "^2.4.0",
         "@form-validation/plugin-trigger": "^2.4.0",
         "@form-validation/validator-email-address": "^2.4.0",
+        "@form-validation/validator-identical": "^2.4.0",
         "@form-validation/validator-not-empty": "^2.4.0",
         "@form-validation/validator-regexp": "^2.4.0",
         "bootstrap": "^5.3.8",
