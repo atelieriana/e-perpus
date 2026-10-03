@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Modules\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ForgetPasswordRequest;
+use App\Interfaces\References\RefUserInterface;
+use App\Interfaces\Tokens\TokenForgetPasswordInterface;
 use App\Mail\ForgetPasswordMail;
-use App\Repositories\References\RefUserRepository;
-use App\Repositories\Tokens\TokenForgetPasswordRepository;
 use App\Traits\AuditAccess;
 use Exception;
 use Illuminate\Support\Carbon;
@@ -22,8 +22,8 @@ class ForgetPassword extends Controller
     private $moduleName = 'Forget Password';
 
     public function __construct(
-        private readonly RefUserRepository $refUserRepository,
-        private readonly TokenForgetPasswordRepository $tokenForgetPasswordRepository,
+        private readonly RefUserInterface $refUserInterface,
+        private readonly TokenForgetPasswordInterface $tokenForgetPasswordInterface,
         private readonly Session $session,
         private readonly Mail $mail
     )
@@ -39,7 +39,7 @@ class ForgetPassword extends Controller
     public function onSubmit(ForgetPasswordRequest $request)
     {
         $email = $request->input('email');
-        $dataUser = $this->refUserRepository->findDataByEmail($email);
+        $dataUser = $this->refUserInterface->findDataByEmail($email);
         if (is_null($dataUser)) {
             return response()
                 ->redirectToRoute('auth.forget.password')
@@ -61,7 +61,7 @@ class ForgetPassword extends Controller
                 'created_by' => $this->session::get('name'),
                 'updated_by' => $this->session::get('name'),
             ];
-            $this->tokenForgetPasswordRepository->create($dataTokenForgetPassword);
+            $this->tokenForgetPasswordInterface->create($dataTokenForgetPassword);
         }
         catch (Exception $e)
         {

@@ -2,7 +2,10 @@
 
 namespace App\Repositories\Tokens;
 
+use App\Interfaces\Tokens\TokenForgetPasswordInterface;
 use App\Models\Tokens\TokenForgetPassword;
+use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * @property int $id
@@ -39,34 +42,11 @@ use App\Models\Tokens\TokenForgetPassword;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|TokenForgetPasswordRepository withoutTrashed()
  * @mixin \Eloquent
  */
-readonly class TokenForgetPasswordRepository
+class TokenForgetPasswordRepository extends BaseRepository implements TokenForgetPasswordInterface
 {
-    public function __construct(
-        private readonly TokenForgetPassword $tokenForgetPassword,
-    )
-    {}
-
-    public function create(array $data): TokenForgetPassword
+    public function __construct(protected TokenForgetPassword $tokenForgetPassword)
     {
-        return $this->tokenForgetPassword
-            ->newQuery()
-            ->create($data);
-    }
-
-    public function update(array $data, int $id)
-    {
-        return $this->tokenForgetPassword
-            ->newQuery()
-            ->findOrFail($id)
-            ->update($data);
-    }
-
-    public function delete(int $id)
-    {
-        return $this->tokenForgetPassword
-            ->newQuery()
-            ->whereKey($id)
-            ->delete();
+        parent::__construct($tokenForgetPassword);
     }
 
     public function findDataTokenByToken(string $token)

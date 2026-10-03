@@ -4,6 +4,7 @@ namespace App\Repositories\References;
 
 use App\Models\References\RefRole;
 use App\Models\References\RefUser;
+use App\Repositories\BaseRepository;
 
 /**
  * @property int $id
@@ -29,12 +30,12 @@ use App\Models\References\RefUser;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefRoleRepository whereUuid($value)
  * @mixin \Eloquent
  */
-readonly class RefRoleRepository
+class RefRoleRepository extends BaseRepository
 {
-    public function __construct(
-        private readonly RefRole $refRole,
-    )
-    {}
+    public function __construct( protected RefRole $refRole)
+    {
+        parent::__construct($refRole);
+    }
 
     public function findNameDefaultRole(RefUser $user, int $idRole): ?string
     {

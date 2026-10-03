@@ -2,9 +2,10 @@
 
 namespace App\Repositories\References;
 
+use App\Interfaces\References\RefRoleDetailInterface;
 use App\Models\References\RefRoleDetail;
 use App\Models\References\RefUser;
-use Illuminate\Database\Eloquent\Model;
+use App\Repositories\BaseRepository;
 
 /**
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefRoleDetailRepository newModelQuery()
@@ -12,14 +13,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefRoleDetailRepository query()
  * @mixin \Eloquent
  */
-readonly class RefRoleDetailRepository
+class RefRoleDetailRepository extends BaseRepository implements RefRoleDetailInterface
 {
-    public function __construct(
-        private readonly RefRoleDetail $refRoleDetail,
-    ){}
-
-    public function findIdDefaultRole(RefUser $user): ?int
+    public function __construct(protected RefRoleDetail $refRoleDetail)
     {
-        return $user->roles_detail->firstWhere('is_default_role', 1)->id_ref_role;
+        parent::__construct($refRoleDetail);
+    }
+
+    public function findIdDefaultRole(RefUser $refUser): ?int
+    {
+        return $refUser->roles_detail->firstWhere('is_default_role', 1)->id_ref_role;
     }
 }

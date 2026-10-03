@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Modules\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResetPasswordRequest;
-use App\Repositories\References\RefUserRepository;
-use App\Repositories\Tokens\TokenForgetPasswordRepository;
+use App\Interfaces\References\RefUserInterface;
+use App\Interfaces\Tokens\TokenForgetPasswordInterface;
 use App\Traits\AuditAccess;
 use Exception;
 use Illuminate\Support\Facades\Hash;
@@ -19,8 +19,8 @@ class ResetPassword extends Controller
     private $moduleName = "Reset Password";
 
     public function __construct(
-        private readonly RefUserRepository $refUserRepository,
-        private readonly TokenForgetPasswordRepository $tokenForgetPasswordRepository,
+        private readonly RefUserInterface $refUserRepository,
+        private readonly TokenForgetPasswordInterface $tokenForgetPasswordRepository,
         private Session $session
     )
     {

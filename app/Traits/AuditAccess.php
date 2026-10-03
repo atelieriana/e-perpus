@@ -13,7 +13,7 @@ trait AuditAccess
         $data = [
             'uuid' => Str::uuid()->toString(),
             'module' => $this->moduleName,
-            'user'=> Session::get('access-data') ?? 'Guest',
+            'user'=> Session::get('access-data')->nama ?? 'Guest',
             'url_access' => url()->current(),
             'method' => request()->method(),
             'ip_address' => request()->ip(),

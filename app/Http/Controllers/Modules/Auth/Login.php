@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Modules\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\References\RefRole;
+use App\Interfaces\References\RefUserInterface;
 use App\Repositories\References\RefRoleDetailRepository;
 use App\Repositories\References\RefRoleRepository;
-use App\Repositories\References\RefUserRepository;
 use App\Traits\AuditAccess;
 use Illuminate\Support\Facades\Hash;
 
@@ -17,7 +16,7 @@ class Login extends Controller
     private $moduleName = 'Login';
 
     public function __construct(
-        private readonly RefUserRepository $refUserRepository,
+        private readonly RefUserInterface $refUserRepository,
         private readonly RefRoleDetailRepository $refRoleDetailRepository,
         private readonly RefRoleRepository $refRoleRepository
     )

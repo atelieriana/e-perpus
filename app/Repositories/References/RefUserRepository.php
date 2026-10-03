@@ -2,35 +2,17 @@
 
 namespace App\Repositories\References;
 
+use App\Interfaces\References\RefUserInterface;
 use App\Models\References\RefUser;
+use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-readonly class RefUserRepository
+class RefUserRepository extends BaseRepository implements RefUserInterface
 {
-    public function __construct(
-        private RefUser $refUser
-    )
-    {}
-
-    public function create(array $data)
+    public function __construct(protected RefUser $refUser)
     {
-        return $this->refUser->newQuery()->create($data);
-    }
-
-    public function update(array $data, int $id)
-    {
-        return $this->refUser
-            ->newQuery()
-            ->findOrFail($id)
-            ->update($data);
-    }
-
-    public function delete(int $id)
-    {
-        return $this->refUser
-            ->newQuery()
-            ->findOrFail($id)
-            ->delete();
+        parent::__construct($refUser);
     }
 
     /**
