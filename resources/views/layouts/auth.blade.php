@@ -22,7 +22,6 @@
 </div>
 
 @vite('resources/js/extension.js')
-@vite('resources/libs/jquery/jquery.min.js')
 @vite('resources/libs/bootstrap/js/bootstrap.bundle.min.js')
 @vite('resources/js/app.js')
 @yield('custom-script')
