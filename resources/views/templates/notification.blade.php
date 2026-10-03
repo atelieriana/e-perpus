@@ -17,24 +17,12 @@
     </div>
 @endif
 @if (session('success'))
-    <div class="alert alert-dismissible bg-light-success d-flex flex-column flex-sm-row p-5 mb-10">
-        <i class="ki-duotone ki-notification-bing fs-2hx text-success me-4">
-            <span class="path1"></span>
-            <span class="path2"></span>
-            <span class="path3"></span>
-        </i>
+    <div class="alert alert-success alert-dismissible fade show">
         <div class="d-flex flex-column pe-0 pe-sm-10">
             <h4 class="fw-semibold">Berhasil</h4>
-            <span>{!! session('success') !!}</span>
+            <span>{{ session('success') }}</span>
         </div>
-        <button type="button"
-            class="position-absolute position-sm-relative m-2 m-sm-0 top-0 end-0 btn btn-icon ms-sm-auto"
-            data-bs-dismiss="alert">
-            <i class="ki-duotone ki-cross fs-1 text-success">
-                <span class="path1"></span>
-                <span class="path2"></span>
-            </i>
-        </button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 @endif
 @if (session('warning'))

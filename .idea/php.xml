@@ -131,6 +131,9 @@
       <path value="$PROJECT_DIR$/vendor/predis/predis" />
       <path value="$PROJECT_DIR$/vendor/owen-it/laravel-auditing" />
       <path value="$PROJECT_DIR$/vendor/laragear/turnstile" />
+      <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-debugbar" />
+      <path value="$PROJECT_DIR$/vendor/php-debugbar/symfony-bridge" />
+      <path value="$PROJECT_DIR$/vendor/php-debugbar/php-debugbar" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.3" />

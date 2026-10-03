@@ -29,4 +29,12 @@ class RefUserRepository extends RefUser
             ->where('deleted_at', null)
             ->first();
     }
+
+    public function findDataActiveUserById(int $id)
+    {
+        return self::where('id', $id)
+            ->where('status', 1)
+            ->where('deleted_at', null)
+            ->first();
+    }
 }
