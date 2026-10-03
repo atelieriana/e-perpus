@@ -7,21 +7,23 @@ use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Repositories\References\RefUserRepository;
 use App\Repositories\Tokens\TokenForgetPasswordRepository;
 use App\Traits\AuditAccess;
+use Exception;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 
 class ResetPassword extends Controller
 {
     use AuditAccess;
 
-    private TokenForgetPasswordRepository $tokenForgetPasswordRepository;
-    private RefUserRepository $refUserRepository;
     private $moduleName = "Reset Password";
 
-    public function __construct()
+    public function __construct(
+        private readonly RefUserRepository $refUserRepository,
+        private readonly TokenForgetPasswordRepository $tokenForgetPasswordRepository,
+        private Session $session
+    )
     {
-        $this->tokenForgetPasswordRepository = new TokenForgetPasswordRepository();
-        $this->refUserRepository = new RefUserRepository();
-
         $this->logAccess();
     }
 
@@ -51,13 +53,27 @@ class ResetPassword extends Controller
                 ->with('error', 'Data user telah non aktif. Silahkan hubungi administrator.');
         }
 
-        $dataUser->password = Hash::make($newPassword);
-        $dataUser->save();
+        try
+        {
+            $this->session::put('name', $dataUser->nama);
+            $dataUpdateUser = [
+                'password' => Hash::make($newPassword),
+            ];
+            $this->refUserRepository->update($dataUpdateUser, $dataToken->id_ref_user);
 
-        // Invalidate Token
-        $dataToken = $this->tokenForgetPasswordRepository->find($dataToken->id);
-        $dataToken->status = 0;
-        $dataToken->save();
+            $dataUpdateToken = [
+                'status' => 0
+            ];
+            $this->tokenForgetPasswordRepository->update($dataUpdateToken, $dataToken->id);
+            $this->session::remove('name');
+        }
+        catch (Exception $e)
+        {
+            Log::error($e);
+            return response()
+                ->redirectToRoute('auth.reset.password', ['token' => $token])
+                ->with('error','Terjadi kesalahan saat menyimpan data');
+        }
 
         return response()
             ->redirectToRoute('auth.login')

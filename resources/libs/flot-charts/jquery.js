@@ -956,7 +956,7 @@ jQuery.Callbacks = function( options ) {
 		firingStart,
 		// End of the loop when firing
 		firingLength,
-		// Index of currently firing callback (modified by remove if needed)
+		// Dashboard of currently firing callback (modified by remove if needed)
 		firingIndex,
 		// Actual callback list
 		list = [],

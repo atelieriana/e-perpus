@@ -2859,7 +2859,7 @@ function _fnClearTable( settings )
  /**
  * Take an array of integers (index array) and remove a target integer (value - not
  * the key!)
- *  @param {array} a Index array to target
+ *  @param {array} a Dashboard array to target
  *  @param {int} iTarget value to find
  *  @memberof DataTable#oApi
  */
@@ -9859,7 +9859,7 @@ DataTable.models.oRow = {
 	"src": null,
 
 	/**
-	 * Index in the aoData array. This saves an indexOf lookup when we have the
+	 * Dashboard in the aoData array. This saves an indexOf lookup when we have the
 	 * object, but want to know the index
 	 *  @type integer
 	 *  @default -1
@@ -10936,11 +10936,11 @@ DataTable.defaults = {
 	 *  @type function
 	 *  @param {node} foot "TR" element for the footer
 	 *  @param {array} data Full table data (as derived from the original HTML)
-	 *  @param {int} start Index for the current display starting point in the
+	 *  @param {int} start Dashboard for the current display starting point in the
 	 *    display array
-	 *  @param {int} end Index for the current display ending point in the
+	 *  @param {int} end Dashboard for the current display ending point in the
 	 *    display array
-	 *  @param {array int} display Index array to translate the visual position
+	 *  @param {array int} display Dashboard array to translate the visual position
 	 *    to the full data array
 	 *
 	 *  @dtopt Callbacks
@@ -11000,11 +11000,11 @@ DataTable.defaults = {
 	 *  @type function
 	 *  @param {node} head "TR" element for the header
 	 *  @param {array} data Full table data (as derived from the original HTML)
-	 *  @param {int} start Index for the current display starting point in the
+	 *  @param {int} start Dashboard for the current display starting point in the
 	 *    display array
-	 *  @param {int} end Index for the current display ending point in the
+	 *  @param {int} end Dashboard for the current display ending point in the
 	 *    display array
-	 *  @param {array int} display Index array to translate the visual position
+	 *  @param {array int} display Dashboard array to translate the visual position
 	 *    to the full data array
 	 *
 	 *  @dtopt Callbacks
@@ -13503,8 +13503,8 @@ DataTable.models.oSettings = {
 	 * Sorting that is applied to the table. Note that the inner arrays are
 	 * used in the following manner:
 	 * <ul>
-	 *   <li>Index 0 - column number</li>
-	 *   <li>Index 1 - current sorting direction</li>
+	 *   <li>Dashboard 0 - column number</li>
+	 *   <li>Dashboard 1 - current sorting direction</li>
 	 * </ul>
 	 * Note that this parameter will be set by the initialisation routine. To
 	 * set a default use {@link DataTable.defaults}.
@@ -14580,7 +14580,7 @@ DataTable.ext = _ext = {
 
 
 	/**
-	 * Index for what 'this' index API functions should use
+	 * Dashboard for what 'this' index API functions should use
 	 *  @type int
 	 *  @deprecated Since v1.10
 	 */

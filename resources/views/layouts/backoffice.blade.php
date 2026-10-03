@@ -10,12 +10,6 @@
     @vite('resources/scss/bootstrap.scss')
     @vite('resources/scss/icons.scss')
     @vite('resources/scss/app.scss')
-    <style>
-        p {
-            margin-top: 0 !important;
-            margin-bottom: 0 !important;
-        }
-    </style>
 </head>
 
 <body data-topbar="light" data-bs-theme="dark" data-layout="horizontal">
@@ -42,30 +36,10 @@
                         </span>
                     </a>
                 </div>
-                <div class="d-none d-lg-block ms-2">
-                    <a href="#">
-                        <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
-                            <span key="t-megamenu">Beranda</span>
-                        </button>
-                    </a>
-                </div>
-                <div class="d-none d-lg-block ms-2">
-                    <a href="#">
-                        <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
-                            <span key="t-megamenu">Katalog Buku</span>
-                        </button>
-                    </a>
-                </div>
-                <div class="d-none d-lg-block ms-2">
-                    <a href="#">
-                        <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
-                            <span key="t-megamenu">Cek Peminjaman</span>
-                        </button>
-                    </a>
-                </div>
             </div>
         </div>
     </header>
+    @include('layouts.topnav')
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->
@@ -92,8 +66,9 @@
         </footer>
     </div>
 </div>
-<script src="{{ asset('build/resources/libs/jquery/jquery.min.js') }}"></script>
-<script src="{{ asset('build/resources/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('build/resources/js/app.js') }}"></script>
+@vite('resources/js/extension.js')
+@vite('resources/libs/bootstrap/js/bootstrap.bundle.min.js')
+@vite('resources/js/app.js')
+@yield('custom-script')
 </body>
 </html>

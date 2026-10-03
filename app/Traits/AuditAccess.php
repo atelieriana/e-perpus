@@ -10,15 +10,15 @@ trait AuditAccess
 {
     public function logAccess()
     {
-        $auditAccessRepository = new AuditAccessRepository();
-        $session = new Session();
-        $auditAccessRepository->uuid = Str::uuid()->toString();
-        $auditAccessRepository->module = $this->moduleName;
-        $auditAccessRepository->user = $session::get('access-data')->username ?? 'Guest';
-        $auditAccessRepository->url_access = url()->current();
-        $auditAccessRepository->method = request()->method();
-        $auditAccessRepository->ip_address = request()->ip();
-        $auditAccessRepository->user_agent = request()->userAgent();
-        $auditAccessRepository->save();
+        $data = [
+            'uuid' => Str::uuid()->toString(),
+            'module' => $this->moduleName,
+            'user'=> Session::get('access-data') ?? 'Guest',
+            'url_access' => url()->current(),
+            'method' => request()->method(),
+            'ip_address' => request()->ip(),
+            'user_agent' => request()->userAgent(),
+        ];
+        app(AuditAccessRepository::class)->create($data);
     }
 }

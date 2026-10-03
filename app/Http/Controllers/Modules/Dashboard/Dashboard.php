@@ -4,14 +4,10 @@ namespace App\Http\Controllers\Modules\Dashboard;
 
 use App\Http\Controllers\Controller;
 
-class Index extends Controller
+class Dashboard extends Controller
 {
-    public function __construct()
-    {
-    }
-
     public function index()
     {
-
+        return view('modules.dashboard.index');
     }
 }

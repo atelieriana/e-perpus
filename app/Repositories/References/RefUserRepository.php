@@ -3,17 +3,47 @@
 namespace App\Repositories\References;
 
 use App\Models\References\RefUser;
+use Illuminate\Database\Eloquent\Builder;
 
-class RefUserRepository extends RefUser
+readonly class RefUserRepository
 {
+    public function __construct(
+        private RefUser $refUser
+    )
+    {}
+
+    public function create(array $data)
+    {
+        return $this->refUser->newQuery()->create($data);
+    }
+
+    public function update(array $data, int $id)
+    {
+        return $this->refUser
+            ->newQuery()
+            ->findOrFail($id)
+            ->update($data);
+    }
+
+    public function delete(int $id)
+    {
+        return $this->refUser
+            ->newQuery()
+            ->findOrFail($id)
+            ->delete();
+    }
+
     /**
      * Digunakan untuk melakukan pencarian data berdasarkan username
      * @param string $username
-     * @return mixed
+     * @return RefUser|Builder|null
      */
     public function findDataByUsername(string $username)
     {
-        return self::where('username', $username)
+        return $this->refUser
+            ->newQuery()
+            ->with(['roles','roles_detail'])
+            ->where('username', $username)
             ->where('deleted_at', null)
             ->first();
     }
@@ -25,16 +55,24 @@ class RefUserRepository extends RefUser
      */
     public function findDataByEmail(string $email)
     {
-        return self::where('email', $email)
+        return $this->refUser
+            ->newQuery()
+            ->where('email', $email)
             ->where('deleted_at', null)
             ->first();
     }
 
+    /**
+     * Digunakan untuk melakukan pencarian data user yang aktif
+     * @param int $id
+     * @return mixed
+     */
     public function findDataActiveUserById(int $id)
     {
-        return self::where('id', $id)
-            ->where('status', 1)
-            ->where('deleted_at', null)
+        return $this->refUser
+            ->newQuery()
+            ->activeUser()
+            ->where('id', $id)
             ->first();
     }
 }
