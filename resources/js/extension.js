@@ -5,7 +5,12 @@ import { notEmpty } from '@form-validation/validator-not-empty';
 import { emailAddress } from '@form-validation/validator-email-address';
 import { identical } from '@form-validation/validator-identical';
 import { regexp } from '@form-validation/validator-regexp';
+import { init } from 'node-waves'
 import Swal from 'sweetalert2'
+import $ from '../libs/jquery/jquery.min'
+
+window.jQuery = $;
+window.$ = $;
 
 window.FormValidation = {
     formValidation(form, options) {
@@ -22,3 +27,7 @@ window.FormValidation = {
 };
 
 window.Swal = Swal
+
+document.addEventListener('DOMContentLoaded', () => {
+    init();
+});

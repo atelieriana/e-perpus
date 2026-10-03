@@ -15,7 +15,7 @@ export default defineConfig({
                     }
                     return 'icons/[name]';
                 },
-                entryFileNames: 'js/[name].min.js',
+                entryFileNames: 'js/[name].js',
             },
         },
     },
@@ -25,7 +25,10 @@ export default defineConfig({
                 'resources/scss/bootstrap.scss',
                 'resources/scss/icons.scss',
                 'resources/scss/app.scss',
-                'resources/js/extension.js'
+                'resources/js/extension.js',
+                'resources/js/app.js',
+                'resources/libs/jquery/jquery.min.js',
+                'resources/libs/bootstrap/js/bootstrap.bundle.min.js'
             ],
             refresh: true,
         }),
@@ -38,10 +41,6 @@ export default defineConfig({
                 },
                 {
                     src: 'resources/images',
-                    dest: '',
-                },
-                {
-                    src: 'resources/js',
                     dest: '',
                 },
                 {

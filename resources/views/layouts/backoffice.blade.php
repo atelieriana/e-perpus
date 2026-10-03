@@ -94,7 +94,6 @@
 </div>
 <script src="{{ asset('build/resources/libs/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('build/resources/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('build/resources/libs/node-waves/waves.min.js') }}"></script>
 <script src="{{ asset('build/resources/js/app.js') }}"></script>
 </body>
 </html>
