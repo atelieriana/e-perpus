@@ -2,6 +2,7 @@
 
 namespace App\Services\Auth;
 
+use App\Exceptions\BusinessException;
 use App\Exceptions\LoginServiceException;
 use App\Interfaces\References\RefRoleDetailInterface;
 use App\Interfaces\References\RefRoleInterface;
@@ -18,7 +19,7 @@ readonly class LoginService
     {}
 
     /**
-     * @throws LoginServiceException
+     * @throws BusinessException
      * @param array $credentials
      * @return void
      */
@@ -26,16 +27,20 @@ readonly class LoginService
     {
         $dataUser = $this->refUserRepository->findDataByUsername($credentials['username']);
         if (is_null($dataUser) || !Hash::check($credentials['password'], $dataUser->password)) {
-            throw new LoginServiceException('Username atau password salah');
+            throw new BusinessException('Username atau password salah');
         }
 
         $idDefaultRole = $this->refRoleDetailRepository->findIdDefaultRole($dataUser);
         $dataDefaultRole = $this->refRoleRepository->findNameDefaultRole($dataUser, $idDefaultRole);
         if (is_null($dataDefaultRole)) {
-            throw new LoginServiceException('Role default belum diset oleh adminsitrator, silahkan hubungi administrator.');
+            throw new BusinessException('Role default belum diset oleh adminsitrator, silahkan hubungi administrator.');
         }
-        session()->put('access-role', $idDefaultRole);
-        session()->put('access-data', $dataUser);
-        session()->put('access-allowed-role',  $dataUser->roles->pluck('role')->toArray());
+
+        session()->regenerate();
+        session()->put([
+            'access-role' => $idDefaultRole,
+            'access-data' => $dataUser,
+            'access-allowed-role' => $dataUser->roles->pluck('role')->toArray(),
+        ]);
     }
 }

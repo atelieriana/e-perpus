@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers\Modules\Auth;
 
+use App\Exceptions\BusinessException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ForgetPasswordRequest;
-use App\Interfaces\References\RefUserInterface;
-use App\Interfaces\Tokens\TokenForgetPasswordInterface;
-use App\Mail\ForgetPasswordMail;
+use App\Services\Auth\ForgetPasswordService;
 use App\Traits\AuditAccess;
-use Exception;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Str;
 
 class ForgetPassword extends Controller
 {
@@ -22,10 +16,7 @@ class ForgetPassword extends Controller
     private $moduleName = 'Forget Password';
 
     public function __construct(
-        private readonly RefUserInterface $refUserInterface,
-        private readonly TokenForgetPasswordInterface $tokenForgetPasswordInterface,
-        private readonly Session $session,
-        private readonly Mail $mail
+        private ForgetPasswordService $forgetPasswordService,
     )
     {
         $this->logAccess();
@@ -38,50 +29,17 @@ class ForgetPassword extends Controller
 
     public function onSubmit(ForgetPasswordRequest $request)
     {
-        $email = $request->input('email');
-        $dataUser = $this->refUserInterface->findDataByEmail($email);
-        if (is_null($dataUser)) {
-            return response()
-                ->redirectToRoute('auth.forget.password')
-                ->with('error','Data email tidak ditemukan');
-        }
-
-        $this->session::put('name', $dataUser->nama);
-
         try
         {
-            $uuidTokenForgetPassword = Str::uuid()->toString();
-            $token = base64_encode($uuidTokenForgetPassword.$dataUser->uuid);
-            $dataTokenForgetPassword = [
-                'uuid' => $uuidTokenForgetPassword,
-                'id_ref_user' => $dataUser->id,
-                'token' => $token,
-                'expired_at' => Carbon::now('Asia/Jakarta')->addMinutes(30),
-                'status' => 1,
-                'created_by' => $this->session::get('name'),
-                'updated_by' => $this->session::get('name'),
-            ];
-            $this->tokenForgetPasswordInterface->create($dataTokenForgetPassword);
+            $this->forgetPasswordService->sendEmail($request->validated());
         }
-        catch (Exception $e)
+        catch (BusinessException $exception)
         {
-            Log::error($e->getMessage());
+            Log::error($exception->getMessage());
             return response()
                 ->redirectToRoute('auth.forget.password')
-                ->with('error', 'Terjadi kesalahan saat menyimpan data');
+                ->with('error', $exception->getMessage());
         }
-
-        $this->session::remove('name');
-
-        $linkResetPassword = route('auth.reset.password',['token'=>$token]);
-
-        $dataEmail = [
-            'nama' => $dataUser->nama,
-            'link' => $linkResetPassword
-        ];
-
-        $this->mail::to($dataUser->email)
-            ->send(new ForgetPasswordMail($dataEmail));
 
         return view('modules.auth.check-email');
     }
