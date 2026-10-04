@@ -10,10 +10,12 @@ class AdminMenu
             [
                 'name' => 'Dashboard',
                 'route' => 'dashboard',
+                'icon' => 'bx bx-home-circle',
             ],
             [
                 'name' => 'Master Data',
                 'route' => '#',
+                'icon' => 'bx bx-folder-open',
                 'child' => [
                     [
                         'name' => 'Buku',
@@ -21,13 +23,24 @@ class AdminMenu
                         'child' => [
                             [
                                 'name' => 'Buku Pelajaran',
-                                'route' => 'pencarian.index',
+                                'route' => '#',
                             ],
                             [
                                 'name' => 'Buku Umum',
                                 'route' => '#',
                             ]
                         ]
+                    ],
+                ]
+            ],
+            [
+                'name' => 'Level 1',
+                'route' => '#',
+                'icon' => 'bx bx-home-circle',
+                'child' => [
+                    [
+                        'name' => 'Level 2',
+                        'route' => '#',
                     ],
                 ]
             ]

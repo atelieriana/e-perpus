@@ -39,7 +39,7 @@
             </div>
         </div>
     </header>
-    @include('layouts.topnav')
+    @livewire('topnav')
 
     <!-- ============================================================== -->
     <!-- Start right Content here -->

@@ -26,7 +26,7 @@ readonly class TokenForgetPasswordService
      */
     public function generateForgetToken(object $dataUser): string
     {
-        $this->session::put('name', $dataUser['name']);
+        $this->session::put('name', $dataUser['nama']);
 
         try
         {
@@ -60,22 +60,16 @@ readonly class TokenForgetPasswordService
             ?? throw new BusinessException("Token sudah expired atau pernah digunakan. Silahkan kirim ulang link reset password.");
     }
 
-    public function tokenOwner(string $token)
-    {
-        $dataToken = $this->tokenForgetPasswordInterface->findDataTokenByToken($token)->toArray()
-            ?? throw new BusinessException("Token '{$token}' sudah expired atau sudah digunakan.");
-
-        $this->refUserInterface->findDataActiveUserById($dataToken['id']);
-    }
-
     public function invalidateForgetToken(array $requestData)
     {
         $dataToken = $this->tokenForgetPasswordInterface->findDataTokenByToken($requestData['token'])->toArray()
             ?? throw new BusinessException("Token sudah expired atau sudah digunakan.");
 
+        $this->session::put('name', $dataToken['ref_user']['nama']);
         $dataUpdateToken = [
             'status' => 0
         ];
         $this->tokenForgetPasswordInterface->update($dataUpdateToken, $dataToken['id']);
+        $this->session::remove('name');
     }
 }

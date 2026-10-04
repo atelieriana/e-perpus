@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Helpers\MenuHelper;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Application;
@@ -27,7 +26,8 @@ class Topnav extends Component
      */
     public function render()
     {
-        $listMenu = MenuHelper::getMenuByRole(true);
+        $role = session()->get('access-role');
+        $listMenu = MenuHelper::getMenuByRole($role);
         return view('livewire.topnav', compact('listMenu'));
     }
 }
