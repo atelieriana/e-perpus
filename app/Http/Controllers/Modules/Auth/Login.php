@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Modules\Auth;
 
-use App\Exceptions\LoginServiceException;
+use App\Exceptions\BusinessException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Services\Auth\LoginService;
 use App\Traits\AuditAccess;
-use Illuminate\Support\Facades\Hash;
 
 class Login extends Controller
 {
@@ -32,7 +31,7 @@ class Login extends Controller
         {
             $this->loginService->authenticate($request->validated());
         }
-        catch (LoginServiceException $e)
+        catch (BusinessException $e)
         {
             return response()
                 ->redirectToRoute('auth.login')

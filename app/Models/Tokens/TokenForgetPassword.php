@@ -2,6 +2,7 @@
 
 namespace App\Models\Tokens;
 
+use App\Models\References\RefUser;
 use App\Traits\AuditTransaction;
 use App\Traits\LogTransaction;
 use Illuminate\Database\Eloquent\Model;
@@ -64,4 +65,9 @@ class TokenForgetPassword extends Model implements Auditable
         'deleted_by',
         'deleted_at',
     ];
+
+    public function ref_user()
+    {
+        return $this->hasOne(RefUser::class, 'id', 'id_ref_user');
+    }
 }

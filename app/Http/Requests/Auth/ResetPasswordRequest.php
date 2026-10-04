@@ -24,6 +24,8 @@ class ResetPasswordRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'token' => 'required',
+            'id-user' => 'required',
             'password' => ['required', Password::min(8)->mixedCase()->numbers()->symbols()],
             'ulang-password' => ['required', 'same:password'],
         ];
@@ -43,6 +45,8 @@ class ResetPasswordRequest extends FormRequest
         return [
             'password' => 'Password',
             'ulang-password' => 'Ulang Password',
+            'id-user' => 'ID User',
+            'token' => 'Token',
         ];
     }
 }

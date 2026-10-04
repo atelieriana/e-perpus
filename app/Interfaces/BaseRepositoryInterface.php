@@ -9,6 +9,7 @@ use Illuminate\Container\Attributes\Bind;
 interface BaseRepositoryInterface
 {
     public function find($id);
+    public function findByUUID($uuid);
 
     public function create(array $data);
 

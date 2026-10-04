@@ -32,6 +32,7 @@
                         <form class="form-horizontal" id="form-reset-password" method="post" action="{{ route('auth.reset.password.submit') }}">
                             @csrf
                             <input type="hidden" name="token" value="{{ $dataToken->token }}"/>
+                            <input type="hidden" name="id-user" value="{{ $dataToken->ref_user->uuid }}"/>
                             <div class="mb-3 fv-row">
                                 <label class="form-label" for="password">Password</label>
                                 <div class="input-group auth-pass-inputgroup">

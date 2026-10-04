@@ -53,6 +53,7 @@ class TokenForgetPasswordRepository extends BaseRepository implements TokenForge
     {
         return $this->tokenForgetPassword
             ->newQuery()
+            ->with(['ref_user'])
             ->where('token', $token)
             ->where('status', 1)
             ->where('expired_at', '>', now())

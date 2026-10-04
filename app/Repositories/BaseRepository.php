@@ -29,4 +29,9 @@ class BaseRepository implements BaseRepositoryInterface
     {
         $this->model->find($id)->delete();
     }
+
+    public function findByUUID($uuid)
+    {
+        return $this->model->where('uuid', $uuid)->first();
+    }
 }

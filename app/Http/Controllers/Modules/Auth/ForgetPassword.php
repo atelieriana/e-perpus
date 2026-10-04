@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ForgetPasswordRequest;
 use App\Services\Auth\ForgetPasswordService;
 use App\Traits\AuditAccess;
-use Illuminate\Support\Facades\Log;
 
 class ForgetPassword extends Controller
 {
@@ -35,7 +34,6 @@ class ForgetPassword extends Controller
         }
         catch (BusinessException $exception)
         {
-            Log::error($exception->getMessage());
             return response()
                 ->redirectToRoute('auth.forget.password')
                 ->with('error', $exception->getMessage());

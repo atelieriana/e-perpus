@@ -2,17 +2,19 @@
 
 namespace App\Services\Auth;
 
-use App\Interfaces\References\RefUserInterface;
+use App\Services\RefUserServices;
 
-class ResetPasswordService
+readonly class ResetPasswordService
 {
     public function __construct(
-        private RefUserInterface $refUserInterface
+        private RefUserServices $refUserServices,
+        private TokenForgetPasswordService $tokenForgetPasswordService
     )
     {}
 
-    public function saveNewPassword()
+    public function saveNewPassword(array $requestData)
     {
-
+        $dataForgetToken = $this->tokenForgetPasswordService->validateForgetToken($requestData['token']);
+        dd($dataForgetToken);
     }
 }
