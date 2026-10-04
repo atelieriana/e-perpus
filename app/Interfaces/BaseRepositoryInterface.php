@@ -9,7 +9,10 @@ use Illuminate\Container\Attributes\Bind;
 interface BaseRepositoryInterface
 {
     public function find($id);
+
     public function create(array $data);
+
     public function update(array $data, int $id);
+
     public function delete(int $id);
 }

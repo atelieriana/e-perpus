@@ -2,6 +2,7 @@
 
 namespace App\Repositories\References;
 
+use App\Interfaces\References\RefRoleInterface;
 use App\Models\References\RefRole;
 use App\Models\References\RefUser;
 use App\Repositories\BaseRepository;
@@ -30,7 +31,7 @@ use App\Repositories\BaseRepository;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|RefRoleRepository whereUuid($value)
  * @mixin \Eloquent
  */
-class RefRoleRepository extends BaseRepository
+class RefRoleRepository extends BaseRepository implements RefRoleInterface
 {
     public function __construct( protected RefRole $refRole)
     {
