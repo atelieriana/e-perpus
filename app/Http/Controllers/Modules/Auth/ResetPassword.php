@@ -2,65 +2,60 @@
 
 namespace App\Http\Controllers\Modules\Auth;
 
+use App\Exceptions\BusinessException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResetPasswordRequest;
-use App\Repositories\References\RefUserRepository;
-use App\Repositories\Tokens\TokenForgetPasswordRepository;
+use App\Services\Auth\TokenForgetPasswordService;
+use App\Services\UserServices;
 use App\Traits\AuditAccess;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ResetPassword extends Controller
 {
     use AuditAccess;
 
-    private TokenForgetPasswordRepository $tokenForgetPasswordRepository;
-    private RefUserRepository $refUserRepository;
     private $moduleName = "Reset Password";
 
-    public function __construct()
+    public function __construct(
+        private readonly UserServices               $refUserServices,
+        private readonly TokenForgetPasswordService $tokenForgetPasswordService,
+    )
     {
-        $this->tokenForgetPasswordRepository = new TokenForgetPasswordRepository();
-        $this->refUserRepository = new RefUserRepository();
-
         $this->logAccess();
     }
 
     public function index(string $token)
     {
-        $dataToken = $this->tokenForgetPasswordRepository->findDataTokenByToken($token);
-        if (is_null($dataToken)) {
+        try
+        {
+            $dataToken = $this->tokenForgetPasswordService->validateForgetToken($token);
+        }
+        catch (BusinessException $exception)
+        {
+            Log::error($exception->getMessage());
             return response()
                 ->redirectToRoute('auth.forget.password')
-                ->with('error', 'Token telah expired atau sudah digunakan. Silahkan kirim ulang kembali.');
+                ->withErrors($exception->getMessage());
         }
-
         return view('modules.auth.reset-password', compact('dataToken'));
     }
 
     public function onSubmit(ResetPasswordRequest $request)
     {
-        $newPassword = $request->post('password');
-        $token = $request->post('token');
-        $dataToken = $this->tokenForgetPasswordRepository->findDataTokenByToken($token);
-
-        // Save New Password
-        $dataUser = $this->refUserRepository->findDataActiveUserById($dataToken->id_ref_user);
-        if (is_null($dataUser)) {
-            return response()
-                ->redirectToRoute('auth.forget.password')
-                ->with('error', 'Data user telah non aktif. Silahkan hubungi administrator.');
+        try
+        {
+            $this->refUserServices->updatePassword($request->validated());
+            $this->tokenForgetPasswordService->invalidateForgetToken($request->validated());
         }
-
-        $dataUser->password = Hash::make($newPassword);
-        $dataUser->save();
-
-        // Invalidate Token
-        $dataToken = $this->tokenForgetPasswordRepository->find($dataToken->id);
-        $dataToken->status = 0;
-        $dataToken->save();
+        catch (BusinessException $exception)
+        {
+            return response()
+                ->redirectToRoute('auth.reset.password', ['token' => $request->token])
+                ->with('error', $exception->getMessage());
+        }
 
         return response()
             ->redirectToRoute('auth.login')
-            ->with('success', 'Password telah direset, silahkan login dengan password baru anda.');
+            ->with('success','Password berhasil diubah. Silahkan login kembali dengan password terbaru anda.');
     }
 }

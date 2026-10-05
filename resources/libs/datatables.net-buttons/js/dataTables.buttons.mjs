@@ -1567,7 +1567,7 @@ Buttons.instanceSelector = function ( group, buttons )
 			}
 		}
 		else if ( typeof input === 'number' ) {
-			// Index selector
+			// Dashboard selector
 			ret.push( buttons[ input ].inst );
 		}
 		else if ( typeof input === 'object' ) {

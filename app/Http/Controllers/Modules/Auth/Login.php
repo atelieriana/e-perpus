@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers\Modules\Auth;
 
+use App\Exceptions\BusinessException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Repositories\References\RefUserRepository;
-use Illuminate\Support\Facades\Hash;
+use App\Services\Auth\LoginService;
+use App\Traits\AuditAccess;
 
 class Login extends Controller
 {
-    private RefUserRepository $refUserRepository;
+    use AuditAccess;
+    private $moduleName = 'Login';
 
-    public function __construct()
+    public function __construct(
+        private readonly LoginService $loginService,
+    )
     {
-        $this->refUserRepository = new RefUserRepository();
+        $this->logAccess();
     }
 
     public function index()
@@ -23,25 +27,19 @@ class Login extends Controller
 
     public function onSubmit(LoginRequest $request)
     {
-        $username = $request->post('username');
-        $password = $request->post('password');
-        $dataUser = $this->refUserRepository->findDataByUsername($username);
-
-        if (is_null($dataUser)) {
-            return response()
-                ->redirectToRoute('auth.login')
-                ->with('error', 'Username atau password salah!');
-        }
-
-        if (Hash::check($password, $dataUser->password))
+        try
         {
-            echo "Dashboard";
+            $this->loginService->authenticate($request->validated());
         }
-        else
+        catch (BusinessException $e)
         {
             return response()
                 ->redirectToRoute('auth.login')
-                ->with('error', 'Username atau password salah!');
+                ->withErrors($e->getMessage());
         }
+
+        return response()
+            ->redirectToRoute('dashboard')
+            ->with('success', 'Hai');
     }
 }

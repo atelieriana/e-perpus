@@ -27,7 +27,7 @@ trait AuditTransaction
     public function transformAudit(array $data): array
     {
         Arr::set($data, 'uuid', Str::uuid()->toString());
-        Arr::set($data, 'executed_by', $this->session::get('access-data')->nama ?? $this->session::get('nama'));
+        Arr::set($data, 'executed_by', $this->session::get('access-data')->nama ?? $this->session::get('name'));
         Arr::set($data, 'event', $data['event']);
         Arr::set($data, 'auditable_type', $this->getTable());
         Arr::set($data, 'auditable_id', $this->getKey());

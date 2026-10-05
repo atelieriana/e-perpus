@@ -699,7 +699,7 @@ function clear( ctx, force )
  * @param  {DataTables.Api}     dt   DataTable
  * @param  {DataTable.settings} ctx  Settings object of the host DataTable
  * @param  {string}             type Items to select
- * @param  {int|object}         idx  Index of the item to select
+ * @param  {int|object}         idx  Dashboard of the item to select
  * @private
  */
 function typeSelect ( e, dt, ctx, type, idx )

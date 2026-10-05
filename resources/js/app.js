@@ -11,6 +11,7 @@ File: Main Js File
     'use strict';
 
     var language = localStorage.getItem('language');
+    var theme = localStorage.getItem("is_visited");
     // Default Language
     var default_lang = 'en';
 
@@ -205,33 +206,25 @@ File: Main Js File
     }
 
     function initSettings() {
-        if (window.sessionStorage) {
-            var alreadyVisited = sessionStorage.getItem("is_visited");
+        if (window.localStorage) {
+            let alreadyVisited = localStorage.getItem("is_visited");
             if (!alreadyVisited) {
-                if ($('html').attr('dir') === 'rtl' && $('html').attr('data-bs-theme') === 'dark') {
-                    $("#dark-rtl-mode-switch").prop('checked', true);
-                    $("#light-mode-switch").prop('checked', false);  
-                    sessionStorage.setItem("is_visited", "dark-rtl-mode-switch");
-                    updateThemeSetting(alreadyVisited);
-                }else if ($('html').attr('dir') === 'rtl') {
-                    $("#rtl-mode-switch").prop('checked', true);
-                    $("#light-mode-switch").prop('checked', false);
-                    sessionStorage.setItem("is_visited", "rtl-mode-switch");
-                    updateThemeSetting(alreadyVisited);
-                }else if ($('html').attr('data-bs-theme') === 'dark') {
+                if ($('html').attr('data-bs-theme') === 'dark') {
                     $("#dark-mode-switch").prop('checked', true);
                     $("#light-mode-switch").prop('checked', false);
-                    sessionStorage.setItem("is_visited", "dark-mode-switch");
-                    updateThemeSetting(alreadyVisited);
+                    localStorage.setItem("is_visited", "dark-mode-switch");
+                    localStorage.setItem('data-bs-theme','dark')
                 } else {
-                    sessionStorage.setItem("is_visited", "light-mode-switch");
+                    localStorage.setItem("is_visited", "light-mode-switch");
+                    localStorage.setItem('data-bs-theme','light')
                 }
             } else {
                 $(".right-bar input:checkbox").prop('checked', false);
                 $("#" + alreadyVisited).prop('checked', true);
+                updateThemeSetting(alreadyVisited);   // <-- this applies the saved theme
             }
         }
-        $("#light-mode-switch, #dark-mode-switch, #rtl-mode-switch, #dark-rtl-mode-switch").on("change", function (e) {
+        $("#light-mode-switch, #dark-mode-switch").on("change", function (e) {
             updateThemeSetting(e.target.id);
         });
 
@@ -258,43 +251,22 @@ File: Main Js File
             if($("#bootstrap-style").attr('href') != '/build/css/bootstrap.min.css')
                 $("#bootstrap-style").attr('href', '/build/css/bootstrap.min.css');
             $('html').attr('data-bs-theme', 'light');
+            $('body').attr('data-bs-theme', 'light');
             if($("#app-style").attr('href') != '/build/css/app.min.css')
             $("#app-style").attr('href', '/build/css/app.min.css');
-            sessionStorage.setItem("is_visited", "light-mode-switch");
+            localStorage.setItem("is_visited", "light-mode-switch");
         } else if ($("#dark-mode-switch").prop("checked") == true && id === "dark-mode-switch") {
             $("html").removeAttr("dir");
             $("#light-mode-switch").prop("checked", false);
             $("#rtl-mode-switch").prop("checked", false);
             $("#dark-rtl-mode-switch").prop("checked", false);
             $('html').attr('data-bs-theme', 'dark');
+            $('body').attr('data-bs-theme', 'dark');
             if($("#bootstrap-style").attr('href') != '/build/css/bootstrap.min.css')
                 $("#bootstrap-style").attr('href', '/build/css/bootstrap.min.css');
             if($("#app-style").attr('href') != '/build/css/app.min.css')
                 $("#app-style").attr('href', '/build/css/app.min.css');
-            sessionStorage.setItem("is_visited", "dark-mode-switch");
-        } else if ($("#rtl-mode-switch").prop("checked") == true && id === "rtl-mode-switch") {
-            $("#light-mode-switch").prop("checked", false);
-            $("#dark-mode-switch").prop("checked", false);
-            $("#dark-rtl-mode-switch").prop("checked", false);
-            if($("#bootstrap-style").attr('href') != '/build/css/bootstrap.min.rtl.css')
-                $("#bootstrap-style").attr('href', '/build/css/bootstrap.min.rtl.css');
-            if($("#app-style").attr('href') != '/build/css/app.min.rtl.css')
-                $("#app-style").attr('href', '/build/css/app.min.rtl.css');
-            $("html").attr("dir", 'rtl');
-            $('html').attr('data-bs-theme', 'light');
-            sessionStorage.setItem("is_visited", "rtl-mode-switch");
-        }
-        else if ($("#dark-rtl-mode-switch").prop("checked") == true && id === "dark-rtl-mode-switch") {
-            $("#light-mode-switch").prop("checked", false);
-            $("#rtl-mode-switch").prop("checked", false);
-            $("#dark-mode-switch").prop("checked", false);
-            if($("#bootstrap-style").attr('href') != '/build/css/bootstrap.min.rtl.css')
-                $("#bootstrap-style").attr('href', '/build/css/bootstrap.min.rtl.css');
-            if($("#app-style").attr('href') != '/build/css/app.min.rtl.css')
-                $("#app-style").attr('href', '/build/css/app.min.rtl.css');
-            $("html").attr("dir", 'rtl');
-            $('html').attr('data-bs-theme', 'dark');
-            sessionStorage.setItem("is_visited", "dark-rtl-mode-switch");
+            localStorage.setItem("is_visited", "dark-mode-switch");
         }
     }
 

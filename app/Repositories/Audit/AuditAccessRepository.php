@@ -4,40 +4,41 @@ namespace App\Repositories\Audit;
 
 use App\Models\Audit\AuditAccess;
 
-class AuditAccessRepository extends AuditAccess
+/**
+ * @property int $id
+ * @property string $uuid
+ * @property string|null $module
+ * @property string|null $user
+ * @property string|null $url_access
+ * @property string|null $method
+ * @property string|null $ip_address
+ * @property string|null $user_agent
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereIpAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereModule($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereUrlAccess($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereUser($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereUserAgent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AuditAccessRepository whereUuid($value)
+ * @mixin \Eloquent
+ */
+readonly class AuditAccessRepository
 {
-    public function getDatatables()
+    public function __construct(
+        private readonly AuditAccess $auditAccess,
+    )
+    {}
+
+    public function create(array $data): AuditAccess
     {
-        return $this->select(
-            'id',
-            'user',
-            'method',
-            'module',
-            'url_access',
-            'ip_address',
-            'user_agent',
-            'created_at'
-        );
-    }
-
-    public function getExport($tanggalMulai, $tanggalAkhir, $filterMethod = null)
-    {
-        $query = $this->select(
-            'user',
-            'method',
-            'module',
-            'url_access',
-            'ip_address',
-            'user_agent',
-            'created_at'
-        )
-            ->where('created_at', '>=', $tanggalMulai . ' 00:00:00')
-            ->where('created_at', '<=', $tanggalAkhir . ' 23:59:59');
-
-        if (!empty($filterMethod) && $filterMethod !== 'All Method') {
-            $query->where('method', $filterMethod);
-        }
-
-        return $query->orderBy('id');
+        return $this->auditAccess->create($data);
     }
 }

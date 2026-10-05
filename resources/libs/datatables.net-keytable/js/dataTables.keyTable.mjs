@@ -1186,7 +1186,7 @@ $.extend( KeyTable.prototype, {
 	/**
 	 * Update fixed columns if they are enabled and if the cell we are
 	 * focusing is inside a fixed column
-	 * @param  {integer} column Index of the column being changed
+	 * @param  {integer} column Dashboard of the column being changed
 	 * @private
 	 */
 	_updateFixedColumns: function( column )

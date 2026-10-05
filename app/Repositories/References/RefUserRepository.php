@@ -2,18 +2,30 @@
 
 namespace App\Repositories\References;
 
+use App\Interfaces\References\RefUserInterface;
 use App\Models\References\RefUser;
+use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
-class RefUserRepository extends RefUser
+class RefUserRepository extends BaseRepository implements RefUserInterface
 {
+    public function __construct(protected RefUser $refUser)
+    {
+        parent::__construct($refUser);
+    }
+
     /**
      * Digunakan untuk melakukan pencarian data berdasarkan username
      * @param string $username
-     * @return mixed
+     * @return RefUser|Builder|null
      */
     public function findDataByUsername(string $username)
     {
-        return self::where('username', $username)
+        return $this->refUser
+            ->newQuery()
+            ->with(['roles','roles_detail'])
+            ->where('username', $username)
             ->where('deleted_at', null)
             ->first();
     }
@@ -25,16 +37,24 @@ class RefUserRepository extends RefUser
      */
     public function findDataByEmail(string $email)
     {
-        return self::where('email', $email)
+        return $this->refUser
+            ->newQuery()
+            ->where('email', $email)
             ->where('deleted_at', null)
             ->first();
     }
 
+    /**
+     * Digunakan untuk melakukan pencarian data user yang aktif
+     * @param int $id
+     * @return mixed
+     */
     public function findDataActiveUserById(int $id)
     {
-        return self::where('id', $id)
-            ->where('status', 1)
-            ->where('deleted_at', null)
+        return $this->refUser
+            ->newQuery()
+            ->activeUser()
+            ->where('id', $id)
             ->first();
     }
 }

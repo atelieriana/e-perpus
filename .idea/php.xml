@@ -134,6 +134,9 @@
       <path value="$PROJECT_DIR$/vendor/fruitcake/laravel-debugbar" />
       <path value="$PROJECT_DIR$/vendor/php-debugbar/symfony-bridge" />
       <path value="$PROJECT_DIR$/vendor/php-debugbar/php-debugbar" />
+      <path value="$PROJECT_DIR$/vendor/livewire/livewire" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-ide-helper" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/reflection-docblock" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.3" />
