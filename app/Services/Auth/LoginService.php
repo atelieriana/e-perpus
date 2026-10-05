@@ -38,7 +38,7 @@ readonly class LoginService
 
         session()->regenerate();
         session()->put([
-            'access-role' => $idDefaultRole,
+            'access-role' => $dataDefaultRole,
             'access-data' => $dataUser,
             'access-allowed-role' => $dataUser->roles->pluck('role')->toArray(),
         ]);

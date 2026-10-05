@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
-readonly class RefUserServices
+readonly class UserServices
 {
     public function __construct(
         private RefUserInterface $refUserInterface,
@@ -35,5 +35,10 @@ readonly class RefUserServices
             Log::error($exception->getMessage());
             throw new BusinessException("Terjadi kesalahan saat mengubah password.");
         }
+    }
+
+    public function getProfileUser(string $uuid)
+    {
+        return $this->refUserInterface->findByUUID($uuid)->toArray();
     }
 }

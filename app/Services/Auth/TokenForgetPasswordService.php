@@ -14,7 +14,6 @@ use Illuminate\Support\Str;
 readonly class TokenForgetPasswordService
 {
     public function __construct(
-        private RefUserInterface $refUserInterface,
         private TokenForgetPasswordInterface $tokenForgetPasswordInterface,
         private Session $session,
     )

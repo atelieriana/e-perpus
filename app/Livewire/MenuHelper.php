@@ -10,13 +10,13 @@ class MenuHelper
 {
     public static function getMenuByRole($role)
     {
-        if ($role === 1) {
+        if ($role === "Admin") {
             return (new AdminMenu())->listMenu();
         }
-        if ($role === 3) {
+        if ($role === "Pustakawan") {
             return (new PustakawanMenu())->listMenu();
         }
-        if ($role === 2) {
+        if ($role === "Kepala Perpusatakaan") {
             return (new KepalaPerpusatakaanMenu())->listMenu();
         }
     }

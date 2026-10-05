@@ -6,7 +6,7 @@ use App\Exceptions\BusinessException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ResetPasswordRequest;
 use App\Services\Auth\TokenForgetPasswordService;
-use App\Services\RefUserServices;
+use App\Services\UserServices;
 use App\Traits\AuditAccess;
 use Illuminate\Support\Facades\Log;
 
@@ -17,7 +17,7 @@ class ResetPassword extends Controller
     private $moduleName = "Reset Password";
 
     public function __construct(
-        private readonly RefUserServices $refUserServices,
+        private readonly UserServices               $refUserServices,
         private readonly TokenForgetPasswordService $tokenForgetPasswordService,
     )
     {

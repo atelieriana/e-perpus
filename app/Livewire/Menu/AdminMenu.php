@@ -29,17 +29,47 @@ class AdminMenu
                                 'name' => 'Buku Umum',
                                 'route' => '#',
                             ]
+                        ],
+                    ],
+                    [
+                        'name' => 'Kesiswaan',
+                        'route' => '#',
+                        'child' => [
+                            [
+                                'name' => 'Siswa',
+                                'route' => '#',
+                            ],
+                            [
+                                'name' => 'Kelas',
+                                'route' => '#',
+                            ],
+                            [
+                                'name' => 'Jurusan',
+                                'route' => '#',
+                            ],
+                            [
+                                'name' => 'Tahun Ajar',
+                                'route' => '#',
+                            ],
+                            [
+                                'name' => 'Penempatan Siswa',
+                                'route' => '#',
+                            ]
                         ]
                     ],
                 ]
             ],
             [
-                'name' => 'Level 1',
+                'name' => 'Audit',
                 'route' => '#',
                 'icon' => 'bx bx-home-circle',
                 'child' => [
                     [
-                        'name' => 'Level 2',
+                        'name' => 'Audit Akses',
+                        'route' => '#',
+                    ],
+                    [
+                        'name' => 'Audit Trail',
                         'route' => '#',
                     ],
                 ]

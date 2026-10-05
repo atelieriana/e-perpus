@@ -103,4 +103,9 @@ class RefUser extends Model implements Auditable
     {
         return $query->where('status', 1);
     }
+
+    public function ref_role()
+    {
+        return $this->hasOneThrough(RefRole::class, RefRoleDetail::class, 'id_ref_user', 'id', 'id', 'id_ref_role');
+    }
 }
