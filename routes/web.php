@@ -13,3 +13,11 @@ Route::get('/dashboard', [Dashboard::class, 'index'])
 Route::prefix('auth')
     ->name('auth.')
     ->group(__DIR__.'/modules/auth.php');
+
+Route::prefix('datatables')
+    ->name('datatables.')
+    ->group(__DIR__.'/modules/datatables.php');
+
+Route::prefix('buku')
+    ->name('buku.')
+    ->group(__DIR__.'/modules/buku.php');

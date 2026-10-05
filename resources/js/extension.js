@@ -7,10 +7,7 @@ import { identical } from '@form-validation/validator-identical';
 import { regexp } from '@form-validation/validator-regexp';
 import { init } from 'node-waves'
 import Swal from 'sweetalert2'
-import $ from '../libs/jquery/jquery.min'
-
-window.jQuery = $;
-window.$ = $;
+import axios from 'axios';
 
 window.FormValidation = {
     formValidation(form, options) {
@@ -30,4 +27,8 @@ window.Swal = Swal
 
 document.addEventListener('DOMContentLoaded', () => {
     init();
+    $('[data-toggle="tooltip"]').tooltip()
 });
+
+window.axios = axios;
+window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
