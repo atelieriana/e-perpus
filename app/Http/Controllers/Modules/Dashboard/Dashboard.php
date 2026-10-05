@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Modules\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Services\UserServices;
+use App\Services\UserService;
 
 class Dashboard extends Controller
 {
     public function __construct(
-        private UserServices $userServices
+        private UserService $userServices
     )
     {}
 

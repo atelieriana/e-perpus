@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
-readonly class UserServices
+readonly class UserService
 {
     public function __construct(
         private RefUserInterface $refUserInterface,

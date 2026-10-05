@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Mail\ForgetPasswordMail;
 use Illuminate\Support\Facades\Mail;
 
-class EmailService
+readonly class EmailService
 {
     public function __construct(
         private Mail $mail,
