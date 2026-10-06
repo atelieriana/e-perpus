@@ -18,14 +18,15 @@ class Buku extends Controller
     {
         $startData = (int)$request->input('start');
         $endData = $startData + $request->input('length');
+        $searchData = strtolower($request->post('search')['value']);
         if ($startData == '0') {
             $request->merge(['start' => 0]);
         } else {
             $request->merge(['start' => 1]);
         }
 
-        $dataBuku = $this->bukuService->getDatatablesBukuPelajaran($startData, $endData);
-        $totalBuku = count($this->bukuService->getDatatablesBukuPelajaran());
+        $dataBuku = $this->bukuService->getDatatablesBukuPelajaran($startData, $endData, $searchData);
+        $totalBuku = $this->bukuService->getDatatablesBukuPelajaran(null, null, $searchData)->count();
         return DataTables::of($dataBuku)
             ->addIndexColumn()
             ->addColumn('aksi', function ($dataBuku) {
@@ -44,7 +45,7 @@ class Buku extends Controller
             })
             ->rawColumns(['aksi'])
             ->setFilteredRecords($totalBuku)
-            ->setFilteredRecords($totalBuku)
+            ->setTotalRecords($totalBuku)
             ->make();
     }
 }

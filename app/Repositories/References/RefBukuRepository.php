@@ -14,13 +14,22 @@ class RefBukuRepository extends BaseRepository implements RefBukuInterface
         parent::__construct($refBuku);
     }
 
-    public function findDataByIdJenisBuku(int $id, int $start = null, int $end = null)
+    public function dtDataByIdJenisBuku(int $id, int $start = null, int $end = null, string $search = null)
     {
         $subQuery = $this->refBuku
             ->newQuery()
             ->select('*')
             ->selectRaw("ROW_NUMBER() OVER (ORDER BY id asc) AS row_num")
             ->where('id_ref_jenis_buku', $id);
+
+        if ($search !== null) {
+            $subQuery->where(function ($query) use ($search) {
+                $query->whereRaw("lower(judul) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(penulis) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(penerbit) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(isbn) like ?", ["%".$search."%"]);
+            });
+        }
 
         $query = DB::query()->fromSub($subQuery, 't');
 

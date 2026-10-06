@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Exceptions\BusinessException;
 use App\Interfaces\References\RefBukuInterface;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 
 readonly class BukuService
 {
@@ -13,21 +16,26 @@ readonly class BukuService
     )
     {}
 
-    public function getDatatablesBukuPelajaran(int $start = null, int $end = null)
+    public function getDatatablesBukuPelajaran(int $start = null, int $end = null, string $search = null)
     {
-        return $this->refBukuInterface->findDataByIdJenisBuku(self::BUKU_PELAJARAN, $start, $end);
+        return $this->refBukuInterface->dtDataByIdJenisBuku(self::BUKU_PELAJARAN, $start, $end, $search);
     }
 
-    public function create(array $reuqestData)
+    public function getDatatablesBukuUmum(int $start = null, int $end = null, string $search = null)
     {
-//        try
-//        {
-//
-//        }
-//        catch (QueryException $exception)
-//        {
-//            Log::error($exception->getMessage());
-//            throw new BusinessException("Terjadi kesalahan saat menyimpan data buku.");
-//        }
+        return $this->refBukuInterface->dtDataByIdJenisBuku(self::BUKU_UMUM, $start, $end);
+    }
+
+    public function createRecordBuku(array $requestData)
+    {
+        try
+        {
+            $this->refBukuInterface->create($requestData);
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalahan saat menyimpan data buku.");
+        }
     }
 }

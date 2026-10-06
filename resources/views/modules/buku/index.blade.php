@@ -8,7 +8,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Buku Pelakjaran</li>
+                        <li class="breadcrumb-item active">Buku Pelajaran</li>
                     </ol>
                 </div>
 
