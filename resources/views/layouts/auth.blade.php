@@ -20,7 +20,7 @@
         @yield('content')
     </div>
 </div>
-
+<script src="{{ asset('build/js/jquery/jquery.min.js') }}"></script>
 @vite('resources/js/extension.js')
 @vite('resources/libs/bootstrap/js/bootstrap.bundle.min.js')
 @vite('resources/js/app.js')

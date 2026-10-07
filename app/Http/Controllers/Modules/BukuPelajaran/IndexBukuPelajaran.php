@@ -13,6 +13,6 @@ class IndexBukuPelajaran extends Controller
 
     public function index()
     {
-        return view('modules.buku.index');
+        return view('modules.buku-pelajaran.index');
     }
 }

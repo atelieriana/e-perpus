@@ -23,7 +23,7 @@ class AdminMenu
                         'child' => [
                             [
                                 'name' => 'Buku Pelajaran',
-                                'route' => 'buku',
+                                'route' => route('buku-pelajaran.buku.index'),
                             ],
                             [
                                 'name' => 'Buku Umum',

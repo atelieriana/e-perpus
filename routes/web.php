@@ -18,6 +18,6 @@ Route::prefix('datatables')
     ->name('datatables.')
     ->group(__DIR__.'/modules/datatables.php');
 
-Route::prefix('buku')
-    ->name('buku.')
-    ->group(__DIR__.'/modules/buku.php');
+Route::prefix('buku-pelajaran')
+    ->name('buku-pelajaran.')
+    ->group(__DIR__ . '/modules/buku-pelajaran.php');
