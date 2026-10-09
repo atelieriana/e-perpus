@@ -76,6 +76,7 @@ class RefUser extends Model implements Auditable
     ];
 
     protected $hidden = [
+        'password',
         'created_by',
         'created_at',
         'updated_by',

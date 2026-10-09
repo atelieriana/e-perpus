@@ -17,6 +17,9 @@
     </div>
     <div class="row">
         <div class="col-lg-12">
+            @include('templates.notification')
+        </div>
+        <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <div class="row mb-2">

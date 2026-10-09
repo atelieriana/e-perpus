@@ -11,6 +11,7 @@ readonly class BukuService
 {
     const BUKU_PELAJARAN = 2;
     const BUKU_UMUM = 1;
+
     public function __construct(
         private RefBukuInterface $refBukuInterface
     )

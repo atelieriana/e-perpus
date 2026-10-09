@@ -98,7 +98,7 @@
                         <div class="fv-row row mb-4">
                             <label for="cover-buku" class="col-sm-3 col-form-label">Cover Buku</label>
                             <div class="col-sm-9">
-                                <input class="form-control" type="file" id="cover-buku" name="cover_buku">
+                                <input class="form-control" type="file" id="cover-buku" name="cover-buku">
                             </div>
                         </div>
 
@@ -128,9 +128,9 @@
                 event.preventDefault();
                 validator.validate().then(function (status) {
                     if (status === 'Valid') {
-                        buttonLogin.disabled = true;
+                        buttonSubmit.disabled = true;
                         Swal.fire({
-                            text: "Mohon menunggu, kami sedang memproses pengecekan data pengguna",
+                            text: "Mohon menunggu kami sedang memverifikasi isian form",
                             icon: "success",
                             buttonsStyling: false,
                             confirmButtonText: "Ok",
@@ -152,13 +152,17 @@
                             validators: {
                                 notEmpty: { message: messageNotEmpty },
                                 stringLength: { max: 255, message: messageStringMax }
-                            }
+                            },
                         },
                         'kota-terbit': {
                             validators: {
                                 notEmpty: { message: messageNotEmpty },
-                                stringLength: { max: 255, message: messageStringMax }
-                            }
+                                stringLength: { max: 255, message: messageStringMax },
+                                regexp: {
+                                    regexp: "^[a-zA-Z ]+$",
+                                    message: "Kota terbit hanya boleh huruf"
+                                }
+                            },
                         },
                         'penerbit': {
                             validators: {
@@ -169,7 +173,7 @@
                         'penulis': {
                             validators: {
                                 notEmpty: { message: messageNotEmpty },
-                                stringLength: { max: 255, message: messageStringMax }
+                                stringLength: { max: 255, message: messageStringMax },
                             }
                         },
                         'tahun-terbit': {
