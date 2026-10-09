@@ -8,7 +8,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('buku-pelajaran.buku.index') }}">Buku Pelajaran</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('buku-pelajaran.index') }}">Buku Pelajaran</a></li>
                         <li class="breadcrumb-item active">Buat</li>
                     </ol>
                 </div>
@@ -30,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <form id="form-buku-pelajaran" method="post" action="{{ route('buku-pelajaran.buku.create.submit') }}" enctype="multipart/form-data">
+                    <form id="form-buku-pelajaran" method="post" action="{{ route('buku-pelajaran.create.submit') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="fv-row row mb-4">
                             <label for="judul" class="col-sm-3 col-form-label">Judul Buku</label>
@@ -104,7 +104,7 @@
 
                         <div class="row">
                             <div class="col-sm-12 d-flex justify-content-between">
-                                <a href="{{ route('buku-pelajaran.buku.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
+                                <a href="{{ route('buku-pelajaran.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
                                 <button type="submit" id="button-submit-buku-pelajaran" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
                             </div>
                         </div>

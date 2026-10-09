@@ -61,12 +61,12 @@ class CreateBukuPelajaran extends Controller
         {
             DB::rollBack();
             return response()
-                ->redirectToRoute('buku-pelajaran.buku.create')
+                ->redirectToRoute('buku-pelajaran.create')
                 ->with('error', $exception->getMessage());
         }
 
         return response()
-            ->redirectToRoute('buku-pelajaran.buku.index')
+            ->redirectToRoute('buku-pelajaran.index')
             ->with('success', 'Buku Pelajaran Berhasil Dibuat');
     }
 }
