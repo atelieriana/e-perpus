@@ -35,63 +35,63 @@
                         <div class="fv-row row mb-4">
                             <label for="judul" class="col-sm-3 col-form-label">Judul Buku</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="judul" name="judul" placeholder="Masukkan judul buku">
+                                <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" placeholder="Masukkan judul buku">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="kota-terbit" class="col-sm-3 col-form-label">Kota Terbit</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="kota-terbit" name="kota-terbit" placeholder="Masukkan kota terbit">
+                                <input type="text" class="form-control" id="kota-terbit" name="kota-terbit" value="{{ old('kota-terbit') }}" placeholder="Masukkan kota terbit">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="penerbit" class="col-sm-3 col-form-label">Penerbit</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="penerbit" name="penerbit" placeholder="Masukkan penerbit">
+                                <input type="text" class="form-control" id="penerbit" name="penerbit" value="{{ old('penerbit') }}" placeholder="Masukkan penerbit">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="penulis" class="col-sm-3 col-form-label">Penulis</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="penulis" name="penulis" placeholder="Masukkan penulis">
+                                <input type="text" class="form-control" id="penulis" name="penulis" value="{{ old('penulis') }}" placeholder="Masukkan penulis">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="tahun-terbit" class="col-sm-3 col-form-label">Tahun Terbit</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="tahun-terbit" name="tahun-terbit" placeholder="Masukkan tahun terbit">
+                                <input type="number" class="form-control" id="tahun-terbit" name="tahun-terbit" value="{{ old('tahun-terbit') }}" placeholder="Masukkan tahun terbit">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="isbn" class="col-sm-3 col-form-label">ISBN</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="isbn" name="isbn" placeholder="Masukkan ISBN">
+                                <input type="text" class="form-control" id="isbn" name="isbn" value="{{ old('isbn') }}" placeholder="Masukkan ISBN">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="deskripsi-fisik" class="col-sm-3 col-form-label">Deskripsi Fisik</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="deskripsi-fisik" name="deskripsi-fisik" placeholder="Masukkan deskripsi fisik">
+                                <input type="text" class="form-control" id="deskripsi-fisik" name="deskripsi-fisik" value="{{ old('deskripsi-fisik') }}" placeholder="Masukkan deskripsi fisik">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="halaman" class="col-sm-3 col-form-label">Jumlah Halaman</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="halaman" name="halaman" placeholder="Masukkan jumlah halaman">
+                                <input type="number" class="form-control" id="halaman" name="halaman" value="{{ old('halaman') }}" placeholder="Masukkan jumlah halaman">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
                             <label for="jumlah-buku" class="col-sm-3 col-form-label">Jumlah Buku</label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="jumlah-buku" name="jumlah-buku" placeholder="Masukkan jumlah buku">
+                                <input type="number" class="form-control" id="jumlah-buku" name="jumlah-buku" value="{{ old('jumlah-buku') }}" placeholder="Masukkan jumlah buku">
                             </div>
                         </div>
 
@@ -224,7 +224,7 @@
                                 }
                             }
                         },
-                        'cover_buku': {
+                        'cover-buku': {
                             validators: {
                                 notEmpty: { message: 'Cover buku wajib diunggah' },
                                 file: {
