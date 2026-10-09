@@ -13,3 +13,5 @@ Route::post('/create/submit',[CreateBukuPelajaran::class, 'onSubmit'])
     ->name('create.submit');
 Route::get('/update/{uuid}', [UpdateBukuPelajaran::class, 'index'])
     ->name('update');
+Route::post('/update/submit', [UpdateBukuPelajaran::class, 'onSubmit'])
+    ->name('update.submit');

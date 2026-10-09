@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('buku-pelajaran.buku.create') }}">
+                                <a href="{{ route('buku-pelajaran.create') }}">
                                     <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2">
                                         <i class="mdi mdi-plus me-1"></i> Tambah Buku Pelajaran
                                     </button>

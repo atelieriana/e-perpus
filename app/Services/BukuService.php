@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Exceptions\BusinessException;
 use App\Interfaces\References\RefBukuInterface;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 readonly class BukuService
@@ -42,6 +43,17 @@ readonly class BukuService
     }
 
     /**
+     * Digunakan untuk mencari data buku berdasarkan UUID buku
+     * @param string $uuid
+     * @return mixed
+     */
+    public function findDataBukuByUUID(string $uuid)
+    {
+        return $this->refBukuInterface->findByUUID($uuid);
+    }
+
+    /**
+     * Service yang digunakan untuk menciptakan record buku
      * @param array $requestData
      * @return void
      */
@@ -55,6 +67,29 @@ readonly class BukuService
         {
             Log::error($exception->getMessage());
             throw new BusinessException("Terjadi kesalahan saat menyimpan data buku.");
+        }
+    }
+
+    /**
+     * Service yang digunakan untuk melakukan update record buku
+     * @param array $requestData
+     * @param int $id
+     * @return void
+     * @throws \Throwable
+     */
+    public function updateRecordBuku(array $requestData, int $id)
+    {
+        DB::beginTransaction();
+        try
+        {
+            $this->refBukuInterface->update($requestData, $id);
+            DB::commit();
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            DB::rollBack();
+            throw new BusinessException("Terjadi kesalahan saat menyimpan hasil ubah data buku.");
         }
     }
 }

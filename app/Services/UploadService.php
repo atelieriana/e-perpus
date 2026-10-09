@@ -8,25 +8,13 @@ use Exception;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Log;
 
-class UploadService
+readonly class UploadService
 {
     private S3Client $s3;
 
-    private array $suspiciousPattern = [
-        '/\/JavaScript\s*/i',
-        '/\/JS\s*\((.*?)\)/is',
-        '/\/S\s*\/JavaScript/i',
-        '/\/OpenAction.*?\/JS\s*\((.*?)\)/is',
-        '/<\?php(.*?)\?>/is',
-        '/<script\b[^>]*>(.*?)<\/script>/is'
-    ];
+    private array $suspiciousPattern;
 
-    private array $allowedExtension = [
-        'pdf',
-        'png',
-        'jpg',
-        'jpeg'
-    ];
+    private array $allowedExtension;
 
     /**
      *
@@ -45,6 +33,22 @@ class UploadService
                 'secret' => config('filesystems.disks.s3.secret'),
             ]
         ]);
+
+        $this->suspiciousPattern = [
+            '/\/JavaScript\s*/i',
+            '/\/JS\s*\((.*?)\)/is',
+            '/\/S\s*\/JavaScript/i',
+            '/\/OpenAction.*?\/JS\s*\((.*?)\)/is',
+            '/<\?php(.*?)\?>/is',
+            '/<script\b[^>]*>(.*?)<\/script>/is'
+        ];
+
+        $this->allowedExtension = [
+            'pdf',
+            'png',
+            'jpg',
+            'jpeg'
+        ];
     }
 
     /**
