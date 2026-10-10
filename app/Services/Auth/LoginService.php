@@ -26,6 +26,12 @@ readonly class LoginService
     public function authenticate(array $credentials): void
     {
         $dataUser = $this->refUserRepository->findDataByUsername($credentials['username']);
+        $accessData = [
+            'uuid' => $dataUser->uuid,
+            'username' => $dataUser->username,
+            'nama' => $dataUser->nama,
+            'email' => $dataUser->email,
+        ];
         if (is_null($dataUser) || !Hash::check($credentials['password'], $dataUser->password)) {
             throw new BusinessException('Username atau password salah');
         }
@@ -39,7 +45,7 @@ readonly class LoginService
         session()->regenerate();
         session()->put([
             'access-role' => $dataDefaultRole,
-            'access-data' => $dataUser,
+            'access-data' => $accessData,
             'access-allowed-role' => $dataUser->roles->pluck('role')->toArray(),
         ]);
     }
