@@ -11,7 +11,6 @@ Route::get('/', [Landing::class, 'index'])
 
 Route::prefix('auth')
     ->name('auth.')
-    ->middleware([SessionNotLoginExist::class])
     ->group(__DIR__.'/modules/auth.php');
 
 Route::middleware(SessionLoginExist::class)
