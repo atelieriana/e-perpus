@@ -38,8 +38,8 @@ class RefRoleRepository extends BaseRepository implements RefRoleInterface
         parent::__construct($refRole);
     }
 
-    public function findNameDefaultRole(RefUser $user, int $idRole): ?string
+    public function findNameDefaultRole(RefUser $refUser, int $idRole): ?string
     {
-        return $user->roles->firstWhere('id', $idRole)->role;
+        return $refUser->roles->firstWhere('id', $idRole)->role;
     }
 }
