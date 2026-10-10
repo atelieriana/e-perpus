@@ -28,16 +28,30 @@ services:
     volumes:
       - /Users/ibnuaulianugrahaalihaq/Database/MySQL:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: "P!sang#123"
+      MYSQL_ROOT_PASSWORD: [YOUR_PASSWORD]
       TZ: "Asia/Jakarta"
   redis:
     image: redis:8.0-rc1-alpine3.21
     container_name: "redis"
     ports:
       - "6379:6379"
-    command: redis-server --requirepass "kJnGMRgXd5FecoM9YrTeOWgQ6ABfVSiwt8rcm79tq2hr8Dq9Pj"
+    command: redis-server --requirepass [YOUR_PASSWORD]
     environment:
       TZ: "Asia/Jakarta"
+  minio:
+    image: minio/minio:latest
+    container_name: "minio"
+    ports:
+      - "9001:9001"
+      - "9002:9002"
+    depends_on:
+      - app
+    volumes:
+      - /Users/ibnuaulianugrahaalihaq/ObjectStorage:/data
+    environment:
+      MINIO_ROOT_USER: [YOUR_USERNAME]
+      MINIO_ROOT_PASSWORD: [YOUR_PASSWORD]
+    command: server --address ":9002" --console-address ":9001" /data
 ```
 
 # How To Run
