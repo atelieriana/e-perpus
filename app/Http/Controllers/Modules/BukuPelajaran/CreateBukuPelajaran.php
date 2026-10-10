@@ -37,7 +37,6 @@ class CreateBukuPelajaran extends Controller
         $currentDate = explode('-',Carbon::now()->format('Y-m-d'));
         $directory = self::DIRECTORY_NAME.'/'.$currentDate[0].'/'.$currentDate[1].'/'.$currentDate[2];
 
-        DB::beginTransaction();
         try
         {
             $pathFile = $this->uploadService->upload($directory, $request->file('cover-buku'));
@@ -56,11 +55,9 @@ class CreateBukuPelajaran extends Controller
                 'id_ref_jenis_buku' => self::JENIS_BUKU_PELAJARAN,
             ];
             $this->bukuService->createRecordBuku($requestData);
-            DB::commit();
         }
         catch (BusinessException $exception)
         {
-            DB::rollBack();
             return response()
                 ->redirectToRoute('buku-pelajaran.create')
                 ->with('error', $exception->getMessage());

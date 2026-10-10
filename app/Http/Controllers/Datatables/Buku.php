@@ -32,12 +32,12 @@ class Buku extends Controller
             ->addColumn('aksi', function ($dataBuku) {
                 return '<div class="row">
                             <div class="col-md-6">
-                                <a href="'.route('buku-pelajaran.update',['uuid'=>$dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
+                                <a href="'.route('buku-pelajaran.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="#" data-toggle="tooltip" title="Hapus">
+                                <a href="'.route('buku-pelajaran.delete',['uuid' =>  $dataBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>

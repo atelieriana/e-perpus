@@ -55,18 +55,21 @@ readonly class BukuService
     /**
      * Service yang digunakan untuk menciptakan record buku
      * @param array $requestData
-     * @return void
+     * @return mixed|void
+     * @throws \Throwable\
      */
     public function createRecordBuku(array $requestData)
     {
         try
         {
-            $this->refBukuInterface->create($requestData);
+            return DB::transaction(function () use ($requestData) {
+                $this->refBukuInterface->create($requestData);
+            });
         }
         catch (QueryException $exception)
         {
             Log::error($exception->getMessage());
-            throw new BusinessException("Terjadi kesalahan saat menyimpan data buku.");
+            throw new BusinessException("Terjadi kesalahan saat menyimpan data");
         }
     }
 
@@ -79,17 +82,37 @@ readonly class BukuService
      */
     public function updateRecordBuku(array $requestData, int $id)
     {
-        DB::beginTransaction();
         try
         {
-            $this->refBukuInterface->update($requestData, $id);
-            DB::commit();
+            return DB::transaction(function () use ($requestData, $id) {
+                $this->refBukuInterface->update($requestData, $id);
+            });
         }
         catch (QueryException $exception)
         {
             Log::error($exception->getMessage());
-            DB::rollBack();
             throw new BusinessException("Terjadi kesalahan saat menyimpan hasil ubah data buku.");
+        }
+    }
+
+    /**
+     * Service yang digunakan untuk menghapus data buku
+     * @param int $id
+     * @return void
+     * @throws \Throwable
+     */
+    public function deleteRecordBuku(int $id)
+    {
+        try
+        {
+            return DB::transaction(function () use ($id) {
+                $this->refBukuInterface->delete($id);
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalahan saat menghapus data buku.");
         }
     }
 }

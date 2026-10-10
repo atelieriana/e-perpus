@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Modules\BukuPelajaran\CreateBukuPelajaran;
+use App\Http\Controllers\Modules\BukuPelajaran\DeleteBukuPelajaran;
 use App\Http\Controllers\Modules\BukuPelajaran\IndexBukuPelajaran;
 use App\Http\Controllers\Modules\BukuPelajaran\UpdateBukuPelajaran;
 use Illuminate\Support\Facades\Route;
@@ -15,3 +16,7 @@ Route::get('/update/{uuid}', [UpdateBukuPelajaran::class, 'index'])
     ->name('update');
 Route::post('/update/submit', [UpdateBukuPelajaran::class, 'onSubmit'])
     ->name('update.submit');
+Route::get('/delete/{uuid}', [DeleteBukuPelajaran::class, 'index'])
+    ->name('delete');
+Route::post('/delete/submit', [DeleteBukuPelajaran::class, 'onSubmit'])
+    ->name('delete.submit');

@@ -24,6 +24,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'uuid-buku' => ['required'],
             'judul' => ['required', 'string'],
             'kota-terbit' => ['required', 'string'],
             'penerbit' => ['required', 'string'],
