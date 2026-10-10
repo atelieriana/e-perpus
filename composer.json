@@ -7,12 +7,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "intervention/validation": "^4.7",
         "laragear/turnstile": "^2.1",
         "laravel/framework": "^13.17",
         "laravel/tinker": "^3.0",
+        "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^4.4",
         "owen-it/laravel-auditing": "^14.0",
-        "predis/predis": "^3.6"
+        "predis/predis": "^3.6",
+        "yajra/laravel-datatables": "^13.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.7",
@@ -30,7 +33,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/helper.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {

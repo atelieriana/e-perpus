@@ -27,7 +27,6 @@ export default defineConfig({
                 'resources/scss/app.scss',
                 'resources/js/extension.js',
                 'resources/js/app.js',
-                'resources/libs/jquery/jquery.min.js',
                 'resources/libs/bootstrap/js/bootstrap.bundle.min.js'
             ],
             refresh: true,
@@ -42,6 +41,26 @@ export default defineConfig({
                 {
                     src: 'resources/images',
                     dest: '',
+                },
+                {
+                    src: 'resources/libs/jquery',
+                    dest: 'js/jquery',
+                    rename: { stripBase: true }
+                },
+                {
+                    src: 'resources/libs/datatables.net-bs4/js',
+                    dest: 'js/datatables.net-bs4',
+                    rename: { stripBase: true }
+                },
+                {
+                    src: 'resources/libs/datatables.net-bs4/css',
+                    dest: 'css/datatables.net-bs4',
+                    rename: { stripBase: true }
+                },
+                {
+                    src: 'resources/libs/datatables.net',
+                    dest: 'js/datatables.net',
+                    rename: { stripBase: true }
                 },
                 {
                     src: 'resources/libs',

@@ -3,16 +3,45 @@
 namespace App\Repositories;
 
 use App\Interfaces\BaseRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class BaseRepository implements BaseRepositoryInterface
 {
     public function __construct(protected Model $model)
     {}
 
-    public function find($id)
+    /**
+     * Digunakan  untuk mendapatkan seluruh data
+     * @return Collection
+     */
+    public function all()
+    {
+        return $this->model->all();
+    }
+
+    /**
+     * Digunakan untuk melakukan pecarian berdasarkan id
+     * @param $id
+     * @return mixed
+     */
+    public function find(int $id)
     {
         return $this->model->find($id);
+    }
+
+    /**
+     * Digunakan untuk melakukan pencarian berdasarkan id
+     * @param $uuid
+     * @return mixed
+     */
+    public function findByUUID(string $uuid)
+    {
+        return $this->model->where('uuid', $uuid)->first();
     }
 
     public function create(array $data)
@@ -30,8 +59,8 @@ class BaseRepository implements BaseRepositoryInterface
         $this->model->find($id)->delete();
     }
 
-    public function findByUUID($uuid)
+    public function checkChanges()
     {
-        return $this->model->where('uuid', $uuid)->first();
+        return Arr::except($this->model->getChanges(), ['updated_at']);
     }
 }
