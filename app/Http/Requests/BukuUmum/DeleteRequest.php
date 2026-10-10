@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\BukuPelajaran;
+namespace App\Http\Requests\BukuUmum;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;

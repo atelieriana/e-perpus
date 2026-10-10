@@ -24,8 +24,13 @@ Route::middleware(SessionLoginExist::class)
             ->name('datatables.')
             ->group(__DIR__.'/modules/datatables.php');
 
-        #Routing Referensi Buku Pelajaran
+        #Routing Referensi BukuPelajaran Pelajaran
         Route::prefix('buku-pelajaran')
             ->name('buku-pelajaran.')
             ->group(__DIR__ . '/modules/buku-pelajaran.php');
+
+        #Routing Referensi BukuPelajaran Umum
+        Route::prefix('buku-umum')
+            ->name('buku-umum.')
+            ->group(__DIR__ . '/modules/buku-umum.php');
     });

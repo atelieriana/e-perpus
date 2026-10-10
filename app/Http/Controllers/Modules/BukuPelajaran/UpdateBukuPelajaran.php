@@ -69,6 +69,6 @@ class UpdateBukuPelajaran extends Controller
 
         return response()
             ->redirectToRoute('buku-pelajaran.index')
-            ->with('success', 'Buku pelajaran berhasil dilakukan perubahan.');
+            ->with('success', 'BukuPelajaran pelajaran berhasil dilakukan perubahan.');
     }
 }

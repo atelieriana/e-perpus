@@ -1,5 +1,5 @@
 @extends('layouts.backoffice')
-@section('title','Referensi BukuPelajaran Pelajaran')
+@section('title','Referensi BukuPelajaran')
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -8,8 +8,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('buku-pelajaran.index') }}">Buku Pelajaran</a></li>
-                        <li class="breadcrumb-item active">Ubah</li>
+                        <li class="breadcrumb-item active"><a href="{{ route('buku-umum.index') }}">Buku Umum</a></li>
+                        <li class="breadcrumb-item active">Buat</li>
                     </ol>
                 </div>
 
@@ -26,73 +26,72 @@
                     <div class="col-sm-4">
                         <div class="search-box me-2 mb-2 d-inline-block">
                             <div class="position-relative">
-                                <h4>Ubah Buku Pelajaran</h4>
+                                <h4>Tambah Buku Umum</h4>
                             </div>
                         </div>
                     </div>
-                    <form id="form-buku-pelajaran" method="post" action="{{ route('buku-pelajaran.update.submit') }}" enctype="multipart/form-data">
+                    <form id="form-buku-umum" method="post" action="{{ route('buku-umum.create.submit') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="uuid-buku" value="{{ $dataBuku->uuid }}"/>
                         <div class="fv-row row mb-4">
-                            <label for="judul" class="col-sm-3 col-form-label">Judul Buku</label>
+                            <label for="judul" class="col-sm-3 col-form-label">Judul Buku<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') ?? $dataBuku->judul }}" placeholder="Masukkan judul buku">
+                                <input type="text" class="form-control" id="judul" name="judul" value="{{ old('judul') }}" placeholder="Masukkan judul buku">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="kota-terbit" class="col-sm-3 col-form-label">Kota Terbit</label>
+                            <label for="kota-terbit" class="col-sm-3 col-form-label">Kota Terbit<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="kota-terbit" name="kota-terbit" value="{{ old('kota-terbit') ?? $dataBuku->kota_terbit }}" placeholder="Masukkan kota terbit">
+                                <input type="text" class="form-control" id="kota-terbit" name="kota-terbit" value="{{ old('kota-terbit') }}" placeholder="Masukkan kota terbit">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="penerbit" class="col-sm-3 col-form-label">Penerbit</label>
+                            <label for="penerbit" class="col-sm-3 col-form-label">Penerbit<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="penerbit" name="penerbit" value="{{ old('penerbit') ?? $dataBuku->penerbit }}" placeholder="Masukkan penerbit">
+                                <input type="text" class="form-control" id="penerbit" name="penerbit" value="{{ old('penerbit') }}" placeholder="Masukkan penerbit">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="penulis" class="col-sm-3 col-form-label">Penulis</label>
+                            <label for="penulis" class="col-sm-3 col-form-label">Penulis<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="penulis" name="penulis" value="{{ old('penulis') ?? $dataBuku->penulis }}" placeholder="Masukkan penulis">
+                                <input type="text" class="form-control" id="penulis" name="penulis" value="{{ old('penulis') }}" placeholder="Masukkan penulis">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="tahun-terbit" class="col-sm-3 col-form-label">Tahun Terbit</label>
+                            <label for="tahun-terbit" class="col-sm-3 col-form-label">Tahun Terbit<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="tahun-terbit" name="tahun-terbit" value="{{ old('tahun-terbit') ?? $dataBuku->tahun_terbit }}" placeholder="Masukkan tahun terbit">
+                                <input type="number" class="form-control" id="tahun-terbit" name="tahun-terbit" value="{{ old('tahun-terbit') }}" placeholder="Masukkan tahun terbit">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="isbn" class="col-sm-3 col-form-label">ISBN</label>
+                            <label for="isbn" class="col-sm-3 col-form-label">ISBN<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="isbn" name="isbn" value="{{ old('isbn') ?? $dataBuku->isbn }}" placeholder="Masukkan ISBN">
+                                <input type="text" class="form-control" id="isbn" name="isbn" value="{{ old('isbn') }}" placeholder="Masukkan ISBN">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="deskripsi-fisik" class="col-sm-3 col-form-label">Deskripsi Fisik</label>
+                            <label for="deskripsi-fisik" class="col-sm-3 col-form-label">Deskripsi Fisik<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="deskripsi-fisik" name="deskripsi-fisik" value="{{ old('deskripsi-fisik') ?? $dataBuku->deskripsi_fisik }}" placeholder="Masukkan deskripsi fisik">
+                                <input type="text" class="form-control" id="deskripsi-fisik" name="deskripsi-fisik" value="{{ old('deskripsi-fisik') }}" placeholder="Masukkan deskripsi fisik">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="halaman" class="col-sm-3 col-form-label">Jumlah Halaman</label>
+                            <label for="halaman" class="col-sm-3 col-form-label">Jumlah Halaman<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="halaman" name="halaman" value="{{ old('halaman') ?? $dataBuku->halaman }}" placeholder="Masukkan jumlah halaman">
+                                <input type="number" class="form-control" id="halaman" name="halaman" value="{{ old('halaman') }}" placeholder="Masukkan jumlah halaman">
                             </div>
                         </div>
 
                         <div class="fv-row row mb-4">
-                            <label for="jumlah-buku" class="col-sm-3 col-form-label">Jumlah Buku</label>
+                            <label for="jumlah-buku" class="col-sm-3 col-form-label">Jumlah Buku<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="number" class="form-control" id="jumlah-buku" name="jumlah-buku" value="{{ old('jumlah-buku') ?? $dataBuku->jumlah_buku }}" placeholder="Masukkan jumlah buku">
+                                <input type="number" class="form-control" id="jumlah-buku" name="jumlah-buku" value="{{ old('jumlah-buku') }}" placeholder="Masukkan jumlah buku">
                             </div>
                         </div>
 
@@ -100,17 +99,13 @@
                             <label for="cover-buku" class="col-sm-3 col-form-label">Cover Buku</label>
                             <div class="col-sm-9">
                                 <input class="form-control" type="file" id="cover-buku" name="cover-buku">
-                                @if(!is_null($dataBuku->file_cover))
-                                    <p class="mt-1">Cover buku saat ini</p>
-                                    <img src="{{ getFile($dataBuku->file_cover) }}" alt="cover-buku" class="img-fluid" width="20%">
-                                @endif
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12 d-flex justify-content-between">
-                                <a href="{{ route('buku-pelajaran.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
-                                <button type="submit" id="button-submit-buku-pelajaran" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
+                                <a href="{{ route('buku-umum.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
+                                <button type="submit" id="button-submit-buku-umum" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
                             </div>
                         </div>
                     </form>
@@ -123,8 +118,8 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
             const date = new Date()
-            let form = document.getElementById('form-buku-pelajaran');
-            let buttonSubmit = document.getElementById('button-submit-buku-pelajaran');
+            let form = document.getElementById('form-buku-umum');
+            let buttonSubmit = document.getElementById('button-submit-buku-umum');
             let messageNotEmpty = 'Wajib diisi';
             let messageStringMax = 'Hanya dapat diisi 255 karakter'
             let currentYear = date.getFullYear()

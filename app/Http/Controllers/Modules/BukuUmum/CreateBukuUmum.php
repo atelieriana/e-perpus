@@ -1,23 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Modules\BukuPelajaran;
+namespace App\Http\Controllers\Modules\BukuUmum;
 
 use App\Exceptions\BusinessException;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BukuPelajaran\CreateRequest;
+use App\Http\Requests\BukuUmum\CreateRequest;
 use App\Services\BukuService;
 use App\Services\UploadService;
 use App\Traits\AuditAccess;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
-class CreateBukuPelajaran extends Controller
+class CreateBukuUmum extends Controller
 {
     use AuditAccess;
-    private $moduleName = 'Buku Pelajaran - Create';
-    const JENIS_BUKU_PELAJARAN = 2;
-    const DIRECTORY_NAME = 'cover-buku-pelajaran';
+    private $moduleName = 'Buku Umum - Create';
+    const JENIS_BUKU_PELAJARAN = 1;
+    const DIRECTORY_NAME = 'cover-buku-umum';
 
     public function __construct(
         private BukuService $bukuService,
@@ -29,7 +28,7 @@ class CreateBukuPelajaran extends Controller
 
     public function index()
     {
-        return view('modules.buku-pelajaran.create');
+        return view('modules.buku-umum.create');
     }
 
     public function onSubmit(CreateRequest $request)
@@ -59,12 +58,12 @@ class CreateBukuPelajaran extends Controller
         catch (BusinessException $exception)
         {
             return response()
-                ->redirectToRoute('buku-pelajaran.create')
+                ->redirectToRoute('buku-umum.create')
                 ->with('error', $exception->getMessage());
         }
 
         return response()
-            ->redirectToRoute('buku-pelajaran.index')
-            ->with('success', 'BukuPelajaran Pelajaran Berhasil Dibuat');
+            ->redirectToRoute('buku-umum.index')
+            ->with('success', 'Buku Umum Berhasil Dibuat');
     }
 }

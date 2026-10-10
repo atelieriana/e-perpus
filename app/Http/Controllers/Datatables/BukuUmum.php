@@ -4,15 +4,22 @@ namespace App\Http\Controllers\Datatables;
 
 use App\Http\Controllers\Controller;
 use App\Services\BukuService;
+use App\Traits\AuditAccess;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
-class Buku extends Controller
+class BukuUmum extends Controller
 {
+    use AuditAccess;
+
+    private $moduleName = 'Datatables Buku Umum';
+
     public function __construct(
         private BukuService $bukuService,
     )
-    {}
+    {
+        $this->logAccess();
+    }
 
     public function __invoke(Request $request)
     {
@@ -25,19 +32,19 @@ class Buku extends Controller
             $request->merge(['start' => 1]);
         }
 
-        $dataBuku = $this->bukuService->getDatatablesBukuPelajaran($startData, $endData, $searchData);
-        $totalBuku = $this->bukuService->getDatatablesBukuPelajaran(null, null, $searchData)->count();
+        $dataBuku = $this->bukuService->getDatatablesBukuUmum($startData, $endData, $searchData);
+        $totalBuku = $this->bukuService->getDatatablesBukuUmum(null, null, $searchData)->count();
         return DataTables::of($dataBuku)
             ->addIndexColumn()
             ->addColumn('aksi', function ($dataBuku) {
                 return '<div class="row">
                             <div class="col-md-6">
-                                <a href="'.route('buku-pelajaran.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
+                                <a href="'.route('buku-umum.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="'.route('buku-pelajaran.delete',['uuid' =>  $dataBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
+                                <a href="'.route('buku-umum.delete',['uuid' =>  $dataBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>

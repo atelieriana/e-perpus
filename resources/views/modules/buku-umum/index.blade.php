@@ -8,7 +8,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Buku Pelajaran</li>
+                        <li class="breadcrumb-item active">Buku Umum</li>
                     </ol>
                 </div>
 
@@ -26,21 +26,21 @@
                         <div class="col-sm-4">
                             <div class="search-box me-2 mb-2 d-inline-block">
                                 <div class="position-relative">
-                                    <h4>Daftar Buku Pelajaran</h4>
+                                    <h4>Daftar Buku Umum</h4>
                                 </div>
                             </div>
                         </div>
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('buku-pelajaran.create') }}">
+                                <a href="{{ route('buku-umum.create') }}">
                                     <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2">
-                                        <i class="mdi mdi-plus me-1"></i> Tambah Buku Pelajaran
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Buku Umum
                                     </button>
                                 </a>
                             </div>
                         </div><!-- end col-->
                     </div>
-                    <table class="table table-bordered dt-responsive" id="table-buku-pelajaran">
+                    <table class="table table-bordered dt-responsive" id="table-buku-umum">
                         <thead class="table-light">
                         <tr>
                             <th class="align-middle">No</th>
@@ -63,11 +63,11 @@
 @section('custom-script')
     <script>
         $(document).ready(function() {
-            const table = $('#table-buku-pelajaran').DataTable({
+            const table = $('#table-buku-umum').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
-                    url: '/datatables/buku-pelajaran',
+                    url: '/datatables/buku-umum',
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

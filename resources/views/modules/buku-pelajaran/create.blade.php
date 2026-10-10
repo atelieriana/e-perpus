@@ -1,5 +1,5 @@
 @extends('layouts.backoffice')
-@section('title','Referensi Buku')
+@section('title','Referensi BukuPelajaran')
 @section('content')
     <div class="row">
         <div class="col-12">

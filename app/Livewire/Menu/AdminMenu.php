@@ -27,7 +27,7 @@ class AdminMenu
                             ],
                             [
                                 'name' => 'Buku Umum',
-                                'route' => '#',
+                                'route' => route('buku-umum.index'),
                             ]
                         ],
                     ],

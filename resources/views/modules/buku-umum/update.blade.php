@@ -1,5 +1,5 @@
 @extends('layouts.backoffice')
-@section('title','Referensi BukuPelajaran Pelajaran')
+@section('title','Referensi BukuPelajaran Umum')
 @section('content')
     <div class="row">
         <div class="col-12">
@@ -8,7 +8,7 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="{{ route('buku-pelajaran.index') }}">Buku Pelajaran</a></li>
+                        <li class="breadcrumb-item active"><a href="{{ route('buku-umum.index') }}">Buku Umum</a></li>
                         <li class="breadcrumb-item active">Ubah</li>
                     </ol>
                 </div>
@@ -26,11 +26,11 @@
                     <div class="col-sm-4">
                         <div class="search-box me-2 mb-2 d-inline-block">
                             <div class="position-relative">
-                                <h4>Ubah Buku Pelajaran</h4>
+                                <h4>Ubah Buku Umum</h4>
                             </div>
                         </div>
                     </div>
-                    <form id="form-buku-pelajaran" method="post" action="{{ route('buku-pelajaran.update.submit') }}" enctype="multipart/form-data">
+                    <form id="form-buku-umum" method="post" action="{{ route('buku-umum.update.submit') }}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="uuid-buku" value="{{ $dataBuku->uuid }}"/>
                         <div class="fv-row row mb-4">
@@ -109,8 +109,8 @@
 
                         <div class="row">
                             <div class="col-sm-12 d-flex justify-content-between">
-                                <a href="{{ route('buku-pelajaran.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
-                                <button type="submit" id="button-submit-buku-pelajaran" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
+                                <a href="{{ route('buku-umum.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
+                                <button type="submit" id="button-submit-buku-umum" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
                             </div>
                         </div>
                     </form>
@@ -123,8 +123,8 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
             const date = new Date()
-            let form = document.getElementById('form-buku-pelajaran');
-            let buttonSubmit = document.getElementById('button-submit-buku-pelajaran');
+            let form = document.getElementById('form-buku-umum');
+            let buttonSubmit = document.getElementById('button-submit-buku-umum');
             let messageNotEmpty = 'Wajib diisi';
             let messageStringMax = 'Hanya dapat diisi 255 karakter'
             let currentYear = date.getFullYear()
