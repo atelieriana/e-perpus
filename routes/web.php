@@ -2,22 +2,31 @@
 
 use App\Http\Controllers\Modules\Dashboard\Dashboard;
 use App\Http\Controllers\Modules\Landing\Landing;
+use App\Http\Middleware\SessionLoginExist;
+use App\Http\Middleware\SessionNotLoginExist;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Landing::class, 'index'])
     ->name('landing');
 
-Route::get('/dashboard', [Dashboard::class, 'index'])
-    ->name('dashboard');
-
 Route::prefix('auth')
     ->name('auth.')
+    ->middleware([SessionNotLoginExist::class])
     ->group(__DIR__.'/modules/auth.php');
 
-Route::prefix('datatables')
-    ->name('datatables.')
-    ->group(__DIR__.'/modules/datatables.php');
+Route::middleware(SessionLoginExist::class)
+    ->group(function(){
+        #Routing Dashboard
+        Route::get('/dashboard', [Dashboard::class, 'index'])
+            ->name('dashboard');
 
-Route::prefix('buku-pelajaran')
-    ->name('buku-pelajaran.')
-    ->group(__DIR__ . '/modules/buku-pelajaran.php');
+        #Routing Datatables
+        Route::prefix('datatables')
+            ->name('datatables.')
+            ->group(__DIR__.'/modules/datatables.php');
+
+        #Routing Referensi Buku Pelajaran
+        Route::prefix('buku-pelajaran')
+            ->name('buku-pelajaran.')
+            ->group(__DIR__ . '/modules/buku-pelajaran.php');
+    });
