@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Repositories\References\RefSiswaIRepository;
+use App\Interfaces\References\RefSiswaInterface;
 use Illuminate\Support\Collection;
 
 readonly class SiswaService
 {
     public function __construct(
-        private RefSiswaIRepository $refSiswaIRepository,
+        private RefSiswaInterface $refSiswaInterface,
     )
     {}
 
@@ -21,6 +21,6 @@ readonly class SiswaService
      */
     public function getDatatablesSiswa(int $start = null, $length = null, $search = null)
     {
-        return $this->refSiswaIRepository->dtSiswa($start, $length, $search);
+        return $this->refSiswaInterface->dtSiswa($start, $length, $search);
     }
 }

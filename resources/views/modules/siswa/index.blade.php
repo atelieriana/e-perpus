@@ -30,6 +30,15 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-8">
+                            <div class="text-sm-end">
+                                <a href="{{ route('siswa.create') }}">
+                                    <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2">
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Siswa
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <table class="table table-bordered dt-responsive" id="table-siswa">
                         <thead class="table-light">

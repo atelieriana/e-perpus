@@ -21,7 +21,7 @@
         <div class="navbar-header">
             <div class="d-flex">
                 <div class="navbar-brand-box">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="{{ route('dashboard') }}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="22">
                         </span>
@@ -29,7 +29,7 @@
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="44">
                         </span>
                     </a>
-                    <a href="index.html" class="logo logo-light">
+                    <a href="{{ route('dashboard') }}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="22">
                         </span>
@@ -158,5 +158,25 @@
 @vite('resources/libs/bootstrap/js/bootstrap.bundle.min.js')
 @vite('resources/js/app.js')
 @yield('custom-script')
+<script>
+    $.extend(true, $.fn.dataTable.defaults, {
+        initComplete: function() {
+            var api = this.api();
+            $(api.table().container()).find('.dataTables_filter input')
+                .off('.DT')
+                .on('keyup.DT cut.DT paste.DT input.DT search.DT', function(e) {
+                    var value = this.value.trim();
+
+                    if (value.length >= 3 || e.keyCode === 13) {
+                        api.search(value).draw();
+                    }
+
+                    if (value === "") {
+                        api.search("").draw();
+                    }
+                });
+        }
+    });
+</script>
 </body>
 </html>
