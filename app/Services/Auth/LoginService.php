@@ -3,7 +3,6 @@
 namespace App\Services\Auth;
 
 use App\Exceptions\BusinessException;
-use App\Exceptions\LoginServiceException;
 use App\Interfaces\References\RefRoleDetailInterface;
 use App\Interfaces\References\RefRoleInterface;
 use App\Interfaces\References\RefUserInterface;
@@ -26,6 +25,10 @@ readonly class LoginService
     public function authenticate(array $credentials): void
     {
         $dataUser = $this->refUserRepository->findDataByUsername($credentials['username']);
+        if (is_null($dataUser)) {
+            throw new BusinessException('Username atau password salah');
+        }
+
         $accessData = [
             'uuid' => $dataUser->uuid,
             'username' => $dataUser->username,

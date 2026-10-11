@@ -28,7 +28,7 @@ class LoginTest extends TestCase
     {
         $response = $this->post('/auth/login/submit', [
             'username' => 'admin',
-            'password' => Hash::make('P!sang#123'),
+            'password' => Hash::make('Ian!an100994'),
             'cf-turnstile-response' => 'XXXX.DUMMY.TOKEN.XXXX'
         ]);
 
@@ -52,7 +52,7 @@ class LoginTest extends TestCase
 
         $this->followRedirects($response)
             ->assertStatus(200)
-            ->assertSee('Username atau password salah!');
+            ->assertSee('Username atau password salah');
     }
 
     /**
@@ -72,6 +72,6 @@ class LoginTest extends TestCase
 
         $this->followRedirects($response)
             ->assertStatus(200)
-            ->assertSee('Username atau password salah!');
+            ->assertSee('Username atau password salah');
     }
 }

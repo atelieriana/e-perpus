@@ -37,11 +37,7 @@ class AdminMenu
                         'child' => [
                             [
                                 'name' => 'Siswa',
-                                'route' => '#',
-                            ],
-                            [
-                                'name' => 'Kelas',
-                                'route' => '#',
+                                'route' => route('siswa.index'),
                             ],
                             [
                                 'name' => 'Jurusan',
