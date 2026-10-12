@@ -41,7 +41,7 @@ class AdminMenu
                             ],
                             [
                                 'name' => 'Kejuruan',
-                                'route' => '#',
+                                'route' => route('kejuruan.index'),
                             ],
                             [
                                 'name' => 'Tahun Ajar',
