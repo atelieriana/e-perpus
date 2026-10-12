@@ -29,7 +29,7 @@
                             </div>
                         </div>
                     </div>
-                    <form id="form-buku-umum" method="post" action="{{ route('siswa.create.submit') }}" enctype="multipart/form-data">
+                    <form id="form-siswa" method="post" action="{{ route('siswa.create.submit') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="fv-row row mb-4">
                             <label for="status-siswa" class="col-sm-3 col-form-label">Status Siswa<span class="text-danger">*</span></label>
@@ -37,7 +37,7 @@
                                 <select class="form-control" name="status-siswa" id="status-siswa">
                                     <option value="">--- Pilih Status Siswa ---</option>
                                     @foreach($listStatusSiswa as $statusSiswa)
-                                        <option value="{{ $statusSiswa->uuid }}">{{ $statusSiswa->status_siswa }}</option>
+                                        <option value="{{ $statusSiswa->uuid }}" @selected(old('status-siswa') == $statusSiswa->uuid)>{{ $statusSiswa->status_siswa }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -67,15 +67,15 @@
                         <div class="fv-row row mb-4">
                             <label for="gender" class="col-sm-3 col-form-label">Gender<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
-                                <input type="radio" name="gender" id="gender" value="1"/> Laki-Laki &nbsp;
-                                <input type="radio" name="gender" id="gender" value="2"/> Perempuan
+                                <input type="radio" name="gender" id="gender" value="1" @checked(old('gender') == 1)/> Laki-Laki &nbsp;&nbsp;
+                                <input type="radio" name="gender" id="gender" value="2" @selected(old('gender') == 2)/> Perempuan
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-12 d-flex justify-content-between">
                                 <a href="{{ route('buku-umum.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
-                                <button type="submit" id="button-submit-buku-umum" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
+                                <button type="submit" id="button-submit-siswa" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
                             </div>
                         </div>
                     </form>
@@ -85,5 +85,87 @@
     </div>
 @endsection
 @section('custom-script')
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            let form = document.getElementById('form-siswa');
+            let buttonSubmit = document.getElementById('button-submit-siswa');
+            let messageNotEmpty = 'Wajib diisi';
+            let messageStringMax = 'Hanya dapat diisi 255 karakter'
 
+            buttonSubmit.addEventListener('click', (event) => {
+                event.preventDefault();
+                validator.validate().then(function (status) {
+                    if (status === 'Valid') {
+                        buttonSubmit.disabled = true;
+                        Swal.fire({
+                            text: "Mohon menunggu kami sedang memverifikasi isian form",
+                            icon: "success",
+                            buttonsStyling: false,
+                            confirmButtonText: "Ok",
+                            customClass: {
+                                confirmButton: "btn btn-primary"
+                            }
+                        }).then(() => {
+                            form.submit(); // Submit form after user clicks OK
+                        });
+                    }
+                });
+            });
+
+            let validator = FormValidation.formValidation(
+                form,
+                {
+                    fields: {
+                        'status-siswa': {
+                            validators: {
+                                notEmpty: { message: messageNotEmpty },
+                                stringLength: { max: 255, message: messageStringMax }
+                            },
+                        },
+                        'nisn': {
+                            validators: {
+                                notEmpty: { message: messageNotEmpty },
+                                digits: { message: 'Hanya bisa berisikan angka' },
+                                regexp: {
+                                    regexp: "^^\\d{10}$",
+                                    message: "NISN harus berisikan 10 digit"
+                                }
+                            },
+                        },
+                        'nomor-induk': {
+                            validators: {
+                                notEmpty: { message: messageNotEmpty },
+                                digits: { message: 'Hanya bisa berisikan angka' },
+                                greaterThan: {
+                                    min: 1,
+                                    message: 'Nomor induk minimal 1 digit'
+                                }
+                            }
+                        },
+                        'nama-lengkap': {
+                            validators: {
+                                notEmpty: { message: messageNotEmpty },
+                                stringLength: { max: 255, message: messageStringMax },
+                            }
+                        },
+                        'gender': {
+                            validators: {
+                                notEmpty: { message: messageNotEmpty }
+                            }
+                        },
+                    },
+                    plugins: {
+                        trigger: new FormValidation.plugins.Trigger({
+                            event: 'input blur'
+                        }),
+                        bootstrap: new FormValidation.plugins.Bootstrap5({
+                            rowSelector: '.fv-row',
+                            eleInvalidClass: 'is-invalid',
+                            eleValidClass: 'is-valid'
+                        })
+                    }
+                }
+            );
+        });
+    </script>
 @endsection

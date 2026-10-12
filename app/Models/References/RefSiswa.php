@@ -15,6 +15,15 @@ class RefSiswa extends Model
     protected $table = 'ref_siswa';
     protected $primaryKey = 'id';
 
+    protected $fillable = [
+        'uuid',
+        'id_ref_status_siswa',
+        'nisn',
+        'nomor_induk',
+        'nama_lengkap',
+        'gender'
+    ];
+
     /**
      * Digunakan untuk mengambil scope siswa yang aktif saja
      * @param Builder $query

@@ -19,4 +19,9 @@ readonly class StatusSiswaService
     {
         return $this->refStatusSiswa->all();
     }
+
+    public function findByUUID(string $uuid)
+    {
+        return $this->refStatusSiswa->findByUUID($uuid);
+    }
 }
