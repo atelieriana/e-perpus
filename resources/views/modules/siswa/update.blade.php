@@ -75,7 +75,7 @@
 
                         <div class="row">
                             <div class="col-sm-12 d-flex justify-content-between">
-                                <a href="{{ route('buku-umum.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
+                                <a href="{{ route('siswa.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
                                 <button type="submit" id="button-submit-siswa" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
                             </div>
                         </div>

@@ -25,7 +25,7 @@ class UpdateRequest extends FormRequest
         return [
             'status-siswa' => ['required'],
             'nisn' => ['required','digits:10'],
-            'nomor-induk' => ['required','digits:5'],
+            'nomor-induk' => ['required','digits_between:5,6'],
             'nama-lengkap' => ['required','string'],
             'gender' => ['required','string'],
         ];
@@ -36,7 +36,7 @@ class UpdateRequest extends FormRequest
         return [
             '*.required' => ':attribute wajib diisi.',
             '*.max' => ':attribute maksimal :min karakter.',
-            '*.digits' => ':attribute harus :digits digit.',
+            '*.digits_between' => ':attribute minimal :min dan maksimal :max digit.',
         ];
     }
 

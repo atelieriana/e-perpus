@@ -38,11 +38,11 @@ class Siswa extends Controller
             })
             ->addColumn('aksi', function ($dataSiswa) {
                 return '<div class="row">
-                            <div class="col-md-4">
+                            <!--<div class="col-md-4">
                                 <a href="'.route('buku-umum.update',['uuid' => $dataSiswa->uuid]).'" data-toggle="tooltip" title="lihat">
                                     <i class="mdi mdi-eye text-primary"></i>
                                 </a>
-                            </div>
+                            </div>-->
                             <div class="col-md-4">
                                 <a href="'.route('siswa.update',['uuid' => $dataSiswa->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
