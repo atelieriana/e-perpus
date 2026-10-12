@@ -33,4 +33,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('buku-umum')
             ->name('buku-umum.')
             ->group(__DIR__ . '/modules/buku-umum.php');
+
+        #Rouring Referensi Siswa
+        Route::prefix('siswa')
+            ->name('siswa.')
+            ->group(__DIR__ . '/modules/siswa.php');
     });

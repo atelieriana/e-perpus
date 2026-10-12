@@ -38,7 +38,7 @@
                                     </button>
                                 </a>
                             </div>
-                        </div><!-- end col-->
+                        </div>
                     </div>
                     <table class="table table-bordered dt-responsive" id="table-buku-umum">
                         <thead class="table-light">
