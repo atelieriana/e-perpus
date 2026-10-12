@@ -4,8 +4,11 @@ namespace App\Services;
 
 use App\Exceptions\BusinessException;
 use App\Interfaces\References\RefSiswaInterface;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 readonly class SiswaService
 {
@@ -27,21 +30,76 @@ readonly class SiswaService
     }
 
     /**
-     * Service yang digunakan untuk menciptakan record siswa pada database
+     * Service yang digunakan untuk mendapatkan data siswa berdasarkan UUID
+     * @param string $uuid
+     * @return mixed
+     */
+    public function findDataSiswaByUUID(string $uuid)
+    {
+        return $this->refSiswaInterface->findByUUID($uuid);
+    }
+
+    /**
+     * Service yang digunakan untuk melakukan create data siswa pada database
      * @param array $araryRequest
-     * @return RedirectResponse|void
+     * @return RedirectResponse|mixed|null
+     * @throws \Throwable
      */
     public function createRecordSiswa(array $araryRequest)
     {
         try
         {
-            $this->refSiswaInterface->create($araryRequest);
+            return DB::transaction(function () use ($araryRequest) {
+                return $this->refSiswaInterface->create($araryRequest);
+            });
         }
-        catch (BusinessException $exception)
+        catch (QueryException $exception)
         {
-            return response()
-                ->redirectToRoute('siswa.create')
-                ->with('error', $exception->getMessage());
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalahan saat menyimpan data siswa");
+        }
+    }
+
+    /**
+     * Service yang digunakan untuk melakukan update data siswa pada database
+     * @param array $araryRequest
+     * @param int $id
+     * @return mixed
+     * @throws \Throwable
+     */
+    public function updateRecordSiswa(array $araryRequest, int $id)
+    {
+        try
+        {
+            return DB::transaction(function () use ($araryRequest, $id) {
+                return $this->refSiswaInterface->update($araryRequest, $id);
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalahan saat mengubah data siswa");
+        }
+    }
+
+    /**
+     * Service yang digunakan untuk melakukan soft delete pada data siswa
+     * @param int $id
+     * @return mixed
+     * @throws \Throwable
+     */
+    public function deleteRecordSiswa(int $id)
+    {
+        try
+        {
+            return DB::transaction(function () use ($id) {
+                return $this->refSiswaInterface->delete($id);
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalahan saat menghapus data siswa");
         }
     }
 }

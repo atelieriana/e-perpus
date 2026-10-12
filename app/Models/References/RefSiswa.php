@@ -5,6 +5,7 @@ namespace App\Models\References;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class RefSiswa extends Model
 {
@@ -23,6 +24,15 @@ class RefSiswa extends Model
         'nama_lengkap',
         'gender'
     ];
+
+    /**
+     * Digunakan untuk melakukan join elloquent
+     * @return HasOne
+     */
+    public function status_siswa()
+    {
+        return $this->hasOne(RefStatusSiswa::class, 'id', 'id_ref_status_siswa');
+    }
 
     /**
      * Digunakan untuk mengambil scope siswa yang aktif saja

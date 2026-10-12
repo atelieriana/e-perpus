@@ -65,4 +65,17 @@ class RefSiswaIRepository extends BaseRepository implements RefSiswaInterface
 
         return $query->get();
     }
+
+    /**
+     * @param string $uuid
+     * @return RefSiswa|mixed|null
+     */
+    public function findByUUID(string $uuid)
+    {
+        return $this->refSiswa
+            ->newQuery()
+            ->with(['status_siswa'])
+            ->where('uuid', $uuid)
+            ->first();
+    }
 }

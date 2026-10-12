@@ -46,17 +46,17 @@ class BaseRepository implements BaseRepositoryInterface
 
     public function create(array $data)
     {
-        $this->model->create($data);
+        return $this->model->create($data);
     }
 
     public function update(array $data, int $id)
     {
-        $this->model->find($id)->update($data);
+        return $this->model->find($id)->update($data);
     }
 
     public function delete(int $id)
     {
-        $this->model->find($id)->delete();
+        return $this->model->find($id)->delete();
     }
 
     public function checkChanges()

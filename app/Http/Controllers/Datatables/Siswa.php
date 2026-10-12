@@ -44,7 +44,7 @@ class Siswa extends Controller
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a href="'.route('buku-umum.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
+                                <a href="'.route('siswa.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
