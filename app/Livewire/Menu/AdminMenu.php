@@ -40,7 +40,7 @@ class AdminMenu
                                 'route' => route('siswa.index'),
                             ],
                             [
-                                'name' => 'Jurusan',
+                                'name' => 'Kejuruan',
                                 'route' => '#',
                             ],
                             [
