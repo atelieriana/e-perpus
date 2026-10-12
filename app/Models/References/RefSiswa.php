@@ -2,13 +2,21 @@
 
 namespace App\Models\References;
 
+use App\Traits\AuditTransaction;
+use App\Traits\LogTransaction;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class RefSiswa extends Model
+class RefSiswa extends Model implements Auditable
 {
+    use SoftDeletes,
+        AuditTransaction,
+        LogTransaction;
+
     const STATUS_SISWA_AKTIF = 1;
     const STATUS_SISWA_PINDAH = 2;
     const STATUS_SISWA_LULUS = 3;

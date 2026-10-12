@@ -36,20 +36,20 @@ class Siswa extends Controller
                     return 'Perempuan';
                 }
             })
-            ->addColumn('aksi', function ($dataBuku) {
+            ->addColumn('aksi', function ($dataSiswa) {
                 return '<div class="row">
                             <div class="col-md-4">
-                                <a href="'.route('buku-umum.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="lihat">
+                                <a href="'.route('buku-umum.update',['uuid' => $dataSiswa->uuid]).'" data-toggle="tooltip" title="lihat">
                                     <i class="mdi mdi-eye text-primary"></i>
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a href="'.route('siswa.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
+                                <a href="'.route('siswa.update',['uuid' => $dataSiswa->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
                             <div class="col-md-4">
-                                <a href="'.route('buku-umum.delete',['uuid' =>  $dataBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
+                                <a href="'.route('siswa.delete',['uuid' =>  $dataSiswa->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>

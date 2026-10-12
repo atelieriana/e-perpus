@@ -99,7 +99,7 @@ readonly class SiswaService
         catch (QueryException $exception)
         {
             Log::error($exception->getMessage());
-            throw new BusinessException("Terjadi kesalahan saat menghapus data siswa");
+            throw new BusinessException("Terjadi kesalahan saat menghapus data siswa, data masih digunakan pada table lain");
         }
     }
 }
