@@ -17,5 +17,5 @@ Route::post('/submit', [CreateSiswa::class, 'onSubmit'])
 #Routing Update Siswa
 Route::get('/update/{uuid}', [UpdateSiswa::class, 'index'])
     ->name('update');
-Route::post('/update/submit', [UpdateSiswa::class, 'update'])
+Route::post('/update/submit', [UpdateSiswa::class, 'onSubmit'])
     ->name('update.submit');

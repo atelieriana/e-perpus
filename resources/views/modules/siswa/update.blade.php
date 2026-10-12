@@ -29,8 +29,9 @@
                             </div>
                         </div>
                     </div>
-                    <form id="form-siswa" method="post" action="{{ route('siswa.create.submit') }}" enctype="multipart/form-data">
+                    <form id="form-siswa" method="post" action="{{ route('siswa.update.submit') }}" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden" name="uuid-siswa" value="{{ $dataSiswa->uuid }}"/>
                         <div class="fv-row row mb-4">
                             <label for="status-siswa" class="col-sm-3 col-form-label">Status Siswa<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
@@ -68,7 +69,7 @@
                             <label for="gender" class="col-sm-3 col-form-label">Gender<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <input type="radio" name="gender" id="gender" value="1" @checked((old('gender')) ? old('gender') : $dataSiswa->gender == 1)/> Laki-Laki &nbsp;&nbsp;
-                                <input type="radio" name="gender" id="gender" value="2" @selected((old('gender')) ? old('gender') : $dataSiswa->gender == 2)/> Perempuan
+                                <input type="radio" name="gender" id="gender" value="2" @checked((old('gender')) ? old('gender') : $dataSiswa->gender == 2)/> Perempuan
                             </div>
                         </div>
 

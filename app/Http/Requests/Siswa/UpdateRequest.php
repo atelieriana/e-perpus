@@ -12,7 +12,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,32 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'status-siswa' => ['required'],
+            'nisn' => ['required','digits:10'],
+            'nomor-induk' => ['required','digits:5'],
+            'nama-lengkap' => ['required','string'],
+            'gender' => ['required','string'],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            '*.required' => ':attribute wajib diisi.',
+            '*.max' => ':attribute maksimal :min karakter.',
+            '*.digits' => ':attribute harus :digits digit.',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'uuid-siswa' => 'UUID siswa',
+            'status-siswa' => 'Status siswa',
+            'nisn' => 'NISN',
+            'nomor-induk' => 'Nomor induk',
+            'nama-siswa' => 'Nama siswa',
+            'gender' => 'Gender',
         ];
     }
 }
