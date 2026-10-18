@@ -16,4 +16,15 @@ class RefKejuruan extends Model implements Auditable
 
     protected $table = 'ref_kejuruan';
     protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'uuid',
+        'kejuruan',
+        'created_by',
+        'created_at',
+        'updated_by',
+        'updated_at',
+        'deleted_by',
+        'deleted_at',
+    ];
 }

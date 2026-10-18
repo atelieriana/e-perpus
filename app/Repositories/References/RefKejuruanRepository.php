@@ -6,6 +6,7 @@ use App\Interfaces\References\RefKejuruanInterface;
 use App\Models\References\RefKejuruan;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 
 class RefKejuruanRepository extends BaseRepository implements RefKejuruanInterface
