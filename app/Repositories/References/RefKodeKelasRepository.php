@@ -8,7 +8,7 @@ use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class RefRefKodeKelasRepository extends BaseRepository implements RefKodeKelasInterface
+class RefKodeKelasRepository extends BaseRepository implements RefKodeKelasInterface
 {
     public function __construct(
         private RefKodeKelas $refKodeKelas
@@ -50,5 +50,14 @@ class RefRefKodeKelasRepository extends BaseRepository implements RefKodeKelasIn
         }
 
         return $query->get();
+    }
+
+    public function findByUUID(string $uuid)
+    {
+        return $this->refKodeKelas
+            ->newQuery()
+            ->with(['ref_kejuruan', 'ref_kelas'])
+            ->where('uuid', $uuid)
+            ->first();
     }
 }

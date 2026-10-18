@@ -2,10 +2,10 @@
 
 namespace App\Interfaces\References;
 
-use App\Repositories\References\RefRefKodeKelasRepository;
+use App\Repositories\References\RefKodeKelasRepository;
 use Illuminate\Container\Attributes\Bind;
 
-#[Bind(RefRefKodeKelasRepository::class)]
+#[Bind(RefKodeKelasRepository::class)]
 interface RefKodeKelasInterface
 {
     /**
