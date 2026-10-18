@@ -28,8 +28,10 @@
     "dependencies": {
         "@form-validation/core": "^2.4.0",
         "@form-validation/plugin-bootstrap5": "^2.4.0",
+        "@form-validation/plugin-start-end-date": "^2.4.0",
         "@form-validation/plugin-trigger": "^2.4.0",
         "@form-validation/validator-between": "^2.4.0",
+        "@form-validation/validator-date": "^2.4.0",
         "@form-validation/validator-digits": "^2.4.0",
         "@form-validation/validator-email-address": "^2.4.0",
         "@form-validation/validator-file": "^2.4.0",

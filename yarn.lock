@@ -40,6 +40,13 @@
   dependencies:
     "@form-validation/core" "2.4.0"
 
+"@form-validation/plugin-start-end-date@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/@form-validation/plugin-start-end-date/-/plugin-start-end-date-2.4.0.tgz"
+  integrity sha512-pL0mEObUB7ki4wJAnND8QEi3uOXI1z0XdRA1eLJOg+HRJAxDb+4kkhkM3AfqWn7rtYryyzJ735JGvnYCuRH4wQ==
+  dependencies:
+    "@form-validation/core" "2.4.0"
+
 "@form-validation/plugin-trigger@^2.4.0":
   version "2.4.0"
   resolved "https://registry.npmjs.org/@form-validation/plugin-trigger/-/plugin-trigger-2.4.0.tgz"
@@ -51,6 +58,13 @@
   version "2.4.0"
   resolved "https://registry.npmjs.org/@form-validation/validator-between/-/validator-between-2.4.0.tgz"
   integrity sha512-YO0ZaXBi3qEcPPbBvGbpTxELg2y4FlK3a1mi0at/9fgOK1MgpBr70UEIOkdacO8+TbRELyz6GSsQPf1XFupV2g==
+  dependencies:
+    "@form-validation/core" "2.4.0"
+
+"@form-validation/validator-date@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/@form-validation/validator-date/-/validator-date-2.4.0.tgz"
+  integrity sha512-s5X2vvGrZL1X5Nfb7CfvR9RUfNo0Q2gGkiJLMg786MFxjgSbAzpRU7NqaiCYKpq0GqXwWA+d/k2zBJQe4LKlOA==
   dependencies:
     "@form-validation/core" "2.4.0"
 

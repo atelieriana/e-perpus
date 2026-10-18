@@ -13,9 +13,7 @@ class TahunAjar extends Controller
     public function __construct(
         private TahunAjarServices $tahunAjarServices
     )
-    {
-
-    }
+    {}
 
     public function __invoke(Request $request)
     {

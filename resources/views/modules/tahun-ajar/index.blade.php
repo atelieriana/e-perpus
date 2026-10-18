@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('kejuruan.create') }}">
+                                <a href="{{ route('tahun-ajar.create') }}">
                                     <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2">
                                         <i class="mdi mdi-plus me-1"></i> Tambah Tahun Ajar
                                     </button>
@@ -40,7 +40,7 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered dt-responsive" id="table-siswa">
+                    <table class="table table-bordered dt-responsive" id="table-tahun-ajar">
                         <thead class="table-light">
                         <tr>
                             <th class="align-middle">No</th>
@@ -59,7 +59,7 @@
 @section('custom-script')
     <script>
         $(document).ready(function() {
-            const table = $('#table-siswa').DataTable({
+            const table = $('#table-tahun-ajar').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: {
