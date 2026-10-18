@@ -12,7 +12,7 @@ class DeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,21 @@ class DeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'uuid-kode-kelas' => ['required']
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            '*.required' => ':attribute tidak boleh kosong',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'uuid-kode-kelas' => 'UUID kode kelas'
         ];
     }
 }
