@@ -2,13 +2,13 @@
 
 namespace App\Repositories\References;
 
-use App\Interfaces\References\KodeKelasInterface;
+use App\Interfaces\References\RefKodeKelasInterface;
 use App\Models\References\RefKodeKelas;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class RefKodeKelasRepository extends BaseRepository implements KodeKelasInterface
+class RefRefKodeKelasRepository extends BaseRepository implements RefKodeKelasInterface
 {
     public function __construct(
         private RefKodeKelas $refKodeKelas

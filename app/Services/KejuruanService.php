@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\References\RefKejuruanInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 readonly class KejuruanService
 {
@@ -10,6 +11,16 @@ readonly class KejuruanService
         private RefKejuruanInterface $refKejuruanInterface,
     )
     {}
+
+
+    /**
+     * Digunakan untuk mendapatkan seluruh data kejuruan
+     * @return Collection
+     */
+    public function getAllRecord()
+    {
+        return $this->refKejuruanInterface->all();
+    }
 
     /**
      * Service yang digunakan untuk melakukan pencairan berdasarkan UUID

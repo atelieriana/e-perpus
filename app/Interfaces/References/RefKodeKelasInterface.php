@@ -2,11 +2,11 @@
 
 namespace App\Interfaces\References;
 
-use App\Repositories\References\RefKodeKelasRepository;
+use App\Repositories\References\RefRefKodeKelasRepository;
 use Illuminate\Container\Attributes\Bind;
 
-#[Bind(RefKodeKelasRepository::class)]
-interface KodeKelasInterface
+#[Bind(RefRefKodeKelasRepository::class)]
+interface RefKodeKelasInterface
 {
     /**
      * Digunakan untuk membentuk format datatatbles kode kelas

@@ -14,38 +14,45 @@
             </div>
         </div>
     </div>
-    <div class="card">
-        <div class="card-body">
-            <div class="row mb-2">
-                <div class="col-sm-4">
-                    <div class="search-box me-2 mb-2 d-inline-block">
-                        <div class="position-relative">
-                            <h4>Daftar Kode Kelas</h4>
+    <div class="row">
+        <div class="col-lg-12">
+            @include('templates.notification')
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row mb-2">
+                        <div class="col-sm-4">
+                            <div class="search-box me-2 mb-2 d-inline-block">
+                                <div class="position-relative">
+                                    <h4>Daftar Kode Kelas</h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-8">
+                            <div class="text-sm-end">
+                                <a href="{{ route('kode-kelas.create') }}">
+                                    <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2">
+                                        <i class="mdi mdi-plus me-1"></i> Tambah Kode Kelas
+                                    </button>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-8">
-                    <div class="text-sm-end">
-                        <a href="{{ route('kejuruan.create') }}">
-                            <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2">
-                                <i class="mdi mdi-plus me-1"></i> Tambah Kode Kelas
-                            </button>
-                        </a>
-                    </div>
+                    <table class="table table-bordered dt-responsive" id="table-kode-kelas">
+                        <thead class="table-light">
+                        <tr>
+                            <th class="text-center">No <span class="text-muted" data-ic="sort" data-s="13"></span></th>
+                            <th>Kode Kelas <span class="text-muted" data-ic="sort" data-s="13"></span></th>
+                            <th>Jurusan / Program Keahlian <span class="text-muted" data-ic="sort" data-s="13"></span></th>
+                            <th>Tingkat / Kelompok <span class="text-muted" data-ic="sort" data-s="13"></span></th>
+                            <th>Deskripsi</th>
+                            <th class="text-center">Aksi</th>
+                        </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
-            <table class="table table-bordered dt-responsive" id="table-kode-kelas">
-                <thead class="table-light">
-                <tr>
-                    <th class="text-center">No <span class="text-muted" data-ic="sort" data-s="13"></span></th>
-                    <th>Kode Kelas <span class="text-muted" data-ic="sort" data-s="13"></span></th>
-                    <th>Jurusan / Program Keahlian <span class="text-muted" data-ic="sort" data-s="13"></span></th>
-                    <th>Tingkat / Kelompok <span class="text-muted" data-ic="sort" data-s="13"></span></th>
-                    <th>Deskripsi</th>
-                    <th class="text-center">Aksi</th>
-                </tr>
-                </thead>
-            </table>
         </div>
     </div>
 @endsection

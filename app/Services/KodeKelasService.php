@@ -2,12 +2,12 @@
 
 namespace App\Services;
 
-use App\Interfaces\References\KodeKelasInterface;
+use App\Interfaces\References\RefKodeKelasInterface;
 
-class KodeKelasService
+readonly class KodeKelasService
 {
     public function __construct(
-        private KodeKelasInterface $kodeKelasInterface,
+        private RefKodeKelasInterface $kodeKelasInterface,
     )
     {}
 
