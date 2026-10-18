@@ -48,4 +48,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('tahun-ajar')
             ->name('tahun-ajar.')
             ->group(__DIR__ . '/modules/tahun-ajar.php');
+
+        #Routing Kode Kelas
+        Route::prefix('kode-kelas')
+            ->name('kode-kelas.')
+            ->group(__DIR__ . '/modules/kode-kelas.php');
     });

@@ -48,6 +48,10 @@ class AdminMenu
                                 'route' => route('tahun-ajar.index'),
                             ],
                             [
+                                'name' => 'Kode Kelas',
+                                'route' => route('kode-kelas.index'),
+                            ],
+                            [
                                 'name' => 'Penempatan Siswa',
                                 'route' => '#',
                             ]
