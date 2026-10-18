@@ -81,10 +81,14 @@
                 form,
                 {
                     fields: {
-                        'status-kejuruan': {
+                        'kejuruan': {
                             validators: {
                                 notEmpty: { message: messageNotEmpty },
-                                stringLength: { max: 255, message: messageStringMax }
+                                stringLength: { max: 255, message: messageStringMax },
+                                regexp: {
+                                    regexp: "^[a-zA-Z ]+$",
+                                    message: "Kejuruan hanya boleh huruf"
+                                }
                             },
                         },
                     },
