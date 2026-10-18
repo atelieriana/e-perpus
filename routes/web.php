@@ -43,4 +43,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('kejuruan')
             ->name('kejuruan.')
             ->group(__DIR__ . '/modules/kejuruan.php');
+
+        #Routing Referensi Tahun Ajar
+        Route::prefix('tahun-ajar')
+            ->name('tahun-ajar.')
+            ->group(__DIR__ . '/modules/tahun-ajar.php');
     });

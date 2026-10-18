@@ -20,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Carbon::setLocale('id');
         Carbon::serializeUsing(function ($carbon) {
             return $carbon->setTimezone('Asia/Jakarta')->toIso8601String();
         });

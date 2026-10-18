@@ -12,6 +12,8 @@ import {between} from "@form-validation/validator-between";
 import {isbn} from "@form-validation/validator-isbn";
 import {greaterThan} from "@form-validation/validator-greater-than";
 import {file} from "@form-validation/validator-file";
+import {StartEndDate} from "@form-validation/plugin-start-end-date";
+import {date} from '@form-validation/validator-date'
 
 import Swal from 'sweetalert2'
 import axios from 'axios';
@@ -28,10 +30,12 @@ window.FormValidation = {
             .registerValidator('isbn', isbn)
             .registerValidator('greaterThan', greaterThan)
             .registerValidator('file', file)
+            .registerValidator('date', date)
     },
     plugins: {
         Trigger,
-        Bootstrap5
+        Bootstrap5,
+        StartEndDate
     },
 };
 
