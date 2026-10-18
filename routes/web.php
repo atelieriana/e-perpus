@@ -38,4 +38,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('siswa')
             ->name('siswa.')
             ->group(__DIR__ . '/modules/siswa.php');
+
+        #Routing Referensi Kejuruan
+        Route::prefix('kejuruan')
+            ->name('kejuruan.')
+            ->group(__DIR__ . '/modules/kejuruan.php');
     });

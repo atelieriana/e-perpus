@@ -40,8 +40,8 @@ class AdminMenu
                                 'route' => route('siswa.index'),
                             ],
                             [
-                                'name' => 'Jurusan',
-                                'route' => '#',
+                                'name' => 'Kejuruan',
+                                'route' => route('kejuruan.index'),
                             ],
                             [
                                 'name' => 'Tahun Ajar',
