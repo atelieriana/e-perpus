@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\References\RefKejuruanInterface;
 
-class KejuruanService
+readonly class KejuruanService
 {
     public function __construct(
         private RefKejuruanInterface $refKejuruanInterface,
