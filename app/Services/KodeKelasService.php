@@ -11,7 +11,7 @@ class KodeKelasService
     )
     {}
 
-    public function getDatatablesKodeKelas(int $start, int $end, string $search)
+    public function getDatatablesKodeKelas(int $start = null, int $end = null, string $search = null)
     {
         return $this->kodeKelasInterface->dtKodeKelas($start, $end, $search);
     }

@@ -4,7 +4,7 @@ namespace App\Models\References;
 
 use Illuminate\Database\Eloquent\Model;
 
-class KodeKelas extends Model
+class RefKodeKelas extends Model
 {
     protected $table = 'ref_kode_kelas';
     protected $primaryKey = 'id';
@@ -21,4 +21,14 @@ class KodeKelas extends Model
         'deleted_by',
         'deleted_at',
     ];
+
+    public function ref_kejuruan()
+    {
+        return $this->belongsTo(RefKejuruan::class, 'id_ref_kejuruan');
+    }
+
+    public function ref_kelas()
+    {
+        return $this->belongsTo(RefKelas::class, 'id_ref_kelas');
+    }
 }

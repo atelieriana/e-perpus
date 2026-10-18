@@ -2,10 +2,10 @@
 
 namespace App\Interfaces\References;
 
-use App\Repositories\References\RefKodeKelasInterfaceRepository;
+use App\Repositories\References\RefKodeKelasRepository;
 use Illuminate\Container\Attributes\Bind;
 
-#[Bind(RefKodeKelasInterfaceRepository::class)]
+#[Bind(RefKodeKelasRepository::class)]
 interface KodeKelasInterface
 {
     /**
@@ -15,5 +15,5 @@ interface KodeKelasInterface
      * @param string $search
      * @return mixed
      */
-    public function dtKodeKelas(int $start, int $end, string $search);
+    public function dtKodeKelas(int $start = null, int $end = null, string $search = null);
 }

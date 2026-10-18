@@ -19,6 +19,6 @@ class IndexKodeKelas extends Controller
 
     public function index()
     {
-
+        return view('modules.kode-kelas.index');
     }
 }
