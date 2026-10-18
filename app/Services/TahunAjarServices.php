@@ -11,6 +11,11 @@ readonly class TahunAjarServices
     )
     {}
 
+    public function findByUUID(string $uuid)
+    {
+        return $this->refTahunAjarInterface->findByUUID($uuid);
+    }
+
     /**
      * Digunakan untuk menyediakan service datatables tahun ajar
      * @param int|null $start
