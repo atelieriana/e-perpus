@@ -45,7 +45,7 @@ class AdminMenu
                             ],
                             [
                                 'name' => 'Tahun Ajar',
-                                'route' => '#',
+                                'route' => route('tahun-ajar.index'),
                             ],
                             [
                                 'name' => 'Penempatan Siswa',

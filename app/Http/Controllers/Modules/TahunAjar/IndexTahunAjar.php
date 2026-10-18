@@ -12,15 +12,13 @@ class IndexTahunAjar extends Controller
     use AuditAccess;
     private $moduleName = 'Tahun Ajar - Index';
 
-    public function __construct(
-        private TahunAjarServices $tahunAjarServices
-    )
+    public function __construct()
     {
         $this->logAccess();
     }
 
     public function index()
     {
-        
+        return view ('modules.tahun-ajar.index');
     }
 }
