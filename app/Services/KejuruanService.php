@@ -12,6 +12,16 @@ class KejuruanService
     {}
 
     /**
+     * Service yang digunakan untuk melakukan pencairan berdasarkan UUID
+     * @param string $uuid
+     * @return mixed
+     */
+    public function findByUUID(string $uuid)
+    {
+        return $this->refKejuruanInterface->findByUUID($uuid);
+    }
+
+    /**
      * Service yang digunakan untuk menyediakan service datatables data kejuruan
      * @param int|null $start
      * @param $length

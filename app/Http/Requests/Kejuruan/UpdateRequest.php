@@ -12,7 +12,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,25 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'uuid' => ['required','uuid'],
+            'kejuruan' => ['required','regex:/^[a-zA-Z\s]+$/'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            '*.required' => ':attribute wajib diisi.',
+            '*.uuid' => ':attribute tidak valid.',
+            '*.regex' => ':attribute hanya dapat diisi dengan huruf.',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'uuid' => 'UUID',
+            'kejuruan' => 'Kejuruan',
         ];
     }
 }
