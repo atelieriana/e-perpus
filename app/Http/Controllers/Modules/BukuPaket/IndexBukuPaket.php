@@ -19,6 +19,6 @@ class IndexBukuPaket extends Controller
 
     public function index()
     {
-
+        return view('modules.buku-paket.index');
     }
 }

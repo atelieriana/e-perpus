@@ -28,6 +28,10 @@ class AdminMenu
                             [
                                 'name' => 'Buku Umum',
                                 'route' => route('buku-umum.index'),
+                            ],
+                            [
+                                'name' => 'Buku Paket',
+                                'route' => route('buku-paket.index'),
                             ]
                         ],
                     ],
