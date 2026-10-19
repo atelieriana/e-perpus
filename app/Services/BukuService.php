@@ -18,6 +18,11 @@ readonly class BukuService
     )
     {}
 
+    public function getAllRecord()
+    {
+        return $this->refBukuInterface->all();
+    }
+
     /**
      * Digunakan untuk menyediakan data buku pelajaran dalam format datatables
      * @param int|null $start
@@ -40,6 +45,15 @@ readonly class BukuService
     public function getDatatablesBukuUmum(int $start = null, int $end = null, string $search = null)
     {
         return $this->refBukuInterface->dtDataByIdJenisBuku(self::BUKU_UMUM, $start, $end);
+    }
+
+    /**
+     * @param int $jenisBuku
+     * @return mixed
+     */
+    public function getBukuByJenisBuku(int $jenisBuku)
+    {
+        return $this->refBukuInterface->dtDataByIdJenisBuku($jenisBuku);
     }
 
     /**

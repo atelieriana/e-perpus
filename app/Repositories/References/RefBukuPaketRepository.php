@@ -25,7 +25,7 @@ class RefBukuPaketRepository extends BaseRepository implements RefBukuPaketInter
                 'ref_buku_paket.id',
                 'ref_buku_paket.uuid',
                 'ref_buku.judul',
-                'ref_kelas.kelas',
+                DB::raw('CONCAT("Kelas ", ref_kelas.kelas) as kelas'),
                 'ref_kejuruan.kejuruan'
             ])
             ->join('ref_buku', 'ref_buku.id', '=', 'ref_buku_paket.id_ref_buku')
@@ -36,9 +36,8 @@ class RefBukuPaketRepository extends BaseRepository implements RefBukuPaketInter
         if ($search !== null) {
             $subQuery->where(function ($query) use ($search) {
                 $query->whereRaw("lower(judul) like ?", ["%".$search."%"])
-                    ->orWhereRaw("lower(penulis) like ?", ["%".$search."%"])
-                    ->orWhereRaw("lower(penerbit) like ?", ["%".$search."%"])
-                    ->orWhereRaw("lower(isbn) like ?", ["%".$search."%"]);
+                    ->orWhereRaw("lower(CONCAT('Kelas ', ref_kelas.kelas)) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(kejuruan) like ?", ["%".$search."%"]);
             });
         }
 
