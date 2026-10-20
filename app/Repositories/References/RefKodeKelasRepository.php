@@ -60,4 +60,17 @@ class RefKodeKelasRepository extends BaseRepository implements RefKodeKelasInter
             ->where('uuid', $uuid)
             ->first();
     }
+
+    public function getKodeKelasByKelasAndKejuruan(int $idRefKelas, int $idRefKejuruan)
+    {
+        return $this->refKodeKelas
+            ->newQuery()
+            ->select([
+                'uuid',
+                'kode_kelas',
+            ])
+            ->where('id_ref_kelas', $idRefKelas)
+            ->where('id_ref_kejuruan', $idRefKejuruan)
+            ->get();
+    }
 }

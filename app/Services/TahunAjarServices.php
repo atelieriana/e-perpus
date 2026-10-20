@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\References\RefTahunAjarInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 readonly class TahunAjarServices
 {
@@ -11,6 +12,18 @@ readonly class TahunAjarServices
     )
     {}
 
+    /**
+     * @return Collection
+     */
+    public function getAllRecord()
+    {
+        return $this->refTahunAjarInterface->all();
+    }
+
+    /**
+     * @param string $uuid
+     * @return mixed
+     */
     public function findByUUID(string $uuid)
     {
         return $this->refTahunAjarInterface->findByUUID($uuid);

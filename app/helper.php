@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 if (!function_exists('getFile'))
 {
     function getFile($path)
@@ -15,5 +17,13 @@ if (!function_exists('getOriginalUUID'))
         $previousRequest = url()->previous();
         $arrayPreviousRequest = explode('/', $previousRequest);
         return array_last($arrayPreviousRequest);
+    }
+}
+
+if (!function_exists('getIndonesianDate'))
+{
+    function getIndonesianDate($date)
+    {
+        return Carbon::parse($date)->translatedFormat('d F Y');
     }
 }
