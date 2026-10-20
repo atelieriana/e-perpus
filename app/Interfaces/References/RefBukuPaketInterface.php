@@ -16,12 +16,4 @@ interface RefBukuPaketInterface
      * @return mixed
      */
     public function dtDataBukuPaket(int $start = null, int $end = null, string $search = null);
-
-    /**
-     * Digunakan untuk mendapatkan buku paket berdasarkan kejuruan dan kelas
-     * @param int $idRefKejuruan
-     * @param int $idRefKelas
-     * @return mixed
-     */
-    public function findByIdRefKejuruanDanKelas(int $idRefKejuruan, int $idRefKelas);
 }

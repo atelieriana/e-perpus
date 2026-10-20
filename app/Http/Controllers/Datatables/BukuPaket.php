@@ -25,27 +25,27 @@ class BukuPaket extends Controller
             $request->merge(['start' => 1]);
         }
 
-        $dataBuku = $this->refBukuPaketInterface->dtDataBukuPaket($startData, $endData, $searchData);
-        $totalBuku = $this->refBukuPaketInterface->dtDataBukuPaket(null, null, $searchData)->count();
-        return DataTables::of($dataBuku)
+        $dataBukuPaket = $this->refBukuPaketInterface->dtDataBukuPaket($startData, $endData, $searchData);
+        $totalBukuPaket = $this->refBukuPaketInterface->dtDataBukuPaket(null, null, $searchData)->count();
+        return DataTables::of($dataBukuPaket)
             ->addIndexColumn()
-            ->addColumn('aksi', function ($dataBuku) {
+            ->addColumn('aksi', function ($dataBukuPaket) {
                 return '<div class="row">
                             <div class="col-md-6">
-                                <a href="'.route('buku-pelajaran.update',['uuid' => $dataBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
+                                <a href="'.route('buku-paket.update',['uuid' => $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="'.route('buku-pelajaran.delete',['uuid' =>  $dataBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
+                                <a href="'.route('buku-paket.delete',['uuid' =>  $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>
                         </div>';
             })
             ->rawColumns(['aksi'])
-            ->setFilteredRecords($totalBuku)
-            ->setTotalRecords($totalBuku)
+            ->setFilteredRecords($totalBukuPaket)
+            ->setTotalRecords($totalBukuPaket)
             ->make();
     }
 }

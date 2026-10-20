@@ -5,7 +5,6 @@ namespace App\Repositories\References;
 use App\Interfaces\References\RefBukuPaketInterface;
 use App\Models\References\RefBukuPaket;
 use App\Repositories\BaseRepository;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class RefBukuPaketRepository extends BaseRepository implements RefBukuPaketInterface
@@ -50,8 +49,16 @@ class RefBukuPaketRepository extends BaseRepository implements RefBukuPaketInter
         return $query->get();
     }
 
-    public function findByIdRefKejuruanDanKelas(int $idRefKejuruan, int $idRefKelas)
+    /**
+     * @param string $uuid
+     * @return RefBukuPaket|null
+     */
+    public function findByUUID(string $uuid)
     {
-        // TODO: Implement findByIdRefKejuruanDanKelas() method.
+        return $this->refBukuPaket
+            ->newQuery()
+            ->with(['ref_kelas', 'ref_kejuruan','ref_buku'])
+            ->where('uuid', $uuid)
+            ->first();
     }
 }

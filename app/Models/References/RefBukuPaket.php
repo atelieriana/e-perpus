@@ -28,4 +28,19 @@ class RefBukuPaket extends Model implements Auditable
         'deleted_by',
         'deleted_at',
     ];
+
+    public function ref_buku()
+    {
+        return $this->belongsTo(RefBuku::class, 'id_ref_buku');
+    }
+
+    public function ref_kelas()
+    {
+        return $this->belongsTo(RefKelas::class, 'id_ref_kelas');
+    }
+
+    public function ref_kejuruan()
+    {
+        return $this->belongsTo(RefKejuruan::class, 'id_ref_kejuruan');
+    }
 }
