@@ -26,7 +26,7 @@
                     <div class="col-sm-4">
                         <div class="search-box me-2 mb-2 d-inline-block">
                             <div class="position-relative">
-                                <h4>Tambah Buku Umum</h4>
+                                <h4>Tambah Buku Paket</h4>
                             </div>
                         </div>
                     </div>
@@ -67,8 +67,8 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-12 d-flex justify-content-between">
-                                <a href="{{ route('buku-paket.index') }}" class="btn btn-warning w-md"><i class="mdi mdi-backspace"></i> Kembali</a>
-                                <button type="submit" id="button-submit-buku-paket" class="btn btn-primary w-md"><i class="mdi mdi-content-save"></i> Submit</button>
+                                <a href="{{ route('buku-paket.index') }}" class="btn btn-warning w-md waves-effect waves-light"><i class="mdi mdi-backspace"></i> Kembali</a>
+                                <button type="submit" id="button-submit-buku-paket" class="btn btn-primary w-md waves-effect waves-light"><i class="mdi mdi-content-save"></i> Submit</button>
                             </div>
                         </div>
                     </form>
