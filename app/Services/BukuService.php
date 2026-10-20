@@ -18,11 +18,6 @@ readonly class BukuService
     )
     {}
 
-    public function getAllRecord()
-    {
-        return $this->refBukuInterface->all();
-    }
-
     /**
      * Digunakan untuk menyediakan data buku pelajaran dalam format datatables
      * @param int|null $start

@@ -12,7 +12,7 @@ class CreateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,26 @@ class CreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'uuid-kelas' => ['required', 'uuid'],
+            'uuid-kejuruan' => ['required', 'uuid'],
+            'uuid-buku-pelajaran' => ['required', 'uuid'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            '*.required' => ':attribute tidak boleh kosong',
+            '*.uuid' => ':attribute tidak valid',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'uuid-kelas' => 'Kelas',
+            'uuid-kejuruan' => 'Kejuruan',
+            'uuid-buku-pelajaran' => 'Buku pelajaran',
         ];
     }
 }

@@ -1,14 +1,15 @@
 @extends('layouts.backoffice')
-@section('title','Referensi Kejuruan')
+@section('title','Referensi Buku Paket')
 @section('content')
     <div class="row">
         <div class="col-12">
             <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                <h4 class="mb-sm-0 font-size-18">Referensi Kejuruan</h4>
+                <h4 class="mb-sm-0 font-size-18">Referensi Buku Paket</h4>
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Kejuruan</li>
+                        <li class="breadcrumb-item active"><a href="{{ route('buku-paket.index') }}">Buku Paket</a></li>
+                        <li class="breadcrumb-item active">Create</li>
                     </ol>
                 </div>
 
@@ -43,10 +44,10 @@
                             </div>
                         </div>
                         <div class="fv-row row mb-4">
-                            <label for="kejuruan" class="col-sm-3 col-form-label">Kejuruan<span class="text-danger">*</span></label>
+                            <label for="kejuruan" class="col-sm-3 col-form-label">Buku Paket<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <select class="select2 form-control" id="kejuruan" name="uuid-kejuruan">
-                                    <option value="">--- Pilih Kejuruan ---</option>
+                                    <option value="">--- Pilih Buku Paket ---</option>
                                     @foreach($listKejuruan as $kejuruan)
                                         <option value="{{ $kejuruan->uuid }}">{{ $kejuruan->kejuruan }}</option>
                                     @endforeach
@@ -82,7 +83,6 @@
             let form = document.getElementById('form-buku-paket');
             let buttonSubmit = document.getElementById('button-submit-buku-paket');
             let messageNotEmpty = 'Wajib diisi';
-            let messageStringMax = 'Hanya dapat diisi 255 karakter'
 
             $("#kelas").select2()
             $("#kejuruan").select2()
