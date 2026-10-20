@@ -27,7 +27,7 @@ export default defineConfig({
                 'resources/scss/app.scss',
                 'resources/js/extension.js',
                 'resources/js/app.js',
-                'resources/libs/bootstrap/js/bootstrap.bundle.min.js'
+                'resources/libs/bootstrap/js/bootstrap.bundle.min.js',
             ],
             refresh: true,
         }),
@@ -60,6 +60,11 @@ export default defineConfig({
                 {
                     src: 'resources/libs/datatables.net',
                     dest: 'js/datatables.net',
+                    rename: { stripBase: true }
+                },
+                {
+                    src: 'resources/libs/select2',
+                    dest: 'js/select2',
                     rename: { stripBase: true }
                 },
                 {

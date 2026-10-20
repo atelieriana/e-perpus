@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Datatables\BukuPaket;
 use App\Http\Controllers\Datatables\BukuPelajaran;
 use App\Http\Controllers\Datatables\BukuUmum;
 use App\Http\Controllers\Datatables\Kejuruan;
@@ -20,3 +21,5 @@ Route::post('/tahun-ajar', TahunAjar::class)
     ->name('tahun-ajar');
 Route::post('/kode-kelas', KodeKelas::class)
     ->name('kode-kelas');
+Route::post('/buku-paket', BukuPaket::class)
+    ->name('buku-paket');

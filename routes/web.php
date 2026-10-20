@@ -53,4 +53,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('kode-kelas')
             ->name('kode-kelas.')
             ->group(__DIR__ . '/modules/kode-kelas.php');
+
+        #Routing Buku Paket
+        Route::prefix('buku-paket')
+            ->name('buku-paket.')
+            ->group(__DIR__ . '/modules/buku-paket.php');
     });

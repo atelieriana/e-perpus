@@ -7,11 +7,19 @@
     <meta content="E-Perpustakaan" name="description" />
     <meta content="Kelompok 1 Capstone Project UT" name="author" />
     <link rel="shortcut icon" href="{{ asset('icon/favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/js/select2/select2.min.css') }}"/>
     @vite('resources/scss/bootstrap.scss')
     @vite('resources/scss/icons.scss')
     @vite('resources/scss/app.scss')
     <link rel="stylesheet" type="text/css" href="{{ asset('build/css/datatables.net-bs4/dataTables.bootstrap4.min.css') }}"/>
-
+    <style>
+        .is-invalid ~ .select2-container .select2-selection {
+            border-color: #dc3545;
+        }
+        .is-valid ~ .select2-container .select2-selection {
+            border-color: #198754;
+        }
+    </style>
 </head>
 
 <body data-topbar="dark" data-bs-theme="dark" data-layout="horizontal">
@@ -154,6 +162,7 @@
 <script src="{{ asset('build/js/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('build/js/datatables.net/jquery.dataTables.min.js') }}"></script>
 <script src="{{ asset('build/js/datatables.net-bs4/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('build/js/select2/select2.full.min.js') }}"></script>
 @vite('resources/js/extension.js')
 @vite('resources/libs/bootstrap/js/bootstrap.bundle.min.js')
 @vite('resources/js/app.js')

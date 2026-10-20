@@ -17,4 +17,11 @@ interface RefBukuInterface
      * @return mixed
      */
     public function dtDataByIdJenisBuku(int $id, int $start = null, int $end = null, string $search = null);
+
+    /**
+     * Digunakan untuk menyediakan data buku berdasarkan jenis buku
+     * @param int $idJenisBuku
+     * @return mixed
+     */
+    public function findBukuByJenisBuku(int $idJenisBuku);
 }

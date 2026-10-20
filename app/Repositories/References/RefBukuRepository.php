@@ -39,4 +39,13 @@ class RefBukuRepository extends BaseRepository implements RefBukuInterface
 
         return $query->get();
     }
+
+    /**
+     * @param int $idJenisBuku
+     * @return mixed
+     */
+    public function findBukuByJenisBuku(int $idJenisBuku)
+    {
+        return $this->refBuku->where('id_ref_jenis_buku', $idJenisBuku)->get();
+    }
 }

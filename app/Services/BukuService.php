@@ -43,6 +43,15 @@ readonly class BukuService
     }
 
     /**
+     * @param int $jenisBuku
+     * @return mixed
+     */
+    public function getBukuByJenisBuku(int $jenisBuku)
+    {
+        return $this->refBukuInterface->dtDataByIdJenisBuku($jenisBuku);
+    }
+
+    /**
      * Digunakan untuk mencari data buku berdasarkan UUID buku
      * @param string $uuid
      * @return mixed
