@@ -15,4 +15,15 @@ readonly class PenempatanSiswaService
     {
         return $this->penempatanSiswaInterface->listPenempatanSiswa($param);
     }
+
+    public function createRecordPenempatanSiswa(array $requestData)
+    {
+        return $this->penempatanSiswaInterface->create($requestData);
+    }
+
+    public function deleteRecordPenempatanSiswa(string $uuid)
+    {
+        $dataPenempatan = $this->penempatanSiswaInterface->findByUuid($uuid);
+        return $this->penempatanSiswaInterface->delete($dataPenempatan->id);
+    }
 }

@@ -81,7 +81,7 @@
                             </div>
                         </div>
                         <div class="row">
-
+                            <div class="col-md-12" id="render-list-siswa-tanpa-kelas"></div>
                         </div>
                     </div>
                 </div>
@@ -115,6 +115,11 @@
             $("#kode-kelas").select2()
             $("#tahun-ajar").select2()
 
+            let requestListSiswaDenganKelas
+            let requestListSiswaTanpaKelas
+            let tahunAjar
+            let kodeKelas
+
             $("#kejuruan, #kelas").on('change',()=>{
                 let kelas = $("#kelas").val()
                 let kejuruan = $("#kejuruan").val()
@@ -143,8 +148,8 @@
             $("#button-cari-penempatan").on('click',()=>{
                 let kelas = $("#kelas").val()
                 let kejuruan = $("#kejuruan").val()
-                let kodeKelas = $("#kode-kelas").val()
-                let tahunAjar = $("#tahun-ajar").val()
+                kodeKelas = $("#kode-kelas").val()
+                tahunAjar = $("#tahun-ajar").val()
 
                 if (kelas === "" || kejuruan === "" || kodeKelas === "" || tahunAjar === "")
                 {
@@ -161,7 +166,7 @@
                 else
                 {
                     $("#row-penempatan-result").removeClass('d-none')
-                    axios({
+                    requestListSiswaDenganKelas = () => axios({
                         url: '/async/penempatan-siswa',
                         method: 'POST',
                         headers: {
@@ -174,20 +179,98 @@
                         }
                     }).then((response)=>{
                         let listData = response.data
+                        $("#render-list-penempatan").html("")
                         listData.forEach((item)=>{
                             let html = '<h5>'+item.nama_lengkap+'</h5>' +
-                                '<p class="badge rounded-pill bg-primary">NIS '+item.nomor_induk+' / NISN'+item.nisn+'</p></br> ' +
+                                '<p class="badge rounded-pill bg-primary">NIS '+item.nomor_induk+' / NISN '+item.nisn+'</p></br> ' +
                                 '<p class="badge rounded-pill bg-success">'+item.kejuruan+' - '+item.kode_kelas+'</p></br>' +
-                                '<button type="button" class="btn btn-danger waves-effect btn-sm"><i class="mdi mdi-trash-can"></i> Hapus</button> ' +
+                                '<button type="button" class="btn btn-danger waves-effect btn-sm hapus-siswa" data-penempatan-uuid="'+item.uuid+'"><i class="mdi mdi-trash-can"></i> Hapus</button> ' +
                                 '<hr class="my-2 border-primary border-1 opacity-50">'
                             $("#render-list-penempatan").append(html)
+                        });
+                        let buttonHapus = document.querySelectorAll(".hapus-siswa")
+                        buttonHapus.forEach(element =>{
+                            element.addEventListener('click',(event)=>{
+                                let uuidSiswa = event.currentTarget.getAttribute('data-penempatan-uuid')
+                                hapusSiswa(uuidSiswa)
+                            })
                         })
-                        console.log(listData)
                     }).catch((error)=>{
                         console.error(error);
                     });
+
+                    requestListSiswaTanpaKelas = () => axios({
+                        url: '/async/tanpa-kelas',
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        data: {
+                            'uuid-ref-tahun-ajar': tahunAjar,
+                        }
+                    }).then((response)=>{
+                        let listData = response.data
+                        $("#render-list-siswa-tanpa-kelas").html("")
+                        listData.forEach((item)=> {
+                            let html = '<h5>' + item.nama_lengkap + '</h5>' +
+                                '<p class="badge rounded-pill bg-primary">NIS ' + item.nomor_induk + ' / NISN ' + item.nisn + '</p></br> ' +
+                                '<button type="button" class="btn btn-primary waves-effect btn-sm tambah-siswa" data-uuid-siswa="'+item.uuid+'"><i class="mdi mdi-plus"></i> Tambahkan</button> ' +
+                                '<hr class="my-2 border-primary border-1 opacity-50">'
+                            $("#render-list-siswa-tanpa-kelas").append(html)
+                        })
+                        let buttonTambah = document.querySelectorAll(".tambah-siswa")
+                        buttonTambah.forEach(element =>{
+                            element.addEventListener('click',(event)=>{
+                                let uuidSiswa = event.currentTarget.getAttribute('data-uuid-siswa')
+                                tambahSiswa(uuidSiswa)
+                            })
+                        })
+                    }).catch((error)=>{
+                        console.error(error)
+                    })
+
+                    requestListSiswaTanpaKelas()
+                    requestListSiswaDenganKelas()
                 }
             })
+
+            let hapusSiswa = (uuid) =>{
+                axios({
+                    url: '/async/hapus-dari-kelas',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        'uuid-trans-penempatan-siswa': uuid,
+                    }
+                }).then(()=>{
+                    requestListSiswaDenganKelas()
+                    requestListSiswaTanpaKelas()
+                }).catch((error)=>{
+                    console.error(error)
+                })
+            }
+
+            let tambahSiswa = (uuid) =>{
+                axios({
+                    url: '/async/tambah-ke-kelas',
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        'uuid-ref-siswa': uuid,
+                        'uuid-ref-tahun-ajar': tahunAjar,
+                        'uuid-ref-kode-kelas': kodeKelas
+                    }
+                }).then(()=>{
+                    requestListSiswaDenganKelas()
+                    requestListSiswaTanpaKelas()
+                }).catch((error)=>{
+                    console.error(error)
+                })
+            }
         })
     </script>
 @endsection

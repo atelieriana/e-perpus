@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Modules\PenempatanSiswa;
 use App\Http\Controllers\Controller;
 use App\Services\KejuruanService;
 use App\Services\KelasService;
+use App\Services\SiswaService;
 use App\Services\TahunAjarServices;
 use App\Traits\AuditAccess;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class IndexPenempatanSiswa extends Controller
     public function __construct(
         private KelasService $kelasService,
         private KejuruanService $kejuruanService,
-        private TahunAjarServices $tahunAjarService
+        private TahunAjarServices $tahunAjarService,
+        private SiswaService $siswaService
     )
     {
         $this->logAccess();

@@ -16,4 +16,11 @@ interface RefSiswaInterface
      * @return mixed
      */
     public function dtSiswa(int $start = null, int $end = null, string $search = null): mixed;
+
+    /**
+     * Digunakan untuk menyediakan data siswa tanpa kelas berdasarkan tahun ajar
+     * @param string $uuidTahunAjar
+     * @return mixed
+     */
+    public function getSiswaTanpaKelas(string $uuidTahunAjar);
 }

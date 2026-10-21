@@ -40,6 +40,15 @@ readonly class SiswaService
     }
 
     /**
+     * @param string $uuidTahunAjar
+     * @return mixed
+     */
+    public function getSiswaTanpaKelas(string $uuidTahunAjar)
+    {
+        return $this->refSiswaInterface->getSiswaTanpaKelas($uuidTahunAjar);
+    }
+
+    /**
      * Service yang digunakan untuk melakukan create data siswa pada database
      * @param array $araryRequest
      * @return RedirectResponse|mixed|null
