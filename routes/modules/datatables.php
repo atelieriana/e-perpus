@@ -24,5 +24,3 @@ Route::post('/kode-kelas', KodeKelas::class)
     ->name('kode-kelas');
 Route::post('/buku-paket', BukuPaket::class)
     ->name('buku-paket');
-Route::post('/penempatan-siswa', PenempatanSiswa::class)
-    ->name('penempatan-siswa');

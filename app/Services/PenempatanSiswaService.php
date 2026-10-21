@@ -11,8 +11,8 @@ readonly class PenempatanSiswaService
     )
     {}
 
-    public function getDatatablesPenempatanSiswa(array $param, int $start = null, $length = null, $search = null)
+    public function getListPenempatanSiswa(array $param)
     {
-        return $this->penempatanSiswaInterface->dtPenempatanSiswa($param, $start, $length, $search);
+        return $this->penempatanSiswaInterface->listPenempatanSiswa($param);
     }
 }

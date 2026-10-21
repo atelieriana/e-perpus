@@ -15,5 +15,5 @@ interface PenempatanSiswaInterface
      * @param string $seacrh
      * @return mixed
      */
-    public function dtPenempatanSiswa(array $params, int $start = null, int $end = null, string $search = null);
+    public function listPenempatanSiswa(array $params);
 }

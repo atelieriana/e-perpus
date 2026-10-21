@@ -67,22 +67,40 @@
                 </div>
             </div>
         </div>
-        <div class="row d-none" id="row-penempatan-result">
-            <div class="col-lg-12">
+        <div class="row" id="row-penempatan-result">
+            <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <table class="table table-bordered dt-responsive" id="table-penempatan-siswa">
-                            <thead class="table-light">
-                            <tr>
-                                <th class="align-middle">No</th>
-                                <th class="align-middle">NISN</th>
-                                <th class="align-middle">Nomor Induk</th>
-                                <th class="align-middle">Nama</th>
-                                <th class="align-middle">Gender</th>
-                                <th class="align-middle">Aksi</th>
-                            </tr>
-                            </thead>
-                        </table>
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <div class="me-2 mb-2 d-inline-block">
+                                    <div class="position-relative">
+                                        <h5>Daftar Siswa Baru</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row mb-2">
+                            <div class="col-sm-12">
+                                <div class="me-2 mb-2 d-inline-block">
+                                    <div class="position-relative">
+                                        <h5>Daftar Penempatan Siswa</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="render-list-penempatan"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -143,52 +161,30 @@
                 else
                 {
                     $("#row-penempatan-result").removeClass('d-none')
-                    const table = $('#table-penempatan-siswa').DataTable({
-                        processing: true,
-                        serverSide: true,
-                        destroy: true,
-                        ajax: {
-                            url: '/datatables/penempatan-siswa',
-                            method: 'POST',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            data: {
-                                'uuid-ref-kelas': kelas,
-                                'uuid-ref-kode-kelas': kodeKelas,
-                                'uuid-ref-tahun-ajar': tahunAjar,
-                            }
+                    axios({
+                        url: '/async/penempatan-siswa',
+                        method: 'POST',
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        columns: [{
-                            data: null,
-                            name: 'No',
-                            orderable: false,
-                            searchable: false,
-                            render: function(data, type, row, meta) {
-                                return meta.row + meta.settings._iDisplayStart + 1;
-                            }
-                        },
-                            {
-                                data: 'nisn',
-                                name: 'nisn'
-                            },
-                            {
-                                data: 'nomor_induk',
-                                name: 'nomor_induk'
-                            },
-                            {
-                                data: 'nama_lengkap',
-                                name: 'nama_lengkap'
-                            },
-                            {
-                                data: 'jenis_kelamin',
-                                name: 'jenis_kelamin'
-                            },
-                            {
-                                data: 'aksi',
-                                name: 'aksi'
-                            },
-                        ],
+                        data: {
+                            'uuid-ref-kode-kelas': kodeKelas,
+                            'uuid-ref-tahun-ajar': tahunAjar,
+                            'uuid-ref-kelas': kelas
+                        }
+                    }).then((response)=>{
+                        let listData = response.data
+                        listData.forEach((item)=>{
+                            let html = '<h5>'+item.nama_lengkap+'</h5>' +
+                                '<p class="badge rounded-pill bg-primary">NIS '+item.nomor_induk+' / NISN'+item.nisn+'</p></br> ' +
+                                '<p class="badge rounded-pill bg-success">'+item.kejuruan+' - '+item.kode_kelas+'</p></br>' +
+                                '<button type="button" class="btn btn-danger waves-effect btn-sm"><i class="mdi mdi-trash-can"></i> Hapus</button> ' +
+                                '<hr class="my-2 border-primary border-1 opacity-50">'
+                            $("#render-list-penempatan").append(html)
+                        })
+                        console.log(listData)
+                    }).catch((error)=>{
+                        console.error(error);
                     });
                 }
             })
