@@ -57,7 +57,7 @@ class AdminMenu
                             ],
                             [
                                 'name' => 'Penempatan Siswa',
-                                'route' => '#',
+                                'route' => route('penempatan-siswa.index'),
                             ]
                         ]
                     ],

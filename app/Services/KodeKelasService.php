@@ -22,6 +22,15 @@ readonly class KodeKelasService
     }
 
     /**
+     * @param int $idRefKelas
+     * @return mixed
+     */
+    public function getKodeKelasByKelasAndKejuruan(int $idRefKelas, int $idKejuruan)
+    {
+        return $this->kodeKelasInterface->getKodeKelasByKelasAndKejuruan($idRefKelas, $idKejuruan);
+    }
+
+    /**
      * @param int|null $start
      * @param int|null $end
      * @param string|null $search

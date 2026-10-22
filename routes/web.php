@@ -19,6 +19,11 @@ Route::middleware(SessionLoginExist::class)
         Route::get('/dashboard', [Dashboard::class, 'index'])
             ->name('dashboard');
 
+        #Routing Async Request
+        Route::prefix('async')
+            ->name('async.')
+            ->group(__DIR__.'/modules/async.php');
+
         #Routing Datatables
         Route::prefix('datatables')
             ->name('datatables.')
@@ -58,4 +63,8 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('buku-paket')
             ->name('buku-paket.')
             ->group(__DIR__ . '/modules/buku-paket.php');
+
+        Route::prefix('penempatan-siswa')
+            ->name('penempatan-siswa.')
+            ->group(__DIR__ . '/modules/penempatan-siswa.php');
     });
