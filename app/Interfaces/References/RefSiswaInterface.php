@@ -29,4 +29,6 @@ interface RefSiswaInterface
      * @return mixed
      */
     public function massUpdateSiswaLulusByTahunAjar(int $idTahunAjar);
+
+    public function massRollbackSiswaLulusByTahunAjar(int $idTahunAjar);
 }

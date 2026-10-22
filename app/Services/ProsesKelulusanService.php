@@ -19,4 +19,10 @@ readonly class ProsesKelulusanService
         $dataTahunAjar = $this->refTahunAjarInterface->findByUUID($uuidTahunAjar);
         $this->refSiswaInterface->massUpdateSiswaLulusByTahunAjar($dataTahunAjar->id);
     }
+
+    public function rollbackProsesKelulusan(string $uuidTahunAjar)
+    {
+        $dataTahunAjar = $this->refTahunAjarInterface->findByUUID($uuidTahunAjar);
+        $this->refSiswaInterface->massRollbackSiswaLulusByTahunAjar($dataTahunAjar->id);
+    }
 }

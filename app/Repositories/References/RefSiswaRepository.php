@@ -145,4 +145,30 @@ class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
             throw new BusinessException('Terjadi kesalahan saat melakukan proses kelulusan');
         }
     }
+
+    public function massRollbackSiswaLulusByTahunAjar(int $idTahunAjar)
+    {
+        try
+        {
+            return DB::transaction(function () use ($idTahunAjar) {
+                $this->refSiswa
+                    ->newQuery()
+                    ->join('trans_penempatan_siswa', 'ref_siswa.id', '=', 'trans_penempatan_siswa.id_ref_siswa')
+                    ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
+                    ->join('ref_kelas', 'ref_kode_kelas.id_ref_kelas', '=', 'ref_kelas.id')
+                    ->join('ref_tahun_ajar', 'trans_penempatan_siswa.id_ref_tahun_ajar', '=', 'ref_tahun_ajar.id')
+                    ->where('ref_tahun_ajar.id', $idTahunAjar)
+                    ->where('ref_kelas.id', self::ID_REF_KELAS_XII)
+                    ->where('ref_siswa.id_ref_status_siswa', self::STATUS_SISWA_LULUS)
+                    ->update([
+                        'ref_siswa.id_ref_status_siswa' => self::STATUS_SISWA_AKTIF,
+                    ]);
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception);
+            throw new BusinessException('Terjadi kesalahan saat melakukan proses kelulusan');
+        }
+    }
 }

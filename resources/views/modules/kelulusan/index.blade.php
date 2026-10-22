@@ -54,7 +54,10 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2" id="button-proses-kelulusan">
+                                <button type="button" class="btn btn-danger waves-effect waves-light addContact-modal mb-2" id="button-rollback-kelulusan">
+                                    <i class="mdi mdi-gradient me-1"></i> Batalkan Kelulusan
+                                </button>
+                                <button type="button" class="btn btn-primary waves-effect waves-light addContact-modal mb-2" id="button-proses-kelulusan">
                                     <i class="mdi mdi-gradient me-1"></i> Proses Kelulusan
                                 </button>
                             </div>
@@ -83,6 +86,8 @@
 @section('custom-script')
     <script>
         $(document).ready(function(){
+            let datatables
+
             $("#uuid-ref-tahun-ajar").select2()
             $("#button-cari-siswa-kelas-xii").on('click',()=>{
                 if ($("#uuid-ref-tahun-ajar").val() === "")
@@ -100,7 +105,7 @@
                 else
                 {
                     $("#row-kelas-xii-result").removeClass('d-none')
-                    $('#table-siswa-kelas-xii').DataTable({
+                    datatables = $('#table-siswa-kelas-xii').DataTable({
                         processing: true,
                         serverSide: true,
                         destroy: true,
@@ -180,7 +185,7 @@
                             url: 'kelulusan/update/'+$('#uuid-ref-tahun-ajar').val(),
                             method: 'POST'
                         }).then((response)=>{
-                            console.log(response)
+                            $('#table-siswa-kelas-xii').DataTable().ajax.reload(null, false);
                         }).catch((error)=>{
                             console.error(error)
                         })
@@ -190,6 +195,38 @@
                         Swal.fire('Proses kelulusan dibatalkan', '', 'info')
                     }
                 });
+            })
+
+            $("#button-rollback-kelulusan").on('click', ()=>{
+                Swal.fire({
+                    text: "Apakah anda yakin untuk melakukan perubahan seluruh status siswa menjadi aktif?",
+                    icon: "question",
+                    buttonsStyling: false,
+                    confirmButtonText: "Iya",
+                    showDenyButton: true,
+                    denyButtonText: 'Tidak',
+                    customClass: {
+                        confirmButton: 'btn btn-primary waves-effect waves-light px-4 me-2',
+                        denyButton: 'btn btn-danger waves-effect waves-light px-4'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed)
+                    {
+                        Swal.fire('Proses pembatalan kelulusan terkonfirmasi', '', 'success')
+                        axios({
+                            url: 'kelulusan/rollback/'+$('#uuid-ref-tahun-ajar').val(),
+                            method: 'POST'
+                        }).then((response)=>{
+                            $('#table-siswa-kelas-xii').DataTable().ajax.reload(null, false);
+                        }).catch((error)=>{
+                            console.error(error)
+                        })
+                    }
+                    else if (result.isDenied)
+                    {
+                        Swal.fire('Proses pembatalan kelulusan dibatalkan', '', 'info')
+                    }
+                })
             })
         });
     </script>
