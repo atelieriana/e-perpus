@@ -13,9 +13,7 @@ Route::get('/create', [CreateKelulusan::class, 'index'])
 Route::post('/create/submit',[CreateKelulusan::class, 'onSubmit'])
     ->name('create.submit');
 
-Route::get('/update/{uuid}', [UpdateKelulusan::class, 'index'])
-    ->name('update');
-Route::post('/update/submit', [UpdateKelulusan::class, 'onSubmit'])
+Route::post('/update/{uuidTahunAjar}', UpdateKelulusan::class)
     ->name('update.submit');
 
 Route::get('/rollback/{uuid}', [RollbackKelulusan::class, 'index'])

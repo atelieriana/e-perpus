@@ -2,17 +2,24 @@
 
 namespace App\Repositories\References;
 
+use App\Exceptions\BusinessException;
 use App\Interfaces\References\RefSiswaInterface;
 use App\Models\References\RefSiswa;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
-class RefSiswaIRepository extends BaseRepository implements RefSiswaInterface
+class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
 {
     const GENDER_LAKI_LAKI = 1;
     const GENDER_PEREMPUAN = 0;
+
+    const ID_REF_KELAS_XII = 3;
+    const STATUS_SISWA_AKTIF = 1;
+    const STATUS_SISWA_LULUS = 3;
 
     public function __construct(
         private RefSiswa $refSiswa
@@ -107,5 +114,35 @@ class RefSiswaIRepository extends BaseRepository implements RefSiswaInterface
             ->where('id_ref_status_siswa', 1)
             ->orderBy('nama_lengkap', 'asc')
             ->get();
+    }
+
+    /**
+     * @param int $idTahunAjar
+     * @return Builder|mixed
+     */
+    public function massUpdateSiswaLulusByTahunAjar(int $idTahunAjar)
+    {
+        try
+        {
+            return DB::transaction(function () use ($idTahunAjar) {
+                $this->refSiswa
+                    ->newQuery()
+                    ->join('trans_penempatan_siswa', 'ref_siswa.id', '=', 'trans_penempatan_siswa.id_ref_siswa')
+                    ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
+                    ->join('ref_kelas', 'ref_kode_kelas.id_ref_kelas', '=', 'ref_kelas.id')
+                    ->join('ref_tahun_ajar', 'trans_penempatan_siswa.id_ref_tahun_ajar', '=', 'ref_tahun_ajar.id')
+                    ->where('ref_tahun_ajar.id', $idTahunAjar)
+                    ->where('ref_kelas.id', self::ID_REF_KELAS_XII)
+                    ->where('ref_siswa.id_ref_status_siswa', self::STATUS_SISWA_AKTIF)
+                    ->update([
+                        'ref_siswa.id_ref_status_siswa' => self::STATUS_SISWA_LULUS,
+                    ]);
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception);
+            throw new BusinessException('Terjadi kesalahan saat melakukan proses kelulusan');
+        }
     }
 }

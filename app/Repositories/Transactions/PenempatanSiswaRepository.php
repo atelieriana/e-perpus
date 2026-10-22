@@ -64,6 +64,7 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
                 'ref_siswa.nisn',
                 'ref_siswa.nomor_induk',
                 'ref_siswa.nama_lengkap',
+                'ref_status_siswa.status_siswa',
                 'ref_kelas.kelas',
                 'ref_kejuruan.kejuruan',
                 'ref_kode_kelas.kode_kelas',
@@ -71,6 +72,7 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
             )
             ->selectRaw("ROW_NUMBER() OVER (ORDER BY kejuruan asc, kode_kelas asc, nama_lengkap asc) AS row_num")
             ->join('ref_siswa', 'trans_penempatan_siswa.id_ref_siswa', '=', 'ref_siswa.id')
+            ->join('ref_status_siswa', 'ref_siswa.id_ref_status_siswa', '=', 'ref_status_siswa.id')
             ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
             ->join('ref_kelas', 'ref_kode_kelas.id_ref_kelas', '=', 'ref_kelas.id')
             ->join('ref_kejuruan', 'ref_kode_kelas.id_ref_kejuruan', '=', 'ref_kejuruan.id')
