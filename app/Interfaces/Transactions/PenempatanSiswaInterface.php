@@ -16,4 +16,6 @@ interface PenempatanSiswaInterface
      * @return mixed
      */
     public function listPenempatanSiswa(array $params);
+
+    public function getSiswaKelasXII(int $idRefTahunAjar = null);
 }

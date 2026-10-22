@@ -2,8 +2,10 @@
 
 namespace App\Models\Transactions;
 
+use App\Models\References\RefSiswa;
 use App\Traits\AuditTransaction;
 use App\Traits\LogTransaction;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use OwenIt\Auditing\Contracts\Auditable;
@@ -28,4 +30,15 @@ class PenempatanSiswa extends Model implements Auditable
         'deleted_by',
         'deleted_at',
     ];
+
+    public function ref_siswa()
+    {
+        return $this->belongsTo(RefSiswa::class, 'id_ref_siswa');
+    }
+
+    #[Scope]
+    public function kelas_xii()
+    {
+        return $this->where('id_ref_kelas', 3);
+    }
 }

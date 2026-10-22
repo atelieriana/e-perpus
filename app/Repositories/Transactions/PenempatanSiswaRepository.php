@@ -53,4 +53,18 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
             ->orderBy('ref_siswa.nama_lengkap','asc')
             ->get();
     }
+
+    public function getSiswaKelasXII(int $idRefTahunAjar = null)
+    {
+        $query = $this->penempatanSiswa
+            ->with(['ref_siswa'])
+            ->kelas_xii();
+
+        if (!is_null($tahunAjar)) {
+            $query->where('id_ref_tahun_ajar', $idRefTahunAjar);
+        }
+
+        return $query->get();
+    }
+
 }
