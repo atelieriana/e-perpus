@@ -2,6 +2,7 @@
 
 namespace App\Models\References;
 
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Model;
 
 class RefKelas extends Model

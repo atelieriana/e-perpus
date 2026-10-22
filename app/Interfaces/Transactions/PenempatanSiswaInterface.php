@@ -17,5 +17,5 @@ interface PenempatanSiswaInterface
      */
     public function listPenempatanSiswa(array $params);
 
-    public function getSiswaKelasXII(int $idRefTahunAjar = null);
+    public function getSiswaKelasXII(string $uuidRefTahunAjar, int $startData = null, int $endData = null, string $searchData = null);
 }

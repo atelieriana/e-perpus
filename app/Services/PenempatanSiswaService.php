@@ -29,15 +29,8 @@ readonly class PenempatanSiswaService
         return $this->penempatanSiswaInterface->delete($dataPenempatan->id);
     }
 
-    public function getSiswaKelasXII(string $uuidTahunAjar = null)
+    public function getSiswaKelasXII(string $uuidTahunAjar, int $startData = null, int $endData = null, string $searchData = null)
     {
-        $dataTahunAjar = $this->refTahunAjarInterface->findByUuid($uuidTahunAjar);
-        if ($uuidTahunAjar === null) {
-            return $this->penempatanSiswaInterface->getSiswaKelasXII();
-        }
-        else
-        {
-            return $this->penempatanSiswaInterface->getSiswaKelasXII($dataTahunAjar->id);
-        }
+        return $this->penempatanSiswaInterface->getSiswaKelasXII($uuidTahunAjar, $startData, $endData, $searchData);
     }
 }

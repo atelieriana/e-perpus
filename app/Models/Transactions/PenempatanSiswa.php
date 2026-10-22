@@ -2,6 +2,8 @@
 
 namespace App\Models\Transactions;
 
+use App\Models\References\RefKelas;
+use App\Models\References\RefKodeKelas;
 use App\Models\References\RefSiswa;
 use App\Traits\AuditTransaction;
 use App\Traits\LogTransaction;
@@ -36,9 +38,8 @@ class PenempatanSiswa extends Model implements Auditable
         return $this->belongsTo(RefSiswa::class, 'id_ref_siswa');
     }
 
-    #[Scope]
-    public function kelas_xii()
+    public function ref_kelas()
     {
-        return $this->where('id_ref_kelas', 3);
+        return $this->hasOneThrough(RefKelas::class, RefSiswa::class, 'id', 'id', 'id_ref_kelas');
     }
 }
