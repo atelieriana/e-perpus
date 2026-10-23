@@ -5,6 +5,7 @@ namespace App\Repositories\References;
 use App\Interfaces\References\RefTahunAjarInterface;
 use App\Models\References\RefTahunAjar;
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
@@ -40,5 +41,32 @@ class RefTahunAjarRepository extends BaseRepository implements RefTahunAjarInter
         }
 
         return $query->get();
+    }
+
+    public function getCurrentTahunAjar()
+    {
+        $currentDate = Carbon::now();
+        return $this->refTahunAjar
+            ->newQuery()
+            ->where('tanggal_mulai', '<=', $currentDate)
+            ->where('tanggal_akhir', '>=', $currentDate)
+            ->first();
+    }
+
+    public function getTahunAjarTerakhir()
+    {
+        return $this->refTahunAjar
+            ->newQuery()
+            ->selectRaw("max(id) as id")
+            ->first();
+    }
+
+    public function getTahunAjarDataSebelumTerakhir()
+    {
+        return $this->refTahunAjar
+            ->newQuery()
+            ->latest('id')
+            ->skip(1)
+            ->first();
     }
 }

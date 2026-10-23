@@ -30,13 +30,13 @@
                             <select class="form-control select2" id="uuid-ref-tahun-ajar" name="uuid-ref-tahun-ajar">
                                 <option value="">--- Pilih Tahun Ajar ---</option>
                                 @foreach($listTahunAjar as $tahunAjar)
-                                    <option value="{{ $tahunAjar->uuid }}">{{ $tahunAjar->tahun_ajar }} ({{ getIndonesianDate($tahunAjar->tanggal_mulai) . ' s.d. '. getIndonesianDate($tahunAjar->tanggal_akhir) }})</option>
+                                    <option value="{{ $tahunAjar->uuid }}">{{ $tahunAjar->tahun_ajar }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label for="uuid-ref-kelas">Kelas</label>
-                            <select class="form-control select2" id="uuid-ref-kelas" name="uuid-ref-tahun-ajar">
+                            <select class="form-control select2" id="uuid-ref-kelas" name="uuid-ref-kelas">
                                 <option value="">--- Pilih Kelas ---</option>
                                 @foreach($listKelas as $kelas)
                                     <option value="{{ $kelas->uuid }}">{{ $kelas->kelas }}</option>
@@ -65,16 +65,13 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <button type="button" class="btn btn-danger waves-effect waves-light addContact-modal mb-2" id="button-rollback-kelulusan">
-                                    <i class="mdi mdi-gradient me-1"></i> Batalkan Kenaikan Kelas
-                                </button>
-                                <button type="button" class="btn btn-primary waves-effect waves-light addContact-modal mb-2" id="button-proses-kelulusan">
+                                <button type="button" class="btn btn-primary waves-effect waves-light addContact-modal mb-2" id="button-proses-kenaikan-kelas">
                                     <i class="mdi mdi-gradient me-1"></i> Proses Kenaikan Kelas
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <table class="table table-bordered dt-responsive" id="table-siswa-kelas-xii">
+                    <table class="table table-bordered dt-responsive" id="table-kenaikan-kelas-siswa">
                         <thead class="table-light">
                         <tr>
                             <th class="text-center">No <span class="text-muted" data-ic="sort" data-s="13"></span></th>
@@ -104,10 +101,10 @@
                 tahunAjar = $("#uuid-ref-tahun-ajar").val()
                 kelas = $("#uuid-ref-kelas").val()
 
-                if(tahunAjar === '' || kelas === '')
+                if(kelas === '')
                 {
                     Swal.fire({
-                        text: "Wajib memilih tahun ajar dan kelas!",
+                        text: "Wajib memilih kelas!",
                         icon: "error",
                         buttonsStyling: false,
                         confirmButtonText: "Iya",
@@ -119,7 +116,7 @@
                 else
                 {
                     $("#row-kelas-xii-result").removeClass('d-none')
-                    datatables = $('#table-siswa-kelas-xii').DataTable({
+                    datatables = $('#table-kenaikan-kelas-siswa').DataTable({
                         processing: true,
                         serverSide: true,
                         destroy: true,
@@ -130,8 +127,8 @@
                                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                             },
                             data: {
-                                'uuid-ref-tahun-ajar': tahunAjar,
-                                'uuid-ref-kelas': kelas
+                                'uuid-ref-kelas': kelas,
+                                'uuid-ref-tahun-ajar': tahunAjar
                             }
                         },
                         columns: [{
@@ -174,6 +171,45 @@
                         ],
                     });
                 }
+            });
+
+            $("#button-proses-kenaikan-kelas").on('click',()=>{
+                Swal.fire({
+                    text: "Apakah anda yakin untuk melakukan kenaikan kelas?",
+                    icon: "question",
+                    buttonsStyling: false,
+                    confirmButtonText: "Iya",
+                    showDenyButton: true,
+                    denyButtonText: 'Tidak',
+                    customClass: {
+                        confirmButton: 'btn btn-primary waves-effect waves-light px-4 me-2',
+                        denyButton: 'btn btn-danger waves-effect waves-light px-4'
+                    }
+                }).then((result)=>{
+                    if (result.isConfirmed)
+                    {
+                        axios({
+                            url: '/kenaikan-kelas/update',
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            data: {
+                                'uuid-ref-kelas': $("#uuid-ref-kelas").val()
+                            }
+                        }).then(()=>{
+                            $('#table-kenaikan-kelas-siswa').DataTable().ajax.reload(null, false);
+                        }).catch((error)=>{
+                            console.error(error)
+                        })
+                    }
+                    else if (result.isDenied)
+                    {
+                        Swal.fire('Proses pembatalan kenaikan kelas dibatalkan', '', 'info')
+                    }
+                }).catch((error)=>{
+                    console.error(error)
+                })
             });
         })
     </script>

@@ -29,7 +29,7 @@ interface RefSiswaInterface
      * @param string $uuidKelas
      * @return mixed
      */
-    public function getSiswaByKelasDanTahunAjar(int $idRefTahunAjar, int $idRefKelas, int $start = null, $end = null, $search = null);
+    public function getSiswaByKelasDanTahunAjar(int $idTahunAjarSaatIni, int $idRefTahunAjar, int $idRefKelas, int $start = null, $end = null, $search = null);
 
     /**
      * Digunakan untuk melakukan mass update proses kelulusan

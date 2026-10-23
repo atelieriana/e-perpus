@@ -16,6 +16,4 @@ interface RefKodeKelasInterface
      * @return mixed
      */
     public function dtKodeKelas(int $start = null, int $end = null, string $search = null);
-
-    public function getKodeKelasByKelasAndKejuruan(int $idRefKelas, int $idRefKejuruan);
 }

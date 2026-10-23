@@ -18,4 +18,10 @@ interface PenempatanSiswaInterface
     public function listPenempatanSiswa(array $params);
 
     public function getSiswaKelasXII(string $uuidRefTahunAjar, int $startData = null, int $endData = null, string $searchData = null);
+
+    public function getSiswaKelasXOrXI(int $idTahunAjar, int $idKelas);
+
+    public function massUpdateKenaikanKelasSiswa(int $idRefTahunAjar);
+
+    public function massRollbackKenaikanKelasSiswa();
 }

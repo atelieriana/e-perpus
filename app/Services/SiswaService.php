@@ -42,11 +42,13 @@ readonly class SiswaService
      * @param $search
      * @return mixed
      */
-    public function getDatatablesSiswaByKelasDanTahunAjar(string $uuidRefTahunAjar, string $uuidRefKelas, int $start = null, $length = null, $search = null)
+    public function getDatatablesSiswaByKelasDanTahunBerjalan(string $uuidRefTahunAjar, string $uuidRefKelas, int $start = null, $end = null, $search = null)
     {
-        $dataTahunAjar = $this->refTahunAjarInterface->findByUUID($uuidRefTahunAjar);
+
         $dataKelas = $this->refKelasInterface->findByUUID($uuidRefKelas);
-        return $this->refSiswaInterface->getSiswaByKelasDanTahunAjar($dataTahunAjar->id, $dataKelas->id);
+        $dataTahunAjar = $this->refTahunAjarInterface->findByUUID($uuidRefTahunAjar);
+        $dataCurrenTahunAjar = $this->refTahunAjarInterface->getCurrentTahunAjar();
+        return $this->refSiswaInterface->getSiswaByKelasDanTahunAjar($dataCurrenTahunAjar->id, $dataTahunAjar->id, $dataKelas->id, $start, $end, $search);
     }
 
     /**

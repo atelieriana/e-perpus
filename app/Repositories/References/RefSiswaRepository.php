@@ -116,7 +116,7 @@ class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
             ->get();
     }
 
-    public function getSiswaByKelasDanTahunAjar(int $idRefTahunAjar, int $idRefKelas, int $start = null, $end = null, $search = null)
+    public function getSiswaByKelasDanTahunAjar(int $idTahunAjarSaatIni, int $idRefTahunAjar, int $idRefKelas, int $start = null, $end = null, $search = null)
     {
         $subQuery = $this->refSiswa->select([
             'ref_siswa.nisn',
@@ -134,7 +134,13 @@ class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
         ->join('ref_kejuruan', 'ref_kode_kelas.id_ref_kejuruan', '=', 'ref_kejuruan.id')
         ->join('ref_tahun_ajar', 'trans_penempatan_siswa.id_ref_tahun_ajar', '=', 'ref_tahun_ajar.id')
         ->where('ref_kelas.id', $idRefKelas)
-        ->where('ref_tahun_ajar.id', $idRefTahunAjar);
+        ->where('ref_tahun_ajar.id', $idRefTahunAjar)
+        ->whereNotIn('ref_siswa.id', function ($query) use ($idTahunAjarSaatIni) {
+            return $query->select('id_ref_siswa')
+                ->from('trans_penempatan_siswa')
+                ->where('trans_penempatan_siswa.id_ref_tahun_ajar', $idTahunAjarSaatIni);
+        })
+        ->where('trans_penempatan_siswa.deleted_at', null);
 
         if ($search !== null) {
             $subQuery->where(function ($query) use ($search) {

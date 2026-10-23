@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\KenaikanKelas;
+namespace App\Http\Controllers\Modules\KenaikanKelas;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;

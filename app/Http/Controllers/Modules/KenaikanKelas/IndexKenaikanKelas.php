@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\KenaikanKelas;
+namespace App\Http\Controllers\Modules\KenaikanKelas;
 
 use App\Http\Controllers\Controller;
 use App\Services\KelasService;
-use App\Services\KodeKelasService;
 use App\Services\TahunAjarServices;
-use Illuminate\Http\Request;
 
 class IndexKenaikanKelas extends Controller
 {

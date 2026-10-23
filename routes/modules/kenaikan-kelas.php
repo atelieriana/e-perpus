@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\KenaikanKelas\IndexKenaikanKelas;
-use App\Http\Controllers\KenaikanKelas\RollbackKenaikanKelas;
-use App\Http\Controllers\KenaikanKelas\UpdateKenaikanKelas;
+use App\Http\Controllers\Modules\KenaikanKelas\IndexKenaikanKelas;
+use App\Http\Controllers\Modules\KenaikanKelas\RollbackKenaikanKelas;
+use App\Http\Controllers\Modules\KenaikanKelas\UpdateKenaikanKelas;
 
 Route::get('/', [IndexKenaikanKelas::class, 'index'])
     ->name('index');
 
-Route::post('/update/{uuidTahunAjar}', UpdateKenaikanKelas::class)
+Route::post('/update', UpdateKenaikanKelas::class)
     ->name('update.submit');
 
-Route::post('/rollback/{uuidTahunAjar}', RollbackKenaikanKelas::class)
+Route::post('/rollback', RollbackKenaikanKelas::class)
     ->name('rollback.submit');

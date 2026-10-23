@@ -3,6 +3,7 @@
 namespace App\Repositories\Transactions;
 
 use App\Interfaces\Transactions\PenempatanSiswaInterface;
+use App\Models\References\RefTahunAjar;
 use App\Models\Transactions\PenempatanSiswa;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
@@ -13,7 +14,8 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
     const STATUS_SISWA_AKTIF = 1;
 
     public function __construct(
-        private PenempatanSiswa $penempatanSiswa
+        private PenempatanSiswa $penempatanSiswa,
+        private RefTahunAjar $refTahunAjar,
     )
     {
         parent::__construct($penempatanSiswa);
@@ -87,5 +89,28 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
         }
 
         return $query->get();
+    }
+
+    public function massUpdateKenaikanKelasSiswa(int $idRefTahunAjar)
+    {
+        $this->penempatanSiswa
+            ->newQuery();
+    }
+
+    public function massRollbackKenaikanKelasSiswa()
+    {
+        // TODO: Implement massRollbackKenaikanKelasSiswa() method.
+    }
+
+
+    public function getSiswaKelasXOrXI(int $idTahunAjar, int $idKelas)
+    {
+        return $this->penempatanSiswa
+            ->newQuery()
+            ->join('ref_kode_kelas','trans_penempatan_siswa.id_ref_kode_kelas','=','ref_kode_kelas.id')
+            ->join('ref_kelas','ref_kode_kelas.id_ref_kelas','=','ref_kelas.id')
+            ->where('id_ref_tahun_ajar', $idTahunAjar)
+            ->where('id_ref_kelas', $idKelas)
+            ->get();
     }
 }
