@@ -62,6 +62,10 @@ class AdminMenu
                             [
                                 'name' => 'Kelulusan',
                                 'route' => route('kelulusan.index'),
+                            ],
+                            [
+                                'name' => 'Kenaikan Kelas',
+                                'route' => route('kenaikan-kelas.index'),
                             ]
                         ]
                     ],

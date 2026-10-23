@@ -16,6 +16,11 @@ readonly class KelasService
         return $this->refKelasInterface->all();
     }
 
+    public function getRecordKelasXDanXII()
+    {
+        return $this->refKelasInterface->getKelasXdanXII();
+    }
+
     public function findByUUID(string $uuid)
     {
         return $this->refKelasInterface->findByUUID($uuid);

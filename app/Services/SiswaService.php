@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Exceptions\BusinessException;
+use App\Interfaces\References\RefKelasInterface;
 use App\Interfaces\References\RefSiswaInterface;
+use App\Interfaces\References\RefTahunAjarInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
@@ -14,6 +16,8 @@ readonly class SiswaService
 {
     public function __construct(
         private RefSiswaInterface $refSiswaInterface,
+        private RefTahunAjarInterface $refTahunAjarInterface,
+        private RefKelasInterface $refKelasInterface,
     )
     {}
 
@@ -27,6 +31,22 @@ readonly class SiswaService
     public function getDatatablesSiswa(int $start = null, $length = null, $search = null)
     {
         return $this->refSiswaInterface->dtSiswa($start, $length, $search);
+    }
+
+    /**
+     * Digunakan untuk menyediakan datatables berdasarkan kelas dan tahun ajar
+     * @param string $uuidRefTahunAjar
+     * @param string $uuidRefKelas
+     * @param int|null $start
+     * @param $length
+     * @param $search
+     * @return mixed
+     */
+    public function getDatatablesSiswaByKelasDanTahunAjar(string $uuidRefTahunAjar, string $uuidRefKelas, int $start = null, $length = null, $search = null)
+    {
+        $dataTahunAjar = $this->refTahunAjarInterface->findByUUID($uuidRefTahunAjar);
+        $dataKelas = $this->refKelasInterface->findByUUID($uuidRefKelas);
+        return $this->refSiswaInterface->getSiswaByKelasDanTahunAjar($dataTahunAjar->id, $dataKelas->id);
     }
 
     /**

@@ -25,10 +25,23 @@ interface RefSiswaInterface
     public function getSiswaTanpaKelas(string $uuidTahunAjar);
 
     /**
+     * @param string $uuidTahunAjar
+     * @param string $uuidKelas
+     * @return mixed
+     */
+    public function getSiswaByKelasDanTahunAjar(int $idRefTahunAjar, int $idRefKelas, int $start = null, $end = null, $search = null);
+
+    /**
+     * Digunakan untuk melakukan mass update proses kelulusan
      * @param int $idTahunAjar
      * @return mixed
      */
     public function massUpdateSiswaLulusByTahunAjar(int $idTahunAjar);
 
+    /**
+     * Digunakan untuk melakukan mass rollback proses kelulusan
+     * @param int $idTahunAjar
+     * @return mixed
+     */
     public function massRollbackSiswaLulusByTahunAjar(int $idTahunAjar);
 }

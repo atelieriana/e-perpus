@@ -69,7 +69,13 @@ Route::middleware(SessionLoginExist::class)
             ->name('penempatan-siswa.')
             ->group(__DIR__ . '/modules/penempatan-siswa.php');
 
+        #Routing Kenaikan Kelas
         Route::prefix('kelulusan')
             ->name('kelulusan.')
             ->group(__DIR__ . '/modules/kelulusan.php');
+
+        #Routing Kenaikan Kelas
+        Route::prefix('kenaikan-kelas')
+            ->name('kenaikan-kelas.')
+            ->group(__DIR__ . '/modules/kenaikan-kelas.php');
     });
