@@ -64,7 +64,12 @@ Route::middleware(SessionLoginExist::class)
             ->name('buku-paket.')
             ->group(__DIR__ . '/modules/buku-paket.php');
 
+        #Routing Penempatan Siswa
         Route::prefix('penempatan-siswa')
             ->name('penempatan-siswa.')
             ->group(__DIR__ . '/modules/penempatan-siswa.php');
+
+        Route::prefix('kelulusan')
+            ->name('kelulusan.')
+            ->group(__DIR__ . '/modules/kelulusan.php');
     });

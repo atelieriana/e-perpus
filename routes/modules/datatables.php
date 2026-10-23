@@ -7,6 +7,7 @@ use App\Http\Controllers\Datatables\Kejuruan;
 use App\Http\Controllers\Datatables\KodeKelas;
 use App\Http\Controllers\Datatables\PenempatanSiswa;
 use App\Http\Controllers\Datatables\Siswa;
+use App\Http\Controllers\Datatables\SiswaKelasXII;
 use App\Http\Controllers\Datatables\TahunAjar;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,5 @@ Route::post('/kode-kelas', KodeKelas::class)
     ->name('kode-kelas');
 Route::post('/buku-paket', BukuPaket::class)
     ->name('buku-paket');
+Route::post('/siswa-kelas-xii', SiswaKelasXII::class)
+    ->name('siswa-kelas-xii');

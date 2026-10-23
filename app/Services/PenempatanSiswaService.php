@@ -2,12 +2,14 @@
 
 namespace App\Services;
 
+use App\Interfaces\References\RefTahunAjarInterface;
 use App\Interfaces\Transactions\PenempatanSiswaInterface;
 
 readonly class PenempatanSiswaService
 {
     public function __construct(
         private PenempatanSiswaInterface $penempatanSiswaInterface,
+        private RefTahunAjarInterface $refTahunAjarInterface
     )
     {}
 
@@ -25,5 +27,10 @@ readonly class PenempatanSiswaService
     {
         $dataPenempatan = $this->penempatanSiswaInterface->findByUuid($uuid);
         return $this->penempatanSiswaInterface->delete($dataPenempatan->id);
+    }
+
+    public function getSiswaKelasXII(string $uuidTahunAjar, int $startData = null, int $endData = null, string $searchData = null)
+    {
+        return $this->penempatanSiswaInterface->getSiswaKelasXII($uuidTahunAjar, $startData, $endData, $searchData);
     }
 }

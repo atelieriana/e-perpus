@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 class PenempatanSiswaRepository extends BaseRepository implements PenempatanSiswaInterface
 {
     const STATUS_SISWA_AKTIF = 1;
+
     public function __construct(
         private PenempatanSiswa $penempatanSiswa
     )
@@ -52,5 +53,39 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
             ->where('ref_siswa.id_ref_status_siswa', self::STATUS_SISWA_AKTIF)
             ->orderBy('ref_siswa.nama_lengkap','asc')
             ->get();
+    }
+
+    public function getSiswaKelasXII(string $uuidRefTahunAjar, int $startData = null, int $endData = null, string $searchData = null)
+    {
+
+        $subQuery = $this->penempatanSiswa
+            ->newQuery()
+            ->select(
+                'ref_siswa.nisn',
+                'ref_siswa.nomor_induk',
+                'ref_siswa.nama_lengkap',
+                'ref_status_siswa.status_siswa',
+                'ref_kelas.kelas',
+                'ref_kejuruan.kejuruan',
+                'ref_kode_kelas.kode_kelas',
+                'ref_tahun_ajar.tahun_ajar',
+            )
+            ->selectRaw("ROW_NUMBER() OVER (ORDER BY kejuruan asc, kode_kelas asc, nama_lengkap asc) AS row_num")
+            ->join('ref_siswa', 'trans_penempatan_siswa.id_ref_siswa', '=', 'ref_siswa.id')
+            ->join('ref_status_siswa', 'ref_siswa.id_ref_status_siswa', '=', 'ref_status_siswa.id')
+            ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
+            ->join('ref_kelas', 'ref_kode_kelas.id_ref_kelas', '=', 'ref_kelas.id')
+            ->join('ref_kejuruan', 'ref_kode_kelas.id_ref_kejuruan', '=', 'ref_kejuruan.id')
+            ->join('ref_tahun_ajar', 'trans_penempatan_siswa.id_ref_tahun_ajar', '=', 'ref_tahun_ajar.id')
+            ->where('ref_kode_kelas.id_ref_kelas', 3)
+            ->where('ref_tahun_ajar.uuid', $uuidRefTahunAjar);
+
+        $query = DB::query()->fromSub($subQuery, 't');
+
+        if ($startData !== null && $endData !== null) {
+            $query->whereBetween('row_num', [$startData, $endData]);
+        }
+
+        return $query->get();
     }
 }

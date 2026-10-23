@@ -2,10 +2,10 @@
 
 namespace App\Interfaces\References;
 
-use App\Repositories\References\RefSiswaIRepository;
+use App\Repositories\References\RefSiswaRepository;
 use Illuminate\Container\Attributes\Bind;
 
-#[Bind(RefSiswaIRepository::class)]
+#[Bind(RefSiswaRepository::class)]
 interface RefSiswaInterface
 {
     /**
@@ -23,4 +23,12 @@ interface RefSiswaInterface
      * @return mixed
      */
     public function getSiswaTanpaKelas(string $uuidTahunAjar);
+
+    /**
+     * @param int $idTahunAjar
+     * @return mixed
+     */
+    public function massUpdateSiswaLulusByTahunAjar(int $idTahunAjar);
+
+    public function massRollbackSiswaLulusByTahunAjar(int $idTahunAjar);
 }
