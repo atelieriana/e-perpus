@@ -176,17 +176,27 @@
 @yield('custom-script')
 <script>
     $("#change-role").on('change',()=>{
-        axios({
-            url: '/auth/change-role',
-            method: 'POST',
-            data: {
-                'targeted-role': $('#change-role').val()
+        Swal.fire({
+            text: "Proses Pergantian Role",
+            icon: "success",
+            buttonsStyling: false,
+            confirmButtonText: "Ok",
+            customClass: {
+                confirmButton: "btn btn-primary"
             }
-        }).then((repsonse)=>{
-            window.reload()
-        }).catch((error)=>{
-
-        })
+        }).then(() => {
+            axios({
+                url: '/auth/change-role',
+                method: 'POST',
+                data: {
+                    'targeted-role': $('#change-role').val()
+                }
+            }).then((repsonse)=>{
+                window.location.reload();
+            }).catch((error)=>{
+                console.error(error)
+            })
+        });
     });
 
     $.extend(true, $.fn.dataTable.defaults, {
