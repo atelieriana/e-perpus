@@ -8,8 +8,7 @@ use App\Interfaces\Transactions\PenempatanSiswaInterface;
 readonly class PenempatanSiswaService
 {
     public function __construct(
-        private PenempatanSiswaInterface $penempatanSiswaInterface,
-        private RefTahunAjarInterface $refTahunAjarInterface
+        private PenempatanSiswaInterface $penempatanSiswaInterface
     )
     {}
 

@@ -116,6 +116,58 @@ class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
             ->get();
     }
 
+    public function getSiswaByKelasDanTahunAjar(int $idTahunAjarSaatIni, int $idRefTahunAjar, int $idRefKelas, int $start = null, $end = null, $search = null)
+    {
+        $subQuery = $this->refSiswa->select([
+            'ref_siswa.nisn',
+            'ref_siswa.nomor_induk',
+            'ref_siswa.nama_lengkap',
+            'ref_kelas.kelas',
+            'ref_kejuruan.kejuruan',
+            'ref_kode_kelas.kode_kelas',
+            'ref_tahun_ajar.tahun_ajar',
+        ])
+        ->selectRaw("ROW_NUMBER() OVER (ORDER BY kejuruan asc, kode_kelas asc, nama_lengkap asc) AS row_num")
+        ->join('trans_penempatan_siswa', 'ref_siswa.id', '=', 'trans_penempatan_siswa.id_ref_siswa')
+        ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
+        ->join('ref_kelas', 'ref_kode_kelas.id_ref_kelas', '=', 'ref_kelas.id')
+        ->join('ref_kejuruan', 'ref_kode_kelas.id_ref_kejuruan', '=', 'ref_kejuruan.id')
+        ->join('ref_tahun_ajar', 'trans_penempatan_siswa.id_ref_tahun_ajar', '=', 'ref_tahun_ajar.id')
+        ->where('ref_kelas.id', $idRefKelas)
+        ->where('ref_tahun_ajar.id', $idRefTahunAjar)
+        ->whereNotIn('ref_siswa.id', function ($query) use ($idTahunAjarSaatIni) {
+            return $query->select('id_ref_siswa')
+                ->from('trans_penempatan_siswa')
+                ->where('trans_penempatan_siswa.id_ref_tahun_ajar', $idTahunAjarSaatIni);
+        })
+        ->where('trans_penempatan_siswa.deleted_at', null);
+
+        if ($search !== null) {
+            $subQuery->where(function ($query) use ($search) {
+                $query->whereRaw("lower(nisn) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(nomor_induk) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(nama_lengkap) like ?", ["%".$search."%"]);
+
+                if (str_contains($search, 'laki'))
+                {
+                    $query->orWhereRaw("gender = ?", [self::GENDER_LAKI_LAKI]);
+                }
+                if (str_contains($search, 'perempuan'))
+                {
+                    $query->orWhereRaw("gender = ?", [self::GENDER_PEREMPUAN]);
+                }
+            });
+        }
+
+        $query = DB::query()->fromSub($subQuery, 't');
+
+        if ($start !== null && $end !== null) {
+            $query->whereBetween('row_num', [$start, $end]);
+        }
+
+        return $query->get();
+    }
+
     /**
      * @param int $idTahunAjar
      * @return Builder|mixed

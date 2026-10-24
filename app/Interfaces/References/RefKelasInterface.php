@@ -8,5 +8,5 @@ use Illuminate\Container\Attributes\Bind;
 #[Bind(RefKelasRepository::class)]
 interface RefKelasInterface
 {
-
+    public function getKelasXdanXII();
 }

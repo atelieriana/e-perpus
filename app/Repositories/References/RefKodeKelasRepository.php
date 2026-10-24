@@ -73,4 +73,6 @@ class RefKodeKelasRepository extends BaseRepository implements RefKodeKelasInter
             ->where('id_ref_kejuruan', $idRefKejuruan)
             ->get();
     }
+
+
 }

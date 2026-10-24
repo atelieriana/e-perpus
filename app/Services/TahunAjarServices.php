@@ -30,6 +30,14 @@ readonly class TahunAjarServices
     }
 
     /**
+     * @return mixed
+     */
+    public function getLatestTahunAjar()
+    {
+        return $this->refTahunAjarInterface->getTahunAjarTerakhir();
+    }
+
+    /**
      * Digunakan untuk menyediakan service datatables tahun ajar
      * @param int|null $start
      * @param $length

@@ -16,4 +16,20 @@ interface RefTahunAjarInterface
      * @return mixed
      */
     public function dtDataKejuruan(int $start = null, int $end = null, string $search = null);
+
+    /**
+     * Digunakan untuk mendapatkan tahun ajaran berjalan
+     * @return mixed
+     */
+    public function getCurrentTahunAjar();
+
+    /**
+     * @return mixed
+     */
+    public function getTahunAjarTerakhir();
+
+    /**
+     * @return mixed
+     */
+    public function getTahunAjarDataSebelumTerakhir();
 }

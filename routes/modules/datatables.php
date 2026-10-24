@@ -4,6 +4,7 @@ use App\Http\Controllers\Datatables\BukuPaket;
 use App\Http\Controllers\Datatables\BukuPelajaran;
 use App\Http\Controllers\Datatables\BukuUmum;
 use App\Http\Controllers\Datatables\Kejuruan;
+use App\Http\Controllers\Datatables\KenaikanKelas;
 use App\Http\Controllers\Datatables\KodeKelas;
 use App\Http\Controllers\Datatables\PenempatanSiswa;
 use App\Http\Controllers\Datatables\Siswa;
@@ -27,3 +28,5 @@ Route::post('/buku-paket', BukuPaket::class)
     ->name('buku-paket');
 Route::post('/siswa-kelas-xii', SiswaKelasXII::class)
     ->name('siswa-kelas-xii');
+Route::post('/kenaikan-kelas', KenaikanKelas::class)
+    ->name('kenaikan-kelas');
