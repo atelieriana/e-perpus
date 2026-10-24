@@ -108,7 +108,6 @@
                                 </div>
                                 <hr class="mt-0">
                                 <h6 class="text-center mb-0">Choose Layouts</h6>
-
                                 <div class="p-4">
                                     <div class="form-check form-switch mb-3">
                                         <input class="form-check-input theme-choice" type="checkbox" id="light-mode-switch">
@@ -118,6 +117,14 @@
                                         <input class="form-check-input theme-choice" type="checkbox" id="dark-mode-switch" checked="">
                                         <label class="form-check-label" for="dark-mode-switch">Dark Mode</label>
                                     </div>
+                                </div>
+                                <div class="p-4">
+                                    <label>Role</label>
+                                    <select class="form-control" id="change-role">
+                                        @foreach(session()->get('access-allowed-role') as $item)
+                                            <option value="{{ $item }}" @selected(session('access-role') === $item)>{{ $item }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -168,6 +175,20 @@
 @vite('resources/js/app.js')
 @yield('custom-script')
 <script>
+    $("#change-role").on('change',()=>{
+        axios({
+            url: '/auth/change-role',
+            method: 'POST',
+            data: {
+                'targeted-role': $('#change-role').val()
+            }
+        }).then((repsonse)=>{
+            window.reload()
+        }).catch((error)=>{
+
+        })
+    });
+
     $.extend(true, $.fn.dataTable.defaults, {
         initComplete: function() {
             var api = this.api();

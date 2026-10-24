@@ -10,7 +10,7 @@ use App\Interfaces\Views\MappingKelasSebelumDanSelanjutnyaInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
-class ProsesKenaikanKelasSiswaService
+readonly class ProsesKenaikanKelasSiswaService
 {
     public function __construct(
         private PenempatanSiswaInterface $penempatanSiswaInterface,

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Modules\Auth\ChangeRole;
 use App\Http\Controllers\Modules\Auth\ForgetPassword;
 use App\Http\Controllers\Modules\Auth\Login;
 use App\Http\Controllers\Modules\Auth\Logout;
@@ -33,3 +34,6 @@ Route::get('/reset-password/{token}',[ResetPassword::class,'index'])
     ->name('reset.password');
 Route::post('/reset-password/submit',[ResetPassword::class,'onSubmit'])
     ->name('reset.password.submit');
+
+Route::post('/change-role', ChangeRole::class)
+    ->name('change-role');
