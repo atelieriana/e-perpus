@@ -51,6 +51,7 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuS
                     ->newQuery()
                     ->upsert($arrayData, ['id_ref_buku','id_ref_jenis_peminjaman','id_ref_siswa'],[
                         'id_ref_status_peminjaman' => $arrayData['id_ref_status_peminjaman'],
+                        'tanggal_pengembalian' => (isset($arrayData['tanggal_pengembalian'])) ? $arrayData['tanggal_pengembalian'] : null,
                     ]);
             });
         }

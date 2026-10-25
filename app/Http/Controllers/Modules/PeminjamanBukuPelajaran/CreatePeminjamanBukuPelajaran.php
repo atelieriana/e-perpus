@@ -58,7 +58,12 @@ class CreatePeminjamanBukuPelajaran extends Controller
         {
             $this->peminjamanBukuPelajaranService->createRecord($request->post('buku-paket'), $request->input('uuid-ref-tahun-ajar'));
             return response()
-                ->redirectToRoute('peminjaman-buku-pelajaran.index')
+                ->redirectToRoute('peminjaman-buku-pelajaran.create', [
+                    'uuid-ref-kelas' => $request->input('uuid-ref-kelas'),
+                    'uuid-ref-kode-kelas' => $request->input('uuid-ref-kode-kelas'),
+                    'uuid-ref-tahun-ajar' => $request->input('uuid-ref-tahun-ajar'),
+                    'uuid-ref-kejuruan' => $request->input('uuid-ref-kejuruan'),
+                ])
                 ->with('success','Data peminjaman buku pelajaran berhasil ditambahkan.');
 
         }
