@@ -16,4 +16,12 @@ interface RefBukuPaketInterface
      * @return mixed
      */
     public function dtDataBukuPaket(int $start = null, int $end = null, string $search = null);
+
+    /**
+     * Digunakan untuk mendapatkan kelas dan kejuruan
+     * @param int $idKelas
+     * @param int $idKejuruan
+     * @return mixed
+     */
+    public function getByIdKelasDanKejuruan(int $idKelas, int $idKejuruan);
 }

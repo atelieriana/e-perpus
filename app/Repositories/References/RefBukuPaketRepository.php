@@ -5,6 +5,7 @@ namespace App\Repositories\References;
 use App\Interfaces\References\RefBukuPaketInterface;
 use App\Models\References\RefBukuPaket;
 use App\Repositories\BaseRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class RefBukuPaketRepository extends BaseRepository implements RefBukuPaketInterface
@@ -61,4 +62,23 @@ class RefBukuPaketRepository extends BaseRepository implements RefBukuPaketInter
             ->where('uuid', $uuid)
             ->first();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByIdKelasDanKejuruan(int $idKelas, int $idKejuruan)
+    {
+        return $this->refBukuPaket
+            ->newQuery()
+            ->select([
+                'ref_buku.uuid',
+                'ref_buku.judul',
+            ])
+            ->join('ref_buku','ref_buku.id','=','ref_buku_paket.id_ref_buku')
+            ->where('id_ref_kelas', $idKelas)
+            ->where('id_ref_kejuruan', $idKejuruan)
+            ->orderBy('ref_buku.judul')
+            ->get();
+    }
+
 }

@@ -24,4 +24,6 @@ interface PenempatanSiswaInterface
     public function massUpdateKenaikanKelasSiswa(int $idRefTahunAjar);
 
     public function massRollbackKenaikanKelasSiswa();
+
+    public function getSiswaByKodeKelasDanTahunAjar(int $idKodeKelas, int $idTahunAjar);
 }
