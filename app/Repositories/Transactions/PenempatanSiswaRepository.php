@@ -113,4 +113,20 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
             ->where('id_ref_kelas', $idKelas)
             ->get();
     }
+
+    public function getSiswaByKodeKelasDanTahunAjar(int $idKodeKelas, int $idTahunAjar)
+    {
+        return $this->penempatanSiswa
+            ->newQuery()
+            ->select([
+                'trans_penempatan_siswa.uuid',
+                'ref_siswa.nisn',
+                'ref_siswa.nomor_induk',
+                'ref_siswa.nama_lengkap',
+            ])
+            ->join('ref_siswa','trans_penempatan_siswa.id_ref_siswa','=','ref_siswa.id')
+            ->where('trans_penempatan_siswa.id_ref_kode_kelas', $idKodeKelas)
+            ->where('trans_penempatan_siswa.id_ref_tahun_ajar', $idTahunAjar)
+            ->get();
+    }
 }

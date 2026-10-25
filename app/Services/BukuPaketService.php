@@ -4,6 +4,9 @@ namespace App\Services;
 
 use App\Exceptions\BusinessException;
 use App\Interfaces\References\RefBukuPaketInterface;
+use App\Interfaces\References\RefKejuruanInterface;
+use App\Interfaces\References\RefKelasInterface;
+use App\Interfaces\References\RefTahunAjarInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -13,6 +16,8 @@ readonly class BukuPaketService
 {
     public function __construct(
         private RefBukuPaketInterface $refBukuPaketInterface,
+        private RefKelasInterface $refKelasInterface,
+        private RefKejuruanInterface $refKejuruanInterface,
     )
     {}
 
@@ -23,6 +28,18 @@ readonly class BukuPaketService
     public function findByUUID(string $uuid)
     {
         return $this->refBukuPaketInterface->findByUUID($uuid);
+    }
+
+    /**
+     * @param string $uuidRefKelas
+     * @param string $uuidRefKejuruan
+     * @return mixed
+     */
+    public function findBukuByKelasDanJurusan(string $uuidRefKelas, string $uuidRefKejuruan)
+    {
+        $dataKelas = $this->refKelasInterface->findByUUID($uuidRefKelas);
+        $dataKejuruan = $this->refKejuruanInterface->findByUuid($uuidRefKejuruan);
+        return $this->refBukuPaketInterface->getByIdKelasDanKejuruan($dataKelas->id, $dataKejuruan->id);
     }
 
     /**

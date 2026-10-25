@@ -19,7 +19,7 @@ class PustakawanMenu
                 'child' => [
                     [
                         'name' => 'Buku Pelajaran',
-                        'route' => '#',
+                        'route' => route('peminjaman-buku-pelajaran.index'),
                     ],
                     [
                         'name' => 'Buku Umum',
