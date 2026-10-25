@@ -77,6 +77,7 @@ class RefBukuPaketRepository extends BaseRepository implements RefBukuPaketInter
             ->join('ref_buku','ref_buku.id','=','ref_buku_paket.id_ref_buku')
             ->where('id_ref_kelas', $idKelas)
             ->where('id_ref_kejuruan', $idKejuruan)
+            ->orderBy('ref_buku.judul')
             ->get();
     }
 

@@ -39,6 +39,7 @@ class CreatePeminjamanBukuPelajaran extends Controller
         $dataKelas = $this->kelasService->findByUUID($request->input('uuid-ref-kelas'));
         $dataKejuruan = $this->kejuruanService->findByUUID($request->input('uuid-ref-kejuruan'));
         $listKodeKelas = $this->kodeKelasService->getKodeKelasByKelasAndKejuruan($dataKelas->id, $dataKejuruan->id);
+        $listPeminjaman = $this->peminjamanBukuPelajaranService->getRecordByKodeKelasAndTahunAjar($request->input('uuid-ref-kode-kelas'), $request->input('uuid-ref-tahun-ajar'));
         return view('modules.peminjaman-buku-pelajaran.create', compact(
             'listKelas',
             'listKejuruan',
@@ -46,7 +47,8 @@ class CreatePeminjamanBukuPelajaran extends Controller
             'listSiswa',
             'listBukuPaket',
             'listKodeKelas',
-            'listStatusPeminjaman'
+            'listStatusPeminjaman',
+            'listPeminjaman'
         ));
     }
 
@@ -54,7 +56,7 @@ class CreatePeminjamanBukuPelajaran extends Controller
     {
         try
         {
-            $this->peminjamanBukuPelajaranService->createRecord($request->post('buku-paket'));
+            $this->peminjamanBukuPelajaranService->createRecord($request->post('buku-paket'), $request->input('uuid-ref-tahun-ajar'));
             return response()
                 ->redirectToRoute('peminjaman-buku-pelajaran.index')
                 ->with('success','Data peminjaman buku pelajaran berhasil ditambahkan.');

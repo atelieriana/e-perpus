@@ -119,7 +119,7 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
         return $this->penempatanSiswa
             ->newQuery()
             ->select([
-                'trans_penempatan_siswa.uuid',
+                'ref_siswa.uuid',
                 'ref_siswa.nisn',
                 'ref_siswa.nomor_induk',
                 'ref_siswa.nama_lengkap',

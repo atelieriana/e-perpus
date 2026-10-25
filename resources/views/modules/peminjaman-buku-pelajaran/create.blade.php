@@ -100,7 +100,12 @@
                                                             <select class="form-control" name="buku-paket[{{ $siswa->uuid }}][{{$bukuPaket->uuid}}][]">
                                                                 <option value="">--- Pilih Status ---</option>
                                                                 @foreach($listStatusPeminjaman as $statusPeminjaman)
-                                                                    <option value="{{ $statusPeminjaman->uuid }}" @selected(old('buku-paket.'.$siswa->uuid.'.'.$bukuPaket->uuid.'.0') === $statusPeminjaman->uuid)>
+                                                                    <option value="{{ $statusPeminjaman->uuid }}"
+                                                                            @selected(old('buku-paket.'.$siswa->uuid.'.'.$bukuPaket->uuid.'.0') === $statusPeminjaman->uuid)
+                                                                            @if(in_array($statusPeminjaman->uuid, data_get($listPeminjaman, "*.{$siswa->uuid}.{$bukuPaket->uuid}.0")))
+                                                                                selected
+                                                                            @endif
+                                                                    >
                                                                         {{ $statusPeminjaman->status_peminjaman }}
                                                                     </option>
                                                                 @endforeach

@@ -19,9 +19,12 @@ class PeminjamanBuku extends Model implements Auditable
     protected $fillable = [
         'uuid',
         'id_ref_jenis_peminjaman',
-        'id_trans_penempatan_siswa',
+        'id_ref_siswa',
         'id_ref_buku',
         'id_ref_status_peminjaman',
+        'tanggal_mulai_pinjam',
+        'tanggal_akhir_pinjam',
+        'tanggal_pengembalian',
         'created_by',
         'updated_by',
         'deleted_by',
