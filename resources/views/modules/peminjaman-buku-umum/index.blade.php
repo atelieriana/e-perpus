@@ -48,6 +48,7 @@
                             <th class="align-middle">Buku</th>
                             <th class="align-middle">Tanggal Peminjaman</th>
                             <th class="align-middle">Tanggal Terakhir Peminjaman</th>
+                            <th class="align-middle">Status Peminjaman</th>
                             <th class="align-middle" style="width: 5em">Aksi</th>
                         </tr>
                         </thead>
@@ -94,6 +95,10 @@
                     {
                         data: 'tanggal_akhir_pinjam',
                         name: 'tanggal_akhir_pinjam'
+                    },
+                    {
+                        data: 'status_peminjaman',
+                        name: 'status_peminjaman'
                     },
                     {
                         data: 'aksi',

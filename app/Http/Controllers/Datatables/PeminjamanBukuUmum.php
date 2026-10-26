@@ -45,6 +45,53 @@ class PeminjamanBukuUmum extends Controller
             ->editColumn('tanggal_akhir_pinjam', function ($peminjaman) {
                 return Carbon::parse($peminjaman->tanggal_akhir_pinjam)->format('d F Y');
             })
+            ->addColumn('status_peminjaman', function ($dataPeminjaman) {
+                $arrayStatusPeminjman = explode(",", $dataPeminjaman->status_peminjaman);
+                if (count($arrayStatusPeminjman) > 1) {
+                    if (count(array_filter($arrayStatusPeminjman, fn($v) => $v == '1')) === count($arrayStatusPeminjman)) {
+                        return "Dipinjam";
+                    }
+
+                    if(in_array('2', $arrayStatusPeminjman) && in_array('3', $arrayStatusPeminjman)) {
+                        return 'Kembali Sebagian';
+                    }
+                    if (in_array('1', $arrayStatusPeminjman) && in_array('2', $arrayStatusPeminjman) && in_array('4', $arrayStatusPeminjman)) {
+                        return 'Kembali Sebagian';
+                    }
+
+                    else
+                    {
+                        if (count(array_filter($arrayStatusPeminjman, fn($v) => $v == '2')) === count($arrayStatusPeminjman)) {
+                            return "Telah dikembalikan";
+                        }
+                        else
+                        {
+                            if (in_array('4', $arrayStatusPeminjman) && in_array('2', $arrayStatusPeminjman)) {
+                                return 'Telah dikembalikan';
+                            }
+                            else
+                            {
+                                return 'Kembali sebagian';
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if ($arrayStatusPeminjman[0] == '1') {
+                        return 'Dipinjam';
+                    }
+                    if ($arrayStatusPeminjman[0] == '2') {
+                        return 'Telah dikembalikan';
+                    }
+                    if ($arrayStatusPeminjman[0] == '3') {
+                        return 'Hilang';
+                    }
+                    if ($arrayStatusPeminjman[0] == '4') {
+                        return 'Telah dikembalikan';
+                    }
+                }
+            })
             ->addColumn('aksi', function ($dataPeminjaman) {
                 return '<div class="row">
                             <div class="col-md-6">

@@ -68,34 +68,62 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
 
     public function dtDataPeminjamanBukuUmum(int $start = null, int $end = null, string $search = null)
     {
-        $judulSub = RefBuku::query()
-            ->selectRaw("group_concat(judul separator ',') as judul")
-            ->join('trans_peminjaman_buku', 'ref_buku.id', '=', 'trans_peminjaman_buku.id_ref_buku')
-            ->where('trans_peminjaman_buku.id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM);
+        $subQuery = $this->peminjamanBuku
+            ->newQuery()
+            ->join('ref_siswa as rs', 'trans_peminjaman_buku.id_ref_siswa', '=', 'rs.id')
+            ->join('ref_buku as rb', 'trans_peminjaman_buku.id_ref_buku', '=', 'rb.id')
+            ->where('trans_peminjaman_buku.id_ref_jenis_peminjaman', 2)
+            ->whereNull('trans_peminjaman_buku.deleted_at')
+            ->whereRaw('LOWER(rs.nama_lengkap) LIKE ?', ["%{$search}%"])
+            ->select([
+                'rs.uuid',
+                'rs.nomor_induk',
+                'rs.nama_lengkap',
+                DB::raw("GROUP_CONCAT(rb.judul ORDER BY trans_peminjaman_buku.id SEPARATOR ',') AS judul"),
+                DB::raw("GROUP_CONCAT(trans_peminjaman_buku.id_ref_status_peminjaman ORDER BY trans_peminjaman_buku.id SEPARATOR ',') AS status_peminjaman"),
+                'trans_peminjaman_buku.tanggal_mulai_pinjam',
+                'trans_peminjaman_buku.tanggal_akhir_pinjam',
+                DB::raw('ROW_NUMBER() OVER (ORDER BY MIN(trans_peminjaman_buku.id) ASC) AS row_num'),
+            ])
+            ->groupBy(
+                'rs.uuid',
+                'rs.nomor_induk',
+                'rs.nama_lengkap',
+                'trans_peminjaman_buku.tanggal_mulai_pinjam',
+                'trans_peminjaman_buku.tanggal_akhir_pinjam'
+            );
 
+        if ($search !== null) {
+            $subQuery->where(function ($query) use ($search) {
+                $query->whereRaw("lower(nama_lengkap) like ?", ["%".$search."%"]);
+            });
+        }
+
+        $query = DB::query()->fromSub($subQuery, 't');
+
+        if ($start !== null && $end !== null) {
+            $query->whereBetween('row_num', [$start, $end]);
+        }
+
+        return $query->get();
+    }
+
+    public function getPeminjamanBySiswaDanTanggalPinjam(int $idRefSiswa, string $tanggalPinjam)
+    {
         return $this->peminjamanBuku
             ->newQuery()
             ->select([
-                'ref_siswa.uuid',
-                'ref_siswa.nomor_induk',
                 'ref_siswa.nama_lengkap',
-            ])
-            ->selectSub($judulSub, 'judul')
-            ->addSelect([
-                'trans_peminjaman_buku.tanggal_mulai_pinjam',
-                'trans_peminjaman_buku.tanggal_akhir_pinjam',
+                'ref_buku.judul',
+                'tanggal_akhir_pinjam',
+                'ref_status_peminjaman.uuid as uuid_ref_status_peminjaman',
             ])
             ->join('ref_siswa', 'trans_peminjaman_buku.id_ref_siswa', '=', 'ref_siswa.id')
-            ->where('trans_peminjaman_buku.id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM)
-            ->whereNull('trans_peminjaman_buku.deleted_at')
-            ->groupBy(
-                'ref_siswa.uuid',
-                'ref_siswa.nomor_induk',
-                'ref_siswa.nama_lengkap',
-                'trans_peminjaman_buku.tanggal_mulai_pinjam',
-                'trans_peminjaman_buku.tanggal_akhir_pinjam',
-                DB::raw('(' . $judulSub->toSql() . ')')
-            )
-            ->mergeBindings($judulSub->getQuery());
+            ->join('ref_buku', 'trans_peminjaman_buku.id_ref_buku', '=', 'ref_buku.id')
+            ->join('ref_status_peminjaman', 'trans_peminjaman_buku.id_ref_status_peminjaman', '=', 'ref_status_peminjaman.id')
+            ->where('id_ref_siswa', $idRefSiswa)
+            ->where('tanggal_mulai_pinjam', $tanggalPinjam)
+            ->where('id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM)
+            ->get();
     }
 }

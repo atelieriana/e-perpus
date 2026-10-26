@@ -41,18 +41,20 @@ class PeminjamanBukuUmumService
         {
             return DB::transaction(function () use ($requestData, $dataSiswa) {
                 foreach ($requestData['uuid-ref-buku'] as $uuidRefBuku) {
-                    $dataBuku = $this->refBukuInterface->findByUUID($uuidRefBuku);
-                    $arrayData = [
-                        'uuid' => Str::uuid()->toString(),
-                        'id_ref_buku' => $dataBuku->id,
-                        'id_ref_siswa' => $dataSiswa->id,
-                        'id_ref_jenis_peminjaman' => self::JENIS_PEMINJAMAN_PRIBADI,
-                        'id_ref_status_peminjaman' => self::STATUS_JENIS_PINJMAN_DIPINJAM,
-                        'tanggal_mulai_pinjam' => $requestData['tanggal-pinjam'],
-                        'tanggal_akhir_pinjam' => $requestData['tanggal-terakhir-pinjam'],
-                    ];
+                    if (!is_null($uuidRefBuku)) {
+                        $dataBuku = $this->refBukuInterface->findByUUID($uuidRefBuku);
+                        $arrayData = [
+                            'uuid' => Str::uuid()->toString(),
+                            'id_ref_buku' => $dataBuku->id,
+                            'id_ref_siswa' => $dataSiswa->id,
+                            'id_ref_jenis_peminjaman' => self::JENIS_PEMINJAMAN_PRIBADI,
+                            'id_ref_status_peminjaman' => self::STATUS_JENIS_PINJMAN_DIPINJAM,
+                            'tanggal_mulai_pinjam' => $requestData['tanggal-pinjam'],
+                            'tanggal_akhir_pinjam' => $requestData['tanggal-terakhir-pinjam'],
+                        ];
 
-                    $this->peminjamanBukuInterface->create($arrayData);
+                        $this->peminjamanBukuInterface->create($arrayData);
+                    }
                 }
             });
         }
@@ -65,6 +67,6 @@ class PeminjamanBukuUmumService
 
     public function getPeminjamanBukuUmumByIdSiswaDanTanggalPinjam(int $idSiswa, string $tanggalPinjam)
     {
-        dd($idSiswa, $tanggalPinjam);
+        return $this->peminjamanBukuInterface->getPeminjamanBySiswaDanTanggalPinjam($idSiswa, $tanggalPinjam);
     }
 }

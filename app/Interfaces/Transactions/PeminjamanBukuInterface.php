@@ -13,4 +13,6 @@ interface PeminjamanBukuInterface
     public function getPeminjamanBukuByKodeKelasDanTahun(int $idRefKodeKelas, int $idRefTahunAjar);
 
     public function massUpsert($arrayData);
+
+    public function getPeminjamanBySiswaDanTanggalPinjam(int $idRefSiswa, string $tanggalPinjam);
 }
