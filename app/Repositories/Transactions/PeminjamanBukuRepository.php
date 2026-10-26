@@ -4,6 +4,7 @@ namespace App\Repositories\Transactions;
 
 use App\Exceptions\BusinessException;
 use App\Interfaces\Transactions\PeminjamanBukuInterface;
+use App\Models\References\RefBuku;
 use App\Models\Transactions\PeminjamanBuku;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\QueryException;
@@ -67,15 +68,34 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
 
     public function dtDataPeminjamanBukuUmum(int $start = null, int $end = null, string $search = null)
     {
+        $judulSub = RefBuku::query()
+            ->selectRaw("group_concat(judul separator ',') as judul")
+            ->join('trans_peminjaman_buku', 'ref_buku.id', '=', 'trans_peminjaman_buku.id_ref_buku')
+            ->where('trans_peminjaman_buku.id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM);
+
         return $this->peminjamanBuku
             ->newQuery()
             ->select([
+                'ref_siswa.uuid',
                 'ref_siswa.nomor_induk',
                 'ref_siswa.nama_lengkap',
-                'trans_peminjaman_buku.tanggal_mulai_pinjam'
+            ])
+            ->selectSub($judulSub, 'judul')
+            ->addSelect([
+                'trans_peminjaman_buku.tanggal_mulai_pinjam',
+                'trans_peminjaman_buku.tanggal_akhir_pinjam',
             ])
             ->join('ref_siswa', 'trans_peminjaman_buku.id_ref_siswa', '=', 'ref_siswa.id')
-            ->join('ref_buku', 'trans_peminjaman_buku.id_ref_buku', '=', 'ref_buku.id')
-            ->where('trans_peminjaman_buku.id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM);
+            ->where('trans_peminjaman_buku.id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM)
+            ->whereNull('trans_peminjaman_buku.deleted_at')
+            ->groupBy(
+                'ref_siswa.uuid',
+                'ref_siswa.nomor_induk',
+                'ref_siswa.nama_lengkap',
+                'trans_peminjaman_buku.tanggal_mulai_pinjam',
+                'trans_peminjaman_buku.tanggal_akhir_pinjam',
+                DB::raw('(' . $judulSub->toSql() . ')')
+            )
+            ->mergeBindings($judulSub->getQuery());
     }
 }

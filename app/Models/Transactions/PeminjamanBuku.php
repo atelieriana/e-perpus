@@ -31,7 +31,7 @@ class PeminjamanBuku extends Model implements Auditable
         'deleted_by',
     ];
 
-    public function buku()
+    public function ref_buku()
     {
         return $this->belongsTo(RefBuku::class, 'id_ref_buku');
     }

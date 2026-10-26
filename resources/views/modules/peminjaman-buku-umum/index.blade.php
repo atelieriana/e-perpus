@@ -88,12 +88,12 @@
                         name: 'buku'
                     },
                     {
-                        data: 'tanggal_peminjaman',
-                        name: 'tanggal_peminjaman'
-                    },
-                    {
                         data: 'tanggal_mulai_pinjam',
                         name: 'tanggal_mulai_pinjam'
+                    },
+                    {
+                        data: 'tanggal_akhir_pinjam',
+                        name: 'tanggal_akhir_pinjam'
                     },
                     {
                         data: 'aksi',

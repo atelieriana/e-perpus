@@ -3,9 +3,11 @@
 namespace App\Services;
 
 use App\Exceptions\BusinessException;
+use App\Interfaces\References\RefKejuruanInterface;
 use App\Interfaces\References\RefKelasInterface;
 use App\Interfaces\References\RefSiswaInterface;
 use App\Interfaces\References\RefTahunAjarInterface;
+use App\Interfaces\Transactions\PenempatanSiswaInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Collection;
@@ -18,6 +20,8 @@ readonly class SiswaService
         private RefSiswaInterface $refSiswaInterface,
         private RefTahunAjarInterface $refTahunAjarInterface,
         private RefKelasInterface $refKelasInterface,
+        private RefKejuruanInterface $refKejuruanInterface,
+        private PenempatanSiswaInterface $penempatanSiswaInterface,
     )
     {}
 
@@ -68,6 +72,13 @@ readonly class SiswaService
     public function getSiswaTanpaKelas(string $uuidTahunAjar)
     {
         return $this->refSiswaInterface->getSiswaTanpaKelas($uuidTahunAjar);
+    }
+
+    public function getSiswaByKelasDanKodeKejuruan(string $uuidRefKelas, string $uuidRefKejuruan)
+    {
+        $dataKelas = $this->refKelasInterface->findByUUID($uuidRefKelas);
+        $dataKejuruan = $this->refKejuruanInterface->findByUUID($uuidRefKejuruan);
+        return $this->penempatanSiswaInterface->getSiswaByKelasDanKejuruan($dataKelas->id, $dataKejuruan->id);
     }
 
     /**

@@ -15,7 +15,7 @@ Route::post('/submit', [CreatePeminjamanBukuUmum::class, 'onSubmit'])
     ->name('create.submit');
 
 #Routing Update Penempatan Siswa
-Route::get('/update/{uuid}', [UpdatePeminjamanBukuUmum::class, 'index'])
+Route::get('/update/{uuid}/{tanggalPinjam}', [UpdatePeminjamanBukuUmum::class, 'index'])
     ->name('update');
 Route::post('/update/submit', [UpdatePeminjamanBukuUmum::class, 'onSubmit'])
     ->name('update.submit');
