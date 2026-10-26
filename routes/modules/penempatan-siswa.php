@@ -1,11 +1,11 @@
 <?php
 
-#Routing Index Penempatan Siswa
 use App\Http\Controllers\Modules\PenempatanSiswa\CreatePenempatanSiswa;
 use App\Http\Controllers\Modules\PenempatanSiswa\DeletePenempatanSiswa;
 use App\Http\Controllers\Modules\PenempatanSiswa\IndexPenempatanSiswa;
 use App\Http\Controllers\Modules\PenempatanSiswa\UpdatePenempatanSiswa;
 
+#Routing Index Penempatan Siswa
 Route::get('/', [IndexPenempatanSiswa::class, 'index'])
     ->name('index');
 

@@ -23,7 +23,7 @@ class PustakawanMenu
                     ],
                     [
                         'name' => 'Buku Umum',
-                        'route' => '#',
+                        'route' => route('peminjaman-buku-umum.index'),
                     ],
                 ]
             ]

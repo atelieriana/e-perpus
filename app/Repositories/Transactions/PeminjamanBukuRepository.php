@@ -3,15 +3,17 @@
 namespace App\Repositories\Transactions;
 
 use App\Exceptions\BusinessException;
-use App\Interfaces\Transactions\PeminjamanBukuServiceInterface;
+use App\Interfaces\Transactions\PeminjamanBukuInterface;
 use App\Models\Transactions\PeminjamanBuku;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
-class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuServiceInterface
+class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuInterface
 {
+    const STATUS_PEMINJAMAN_BUKU_UMUM = 2;
+
     public function __construct(
         private PeminjamanBuku $peminjamanBuku
     )
@@ -61,5 +63,19 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuS
             throw new BusinessException('Terjadi kesalahan saat menyimpan data peminjaman buku');
         }
 
+    }
+
+    public function dtDataPeminjamanBukuUmum(int $start = null, int $end = null, string $search = null)
+    {
+        return $this->peminjamanBuku
+            ->newQuery()
+            ->select([
+                'ref_siswa.nomor_induk',
+                'ref_siswa.nama_lengkap',
+                'trans_peminjaman_buku.tanggal_mulai_pinjam'
+            ])
+            ->join('ref_siswa', 'trans_peminjaman_buku.id_ref_siswa', '=', 'ref_siswa.id')
+            ->join('ref_buku', 'trans_peminjaman_buku.id_ref_buku', '=', 'ref_buku.id')
+            ->where('trans_peminjaman_buku.id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM);
     }
 }

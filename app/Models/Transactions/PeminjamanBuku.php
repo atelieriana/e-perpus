@@ -2,6 +2,7 @@
 
 namespace App\Models\Transactions;
 
+use App\Models\References\RefBuku;
 use App\Traits\AuditTransaction;
 use App\Traits\LogTransaction;
 use Illuminate\Database\Eloquent\Model;
@@ -29,4 +30,9 @@ class PeminjamanBuku extends Model implements Auditable
         'updated_by',
         'deleted_by',
     ];
+
+    public function buku()
+    {
+        return $this->belongsTo(RefBuku::class, 'id_ref_buku');
+    }
 }

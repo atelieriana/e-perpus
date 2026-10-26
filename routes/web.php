@@ -83,4 +83,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('peminjaman-buku-pelajaran')
             ->name('peminjaman-buku-pelajaran.')
             ->group(__DIR__ . '/modules/peminjaman-buku-pelajaran.php');
+
+        #Routing Peminjaman Buku Umum
+        Route::prefix('peminjaman-buku-umum')
+            ->name('peminjaman-buku-umum.')
+            ->group(__DIR__ . '/modules/peminjaman-buku-umum.php');
     });
