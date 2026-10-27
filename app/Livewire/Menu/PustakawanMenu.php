@@ -9,7 +9,7 @@ class PustakawanMenu
         return [
             [
                 'name' => 'Dashboard',
-                'route' => 'dashboard',
+                'route' => route('dashboard'),
                 'icon' => 'bx bx-home-circle',
             ],
             [
@@ -23,7 +23,7 @@ class PustakawanMenu
                     ],
                     [
                         'name' => 'Buku Umum',
-                        'route' => '#',
+                        'route' => route('peminjaman-buku-umum.index'),
                     ],
                 ]
             ]

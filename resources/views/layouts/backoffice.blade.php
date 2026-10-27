@@ -192,7 +192,7 @@
                     'targeted-role': $('#change-role').val()
                 }
             }).then((repsonse)=>{
-                window.location.reload();
+                window.location.href = window.location.origin+'/dashboard';
             }).catch((error)=>{
                 console.error(error)
             })

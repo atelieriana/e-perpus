@@ -9,7 +9,7 @@ class AdminMenu
         return [
             [
                 'name' => 'Dashboard',
-                'route' => 'dashboard',
+                'route' => route('dashboard'),
                 'icon' => 'bx bx-home-circle',
             ],
             [

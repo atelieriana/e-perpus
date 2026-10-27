@@ -6,7 +6,7 @@ use App\Http\Controllers\Datatables\BukuUmum;
 use App\Http\Controllers\Datatables\Kejuruan;
 use App\Http\Controllers\Datatables\KenaikanKelas;
 use App\Http\Controllers\Datatables\KodeKelas;
-use App\Http\Controllers\Datatables\PenempatanSiswa;
+use App\Http\Controllers\Datatables\PeminjamanBukuUmum;
 use App\Http\Controllers\Datatables\Siswa;
 use App\Http\Controllers\Datatables\SiswaKelasXII;
 use App\Http\Controllers\Datatables\TahunAjar;
@@ -30,3 +30,5 @@ Route::post('/siswa-kelas-xii', SiswaKelasXII::class)
     ->name('siswa-kelas-xii');
 Route::post('/kenaikan-kelas', KenaikanKelas::class)
     ->name('kenaikan-kelas');
+Route::post('/peminjaman-buku-umum', PeminjamanBukuUmum::class)
+    ->name('peminjaman-buku-umum');

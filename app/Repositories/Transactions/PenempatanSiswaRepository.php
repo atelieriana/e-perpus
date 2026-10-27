@@ -91,18 +91,6 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
         return $query->get();
     }
 
-    public function massUpdateKenaikanKelasSiswa(int $idRefTahunAjar)
-    {
-        $this->penempatanSiswa
-            ->newQuery();
-    }
-
-    public function massRollbackKenaikanKelasSiswa()
-    {
-        // TODO: Implement massRollbackKenaikanKelasSiswa() method.
-    }
-
-
     public function getSiswaKelasXOrXI(int $idTahunAjar, int $idKelas)
     {
         return $this->penempatanSiswa
@@ -127,6 +115,23 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
             ->join('ref_siswa','trans_penempatan_siswa.id_ref_siswa','=','ref_siswa.id')
             ->where('trans_penempatan_siswa.id_ref_kode_kelas', $idKodeKelas)
             ->where('trans_penempatan_siswa.id_ref_tahun_ajar', $idTahunAjar)
+            ->get();
+    }
+
+    public function getSiswaByKelasDanKejuruan(int $idTahunAjar, int $idKelas)
+    {
+        return $this->penempatanSiswa
+            ->newQuery()
+            ->select([
+                'ref_siswa.uuid',
+                'ref_siswa.nama_lengkap'
+            ])
+            ->join('ref_siswa', 'trans_penempatan_siswa.id_ref_siswa', '=', 'ref_siswa.id')
+            ->join('ref_tahun_ajar', 'trans_penempatan_siswa.id_ref_tahun_ajar', '=', 'ref_tahun_ajar.id')
+            ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
+            ->where('ref_tahun_ajar.id', RefTahunAjar::max('id'))
+            ->where('ref_kode_kelas.id_ref_kelas', $idKelas)
+            ->where('ref_kode_kelas.id_ref_kejuruan', $idTahunAjar)
             ->get();
     }
 }

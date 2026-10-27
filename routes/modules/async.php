@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AsyncRequest\KodeKelas;
 use App\Http\Controllers\AsyncRequest\PenempatanSiswa;
+use App\Http\Controllers\AsyncRequest\Siswa;
 
 Route::post('/kode-kelas',[KodeKelas::class,'getKodeKelasByKelasAndKejuruan'])
     ->name('kode-kelas');
@@ -13,3 +14,5 @@ Route::post('/hapus-dari-kelas',[PenempatanSiswa::class,'hapusSiswaDariKelas'])
     ->name('hapus-dari-kelas');
 Route::post('/tambah-ke-kelas',[PenempatanSiswa::class,'tambahSiswaKeKelas'])
     ->name('tambah-ke-kelas');
+Route::post('/siswa-kelas-kejuruan',[Siswa::class,'getSiswaBerdasarkanKodeKelasDanTahun'])
+    ->name('siswa-kelas-kejuruan');

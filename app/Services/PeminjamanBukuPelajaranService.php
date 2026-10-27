@@ -8,7 +8,7 @@ use App\Interfaces\References\RefKodeKelasInterface;
 use App\Interfaces\References\RefSiswaInterface;
 use App\Interfaces\References\RefStatusPeminjamanInterface;
 use App\Interfaces\References\RefTahunAjarInterface;
-use App\Interfaces\Transactions\PeminjamanBukuServiceInterface;
+use App\Interfaces\Transactions\PeminjamanBukuInterface;
 use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
@@ -25,11 +25,11 @@ readonly class PeminjamanBukuPelajaranService
 
     public function __construct(
         private RefStatusPeminjamanInterface $refStatusPeminjaman,
-        private RefBukuInterface $refBukuInterface,
-        private RefSiswaInterface $refSiswaInterface,
-        private PeminjamanBukuServiceInterface $peminjamanBukuServiceInterface,
-        private RefTahunAjarInterface $tahunAjarInterface,
-        private RefKodeKelasInterface $refKodeKelasInterface,
+        private RefBukuInterface             $refBukuInterface,
+        private RefSiswaInterface            $refSiswaInterface,
+        private PeminjamanBukuInterface      $peminjamanBukuServiceInterface,
+        private RefTahunAjarInterface        $tahunAjarInterface,
+        private RefKodeKelasInterface        $refKodeKelasInterface,
     )
     {}
 
