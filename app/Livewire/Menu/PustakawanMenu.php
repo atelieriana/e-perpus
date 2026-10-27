@@ -26,7 +26,17 @@ class PustakawanMenu
                         'route' => route('peminjaman-buku-umum.index'),
                     ],
                 ]
-            ]
+            ],
+            [
+                'name' => 'Hibah Buku',
+                'route' => route('hibah-buku.index'),
+                'icon' => 'bx bx-history',
+            ],
+            [
+                'name' => 'Bebas Perpustakaan',
+                'route' => route('dashboard'),
+                'icon' => 'bx bx-book',
+            ],
         ];
     }
 }
