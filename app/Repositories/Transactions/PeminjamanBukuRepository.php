@@ -113,10 +113,13 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
         return $this->peminjamanBuku
             ->newQuery()
             ->select([
+                'ref_siswa.uuid as uuid_ref_siswa',
                 'ref_siswa.nama_lengkap',
                 'ref_buku.judul',
+                'tanggal_mulai_pinjam',
                 'tanggal_akhir_pinjam',
                 'ref_status_peminjaman.uuid as uuid_ref_status_peminjaman',
+                'trans_peminjaman_buku.uuid as uuid_trans_peminjaman_buku',
             ])
             ->join('ref_siswa', 'trans_peminjaman_buku.id_ref_siswa', '=', 'ref_siswa.id')
             ->join('ref_buku', 'trans_peminjaman_buku.id_ref_buku', '=', 'ref_buku.id')

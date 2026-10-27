@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Exceptions\BusinessException;
 use App\Interfaces\References\RefBukuInterface;
 use App\Interfaces\References\RefSiswaInterface;
+use App\Interfaces\References\RefStatusPeminjamanInterface;
 use App\Interfaces\Transactions\PeminjamanBukuInterface;
+use Carbon\Carbon;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -20,6 +22,7 @@ class PeminjamanBukuUmumService
         private PeminjamanBukuInterface $peminjamanBukuInterface,
         private RefBukuInterface $refBukuInterface,
         private RefSiswaInterface $refSiswaInterface,
+        private RefStatusPeminjamanInterface $refStatusPeminjamanInterface
     )
     {}
 
@@ -63,6 +66,42 @@ class PeminjamanBukuUmumService
             Log::error($exception->getMessage());
             throw new BusinessException('Terjadi kesalahan saat penyimpanan data peminjaman buku umum');
         }
+    }
+
+    public function updateRecord(array $requestData)
+    {
+        return DB::transaction(function () use ($requestData) {
+            $iteration = 0;
+            foreach ($requestData['uuid-trans-peminjaman'] as $uuidTransPeminjaman) {
+                $dataPeminjaman = $this->peminjamanBukuInterface->findByUUID($uuidTransPeminjaman);
+                $dataStatusPeminjaman = $this->refStatusPeminjamanInterface->findByUUID($requestData['uuid-ref-status-peminjaman'][$iteration]);
+                if ($dataStatusPeminjaman->id == 1 && !is_null($requestData['perpanjangan-pinjam'][$iteration]))
+                {
+                    $arrayData = [
+                        'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
+                        'tanggal_akhir_pinjam' => $requestData['perpanjangan-pinjam'][$iteration],
+                    ];
+                }
+
+                if ($dataStatusPeminjaman->id == 2 || $dataStatusPeminjaman->id === 4)
+                {
+                    $arrayData = [
+                        'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
+                        'tanggal_pengembalian' => now()->format('Y-m-d'),
+                    ];
+                }
+
+                if ($dataStatusPeminjaman->id == 3)
+                {
+                    $arrayData = [
+                        'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
+                    ];
+                }
+
+                $this->peminjamanBukuInterface->update($arrayData, $dataPeminjaman->id);
+                $iteration++;
+            }
+        });
     }
 
     public function getPeminjamanBukuUmumByIdSiswaDanTanggalPinjam(int $idSiswa, string $tanggalPinjam)
