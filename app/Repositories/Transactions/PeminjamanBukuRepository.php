@@ -127,6 +127,7 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
             ->where('id_ref_siswa', $idRefSiswa)
             ->where('tanggal_mulai_pinjam', $tanggalPinjam)
             ->where('id_ref_jenis_peminjaman', self::STATUS_PEMINJAMAN_BUKU_UMUM)
+            ->whereNull('trans_peminjaman_buku.deleted_at')
             ->get();
     }
 }
