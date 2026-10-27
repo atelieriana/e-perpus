@@ -21,7 +21,7 @@ Route::post('/update/submit', [UpdatePeminjamanBukuUmum::class, 'onSubmit'])
     ->name('update.submit');
 
 #Routing Delete Penempatan Siswa
-Route::get('/delete/{uuid}', [DeletePeminjamanBukuUmum::class, 'index'])
+Route::get('/delete/{uuid}/{tanggalPinjam}', [DeletePeminjamanBukuUmum::class, 'index'])
     ->name('delete');
 Route::post('/delete/submit', [DeletePeminjamanBukuUmum::class, 'onSubmit'])
     ->name('delete.submit');

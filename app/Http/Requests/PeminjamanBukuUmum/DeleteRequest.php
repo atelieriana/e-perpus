@@ -12,7 +12,7 @@ class DeleteRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,21 @@ class DeleteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'uuid-trans-peminjaman.*' => ['required','uuid'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'uuid-trans-peminjaman.*' => ':attribute tidak boleh kosong',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'uuid-trans-peminjaman.*' => 'UUID Peminjaman',
         ];
     }
 }

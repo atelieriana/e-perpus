@@ -33,10 +33,11 @@ class PeminjamanBukuUmum extends Controller
             ->addIndexColumn()
             ->addColumn('buku', function ($dataPeminjaman) {
                 $arrayBuku = explode(",", $dataPeminjaman->judul);
-                $html = '';
+                $html = '<ul>';
                 for($i = 0; $i < count($arrayBuku); $i++) {
                     $html .= "<li>".$arrayBuku[$i]."</li>";
                 }
+                $html .= '</ul>';
                 return $html;
             })
             ->editColumn('tanggal_mulai_pinjam', function ($peminjaman) {
@@ -100,7 +101,7 @@ class PeminjamanBukuUmum extends Controller
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="'.route('peminjaman-buku-umum.delete',['uuid' =>  $dataPeminjaman->uuid]).'" data-toggle="tooltip" title="Hapus">
+                                <a href="'.route('peminjaman-buku-umum.delete',['uuid' =>  $dataPeminjaman->uuid, 'tanggalPinjam' => base64_encode($dataPeminjaman->tanggal_mulai_pinjam)]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>

@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
-class PeminjamanBukuUmumService
+readonly class PeminjamanBukuUmumService
 {
     const JENIS_PEMINJAMAN_PRIBADI = 2;
     const STATUS_JENIS_PINJMAN_DIPINJAM = 1;
@@ -70,38 +70,64 @@ class PeminjamanBukuUmumService
 
     public function updateRecord(array $requestData)
     {
-        return DB::transaction(function () use ($requestData) {
-            $iteration = 0;
-            foreach ($requestData['uuid-trans-peminjaman'] as $uuidTransPeminjaman) {
-                $dataPeminjaman = $this->peminjamanBukuInterface->findByUUID($uuidTransPeminjaman);
-                $dataStatusPeminjaman = $this->refStatusPeminjamanInterface->findByUUID($requestData['uuid-ref-status-peminjaman'][$iteration]);
-                if ($dataStatusPeminjaman->id == 1 && !is_null($requestData['perpanjangan-pinjam'][$iteration]))
-                {
-                    $arrayData = [
-                        'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
-                        'tanggal_akhir_pinjam' => $requestData['perpanjangan-pinjam'][$iteration],
-                    ];
-                }
+        try
+        {
+            return DB::transaction(function () use ($requestData) {
+                $iteration = 0;
+                foreach ($requestData['uuid-trans-peminjaman'] as $uuidTransPeminjaman) {
+                    $dataPeminjaman = $this->peminjamanBukuInterface->findByUUID($uuidTransPeminjaman);
+                    $dataStatusPeminjaman = $this->refStatusPeminjamanInterface->findByUUID($requestData['uuid-ref-status-peminjaman'][$iteration]);
+                    if ($dataStatusPeminjaman->id == 1 && !is_null($requestData['perpanjangan-pinjam'][$iteration]))
+                    {
+                        $arrayData = [
+                            'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
+                            'tanggal_akhir_pinjam' => $requestData['perpanjangan-pinjam'][$iteration],
+                        ];
+                    }
 
-                if ($dataStatusPeminjaman->id == 2 || $dataStatusPeminjaman->id === 4)
-                {
-                    $arrayData = [
-                        'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
-                        'tanggal_pengembalian' => now()->format('Y-m-d'),
-                    ];
-                }
+                    if ($dataStatusPeminjaman->id == 2 || $dataStatusPeminjaman->id === 4)
+                    {
+                        $arrayData = [
+                            'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
+                            'tanggal_pengembalian' => now()->format('Y-m-d'),
+                        ];
+                    }
 
-                if ($dataStatusPeminjaman->id == 3)
-                {
-                    $arrayData = [
-                        'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
-                    ];
-                }
+                    if ($dataStatusPeminjaman->id == 3)
+                    {
+                        $arrayData = [
+                            'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
+                        ];
+                    }
 
-                $this->peminjamanBukuInterface->update($arrayData, $dataPeminjaman->id);
-                $iteration++;
-            }
-        });
+                    $this->peminjamanBukuInterface->update($arrayData, $dataPeminjaman->id);
+                    $iteration++;
+                }
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalahan saat mengubah data peminjaman buku umum");
+        }
+    }
+
+    public function deleteRecord(array $requestData)
+    {
+        try
+        {
+            return DB::transaction(function () use ($requestData) {
+                foreach ($requestData['uuid-trans-peminjaman'] as $uuidTransPeminjaman) {
+                    $dataPeminjaman = $this->peminjamanBukuInterface->findByUUID($uuidTransPeminjaman);
+                    $this->peminjamanBukuInterface->delete($dataPeminjaman->id);
+                }
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalah saat menghapus data peminjaman buku umum");
+        }
     }
 
     public function getPeminjamanBukuUmumByIdSiswaDanTanggalPinjam(int $idSiswa, string $tanggalPinjam)
