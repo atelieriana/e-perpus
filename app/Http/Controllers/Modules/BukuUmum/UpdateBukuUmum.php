@@ -16,7 +16,7 @@ class UpdateBukuUmum extends Controller
     use AuditAccess;
 
     private $moduleName = 'Buku Umum - Update';
-    const JENIS_BUKU_PELAJARAN = 1;
+    const JENIS_BUKU_UMUM = 1;
     const DIRECTORY_NAME = 'cover-buku-umum'
     ;
     public function __construct(
@@ -50,7 +50,7 @@ class UpdateBukuUmum extends Controller
                 'halaman' => $request->post('halaman'),
                 'deskripsi_fisik' => $request->post('deskripsi-fisik'),
                 'jumlah_buku' => $request->post('jumlah-buku'),
-                'id_ref_jenis_buku' => self::JENIS_BUKU_PELAJARAN,
+                'id_ref_jenis_buku' => self::JENIS_BUKU_UMUM,
             ];
             if (!is_null($request->file('cover-buku')))
             {

@@ -38,7 +38,7 @@
                                 <select class="form-control select2" id="kejuruan" name="kejuruan">
                                     <option value="">--- Pilih Kejuruan ---</option>
                                     @foreach($listKejuruan as $kejuruan)
-                                        <option value="{{ $kejuruan->uuid }}">{{ $kejuruan->kejuruan }}</option>
+                                        <option value="{{ $kejuruan->uuid }}" @selected($kejuruan->uuid === old('kejuruan'))>{{ $kejuruan->kejuruan }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -49,6 +49,11 @@
                             <div class="col-sm-9">
                                 <select class="form-control select2" id="kode-kelas" name="kode-kelas">
                                     <option value="">--- Pilih Kode Kelas ---</option>
+                                    @if(!is_null($listKodeKelas))
+                                        @foreach($listKodeKelas as $kodeKelas)
+                                            <option value="{{ $kodeKelas->uuid }}" @selected($kodeKelas->uuid === old('kode-kelas'))>{{ $kodeKelas->kode_kelas }}</option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -59,7 +64,7 @@
                                 <select class="form-control select2" id="tahun-ajar" name="tahun-ajar">
                                     <option value="">--- Pilih Tahun Ajar ---</option>
                                     @foreach($listTahunAjar as $tahunAjar)
-                                        <option value="{{ $tahunAjar->uuid }}">{{ $tahunAjar->tahun_ajar }}</option>
+                                        <option value="{{ $tahunAjar->uuid }}" @selected($tahunAjar->uuid === old('tahun-ajar'))>{{ $tahunAjar->tahun_ajar }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -70,6 +75,11 @@
                             <div class="col-sm-9">
                                 <select class="form-control select2" id="siswa" name="uuid-ref-siswa">
                                     <option value="">--- Pilih Siswa/Siswi ---</option>
+                                    @if(!is_null($listSiswa))
+                                        @foreach($listSiswa as $siswa)
+                                            <option value="{{ $siswa->uuid }}" @selected($siswa->uuid === old('uuid-ref-siswa'))> {{ $siswa->nama_lengkap }} </option>
+                                        @endforeach
+                                    @endif
                                 </select>
                             </div>
                         </div>

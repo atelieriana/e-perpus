@@ -72,7 +72,7 @@ readonly class BukuService
         try
         {
             return DB::transaction(function () use ($requestData) {
-                $this->refBukuInterface->create($requestData);
+                return $this->refBukuInterface->create($requestData);
             });
         }
         catch (QueryException $exception)
