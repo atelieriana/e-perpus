@@ -13,10 +13,18 @@ class Siswa extends Controller
     )
     {}
 
-    public function getSiswaBerdasarkanKodeKelasDanTahun(Request $request)
+    public function getSiswaBerdasarkanKelasDanKejuruan(Request $request)
     {
         $uuidRefKelas = $request->post('uuid-ref-kelas');
         $uuidRefKejuruan = $request->post('uuid-ref-kejuruan');
         return json_encode($this->siswaService->getSiswaByKelasDanKodeKejuruan($uuidRefKelas, $uuidRefKejuruan));
+    }
+
+    public function getSiswaBerdasarkanKelasKejuruanTahun(Request $request)
+    {
+        $uuidRefKelas = $request->post('uuid-ref-kelas');
+        $uuidRefKejuruan = $request->post('uuid-ref-kejuruan');
+        $uuidRefTahunAjar = $request->post('uuid-ref-tahun-ajar');
+        return json_encode($this->siswaService->getSiswaByKelasKejuruanDanTahunAjar($uuidRefKelas, $uuidRefKejuruan, $uuidRefTahunAjar));
     }
 }

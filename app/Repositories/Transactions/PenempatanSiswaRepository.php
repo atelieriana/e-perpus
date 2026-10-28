@@ -15,7 +15,6 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
 
     public function __construct(
         private PenempatanSiswa $penempatanSiswa,
-        private RefTahunAjar $refTahunAjar,
     )
     {
         parent::__construct($penempatanSiswa);
@@ -132,6 +131,25 @@ class PenempatanSiswaRepository extends BaseRepository implements PenempatanSisw
             ->where('ref_tahun_ajar.id', RefTahunAjar::max('id'))
             ->where('ref_kode_kelas.id_ref_kelas', $idKelas)
             ->where('ref_kode_kelas.id_ref_kejuruan', $idTahunAjar)
+            ->get();
+    }
+
+    public function getSiswaByKelasKejuruanDanTahunAjar(int $idRefKelas, int $idRefKejuruan, int $idRefTahunAjar)
+    {
+        return $this->penempatanSiswa
+            ->newQuery()
+            ->select([
+                'ref_siswa.uuid',
+                'ref_siswa.nama_lengkap'
+            ])
+            ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
+            ->join('ref_tahun_ajar', 'trans_penempatan_siswa.id_ref_tahun_ajar', '=', 'ref_tahun_ajar.id')
+            ->join('ref_siswa', 'trans_penempatan_siswa.id_ref_siswa', '=', 'ref_siswa.id')
+            ->join('ref_kelas', 'ref_kode_kelas.id_ref_kelas', '=', 'ref_kelas.id')
+            ->join('ref_kejuruan', 'ref_kode_kelas.id_ref_kejuruan', '=', 'ref_kejuruan.id')
+            ->where('ref_kelas.id', $idRefKelas)
+            ->where('ref_kejuruan.id', $idRefKejuruan)
+            ->where('ref_tahun_ajar.id', $idRefTahunAjar)
             ->get();
     }
 }
