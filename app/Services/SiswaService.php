@@ -74,11 +74,24 @@ readonly class SiswaService
         return $this->refSiswaInterface->getSiswaTanpaKelas($uuidTahunAjar);
     }
 
+    /**
+     * @param string $uuidRefKelas
+     * @param string $uuidRefKejuruan
+     * @return mixed
+     */
     public function getSiswaByKelasDanKodeKejuruan(string $uuidRefKelas, string $uuidRefKejuruan)
     {
         $dataKelas = $this->refKelasInterface->findByUUID($uuidRefKelas);
         $dataKejuruan = $this->refKejuruanInterface->findByUUID($uuidRefKejuruan);
         return $this->penempatanSiswaInterface->getSiswaByKelasDanKejuruan($dataKelas->id, $dataKejuruan->id);
+    }
+
+    public function getSiswaByKelasKejuruanDanTahunAjar(string $uuidRefKelas, string $uuidRefKejuruan, string $uuidRefTahunAjar)
+    {
+        $dataKelas = $this->refKelasInterface->findByUUID($uuidRefKelas);
+        $dataKejuruan = $this->refKejuruanInterface->findByUUID($uuidRefKejuruan);
+        $dataTahunAjar = $this->refTahunAjarInterface->findByUUID($uuidRefTahunAjar);
+        return $this->penempatanSiswaInterface->getSiswaByKelasKejuruanDanTahunAjar($dataKelas->id, $dataKejuruan->id, $dataTahunAjar->id);
     }
 
     /**

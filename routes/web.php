@@ -88,4 +88,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('peminjaman-buku-umum')
             ->name('peminjaman-buku-umum.')
             ->group(__DIR__ . '/modules/peminjaman-buku-umum.php');
+
+        #Routing Hibah Buku
+        Route::prefix('hibah-buku')
+            ->name('hibah-buku.')
+            ->group(__DIR__ . '/modules/hibah-buku.php');
     });

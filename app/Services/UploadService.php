@@ -70,7 +70,8 @@ readonly class UploadService
         if ($this->checkSuspiciousPattern($file->getContent()))
             throw new BusinessException('File terdeteksi sebagai malicious');
 
-        try {
+        try
+        {
             $this->s3->putObject([
                 'Bucket' => config('filesystems.disks.s3.bucket'),
                 'Key' => $directory . '/' . $filename,
@@ -79,7 +80,9 @@ readonly class UploadService
             ]);
 
             return $directory . '/' . $filename;
-        } catch (BusinessException $s3Exception) {
+        }
+        catch (BusinessException $s3Exception)
+        {
             Log::error($s3Exception);
         }
     }

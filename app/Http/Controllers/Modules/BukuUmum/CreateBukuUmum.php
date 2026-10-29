@@ -15,7 +15,7 @@ class CreateBukuUmum extends Controller
 {
     use AuditAccess;
     private $moduleName = 'Buku Umum - Create';
-    const JENIS_BUKU_PELAJARAN = 1;
+    const JENIS_BUKU_UMUM = 1;
     const DIRECTORY_NAME = 'cover-buku-umum';
 
     public function __construct(
@@ -38,7 +38,10 @@ class CreateBukuUmum extends Controller
 
         try
         {
-            $pathFile = $this->uploadService->upload($directory, $request->file('cover-buku'));
+            if (!is_null($request->file('cover-buku')))
+            {
+                $pathFile = $this->uploadService->upload($directory, $request->file('cover-buku'));
+            }
             $requestData = [
                 'uuid' => Str::uuid()->toString(),
                 'judul' => $request->post('judul'),
@@ -50,8 +53,8 @@ class CreateBukuUmum extends Controller
                 'halaman' => $request->post('halaman'),
                 'deskripsi_fisik' => $request->post('deskripsi-fisik'),
                 'jumlah_buku' => $request->post('jumlah-buku'),
-                'file_cover' => $pathFile,
-                'id_ref_jenis_buku' => self::JENIS_BUKU_PELAJARAN,
+                'file_cover' => $pathFile ?? null,
+                'id_ref_jenis_buku' => self::JENIS_BUKU_UMUM,
             ];
             $this->bukuService->createRecordBuku($requestData);
         }

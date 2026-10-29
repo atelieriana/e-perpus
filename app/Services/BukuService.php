@@ -39,7 +39,7 @@ readonly class BukuService
      */
     public function getDatatablesBukuUmum(int $start = null, int $end = null, string $search = null)
     {
-        return $this->refBukuInterface->dtDataByIdJenisBuku(self::BUKU_UMUM, $start, $end);
+        return $this->refBukuInterface->dtDataByIdJenisBuku(self::BUKU_UMUM, $start, $end, $search);
     }
 
     /**
@@ -72,7 +72,7 @@ readonly class BukuService
         try
         {
             return DB::transaction(function () use ($requestData) {
-                $this->refBukuInterface->create($requestData);
+                return $this->refBukuInterface->create($requestData);
             });
         }
         catch (QueryException $exception)

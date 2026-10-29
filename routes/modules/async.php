@@ -14,5 +14,7 @@ Route::post('/hapus-dari-kelas',[PenempatanSiswa::class,'hapusSiswaDariKelas'])
     ->name('hapus-dari-kelas');
 Route::post('/tambah-ke-kelas',[PenempatanSiswa::class,'tambahSiswaKeKelas'])
     ->name('tambah-ke-kelas');
-Route::post('/siswa-kelas-kejuruan',[Siswa::class,'getSiswaBerdasarkanKodeKelasDanTahun'])
+Route::post('/siswa-kelas-kejuruan',[Siswa::class,'getSiswaBerdasarkanKelasDanKejuruan'])
     ->name('siswa-kelas-kejuruan');
+Route::post('/siswa-kelas-kejuruan-tahun',[Siswa::class,'getSiswaBerdasarkanKelasKejuruanTahun'])
+    ->name('siswa-kelas-kejuruan-tahun');

@@ -24,4 +24,6 @@ interface PenempatanSiswaInterface
     public function getSiswaByKelasDanKejuruan(int $idTahunAjar, int $idKelas);
 
     public function getSiswaByKodeKelasDanTahunAjar(int $idKodeKelas, int $idTahunAjar);
+
+    public function getSiswaByKelasKejuruanDanTahunAjar(int $idRefKelas, int $idRefKejuruan, int $idRefTahunAjar);
 }

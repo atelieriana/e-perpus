@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\References\RefStatusPeminjamanInterface;
 
-class StatusPeminjamanService
+readonly class StatusPeminjamanService
 {
     public function __construct(
         private RefStatusPeminjamanInterface $refStatusPeminjamanInterface
