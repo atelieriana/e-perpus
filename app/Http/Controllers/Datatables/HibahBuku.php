@@ -33,12 +33,12 @@ class HibahBuku extends Controller
             ->addColumn('aksi', function ($dataHibahBuku) {
                 return '<div class="row">
                             <div class="col-md-6">
-                                <a href="'.route('kejuruan.update',['uuid' => $dataHibahBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
+                                <a href="'.route('hibah-buku.update',['uuid' => $dataHibahBuku->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="'.route('kejuruan.delete',['uuid' =>  $dataHibahBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
+                                <a href="'.route('hibah-buku.update',['uuid' =>  $dataHibahBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>

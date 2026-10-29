@@ -2,6 +2,7 @@
 
 namespace App\Models\References;
 
+use App\Models\Transactions\PenempatanSiswa;
 use App\Traits\AuditTransaction;
 use App\Traits\LogTransaction;
 use Illuminate\Database\Eloquent\Attributes\Scope;
@@ -40,6 +41,16 @@ class RefSiswa extends Model implements Auditable
     public function status_siswa()
     {
         return $this->hasOne(RefStatusSiswa::class, 'id', 'id_ref_status_siswa');
+    }
+
+    public function trans_penempatan()
+    {
+        return $this->hasMany(PenempatanSiswa::class, 'id_ref_siswa', 'id');
+    }
+
+    public function trans_penempatan_latest()
+    {
+        return $this->hasOne(PenempatanSiswa::class, 'id_ref_siswa', 'id')->latestOfMany();
     }
 
     /**

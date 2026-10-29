@@ -17,8 +17,7 @@ class UpdateBukuUmum extends Controller
 
     private $moduleName = 'Buku Umum - Update';
     const JENIS_BUKU_UMUM = 1;
-    const DIRECTORY_NAME = 'cover-buku-umum'
-    ;
+    const DIRECTORY_NAME = 'cover-buku-umum';
     public function __construct(
         private BukuService $bukuService,
         private UploadService $uploadService,
