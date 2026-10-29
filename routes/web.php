@@ -93,4 +93,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('hibah-buku')
             ->name('hibah-buku.')
             ->group(__DIR__ . '/modules/hibah-buku.php');
+
+        #Routing Hibah Buku
+        Route::prefix('bebas-pustaka')
+            ->name('bebas-pustaka.')
+            ->group(__DIR__ . '/modules/bebas-pustaka.php');
     });
