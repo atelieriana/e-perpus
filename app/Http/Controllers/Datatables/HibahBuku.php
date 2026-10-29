@@ -38,7 +38,7 @@ class HibahBuku extends Controller
                                 </a>
                             </div>
                             <div class="col-md-6">
-                                <a href="'.route('hibah-buku.update',['uuid' =>  $dataHibahBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
+                                <a href="'.route('hibah-buku.delete',['uuid' =>  $dataHibahBuku->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>

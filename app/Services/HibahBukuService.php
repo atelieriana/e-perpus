@@ -114,4 +114,23 @@ readonly class HibahBukuService
             throw new BusinessException('Terjadi kesalahan saat membuat hibah buku');
         }
     }
+
+    public function deleteRecordHibahBuku(array $requestData)
+    {
+        $dataBuku = $this->refBukuInterface->findByUUID($requestData['uuid-ref-buku']);
+        $dataHibahBuku = $this->hibahBukuInterface->findByUUID($requestData['uuid-trans-hibah']);
+
+        try
+        {
+            return DB::transaction(function () use ($dataBuku, $dataHibahBuku) {
+                $this->refBukuInterface->delete($dataBuku->id);
+                return $this->hibahBukuInterface->delete($dataHibahBuku->id);
+            });
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException('Terjadi kesalahan saat membuat hibah buku');
+        }
+    }
 }
