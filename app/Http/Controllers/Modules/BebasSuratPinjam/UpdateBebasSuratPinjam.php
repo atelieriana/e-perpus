@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Modules\BebasPustaka;
+namespace App\Http\Controllers\Modules\BebasSuratPinjam;
 
 use App\Http\Controllers\Controller;
 
-class UpdateBebasPustaka extends Controller
+class UpdateBebasSuratPinjam extends Controller
 {
     public function __construct()
     {}

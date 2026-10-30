@@ -5,12 +5,12 @@ namespace App\Models\Transactions;
 use App\Models\References\RefSiswa;
 use Illuminate\Database\Eloquent\Model;
 
-class BebasPustaka extends Model
+class SuratBebasPinjam extends Model
 {
-    protected $table = 'trans_bebas_pustaka';
+    protected $table = 'trans_surat_bebas_pinjam';
     protected $primaryKey = 'id';
     protected $fillable = [
-        'tanggal_bebas_pustaka',
+        'tanggal_surat',
         'created_by',
         'updated_by',
         'deleted_by',

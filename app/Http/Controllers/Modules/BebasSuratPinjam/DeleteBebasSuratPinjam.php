@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Modules\BebasPustaka;
+namespace App\Http\Controllers\Modules\BebasSuratPinjam;
 
 use App\Http\Controllers\Controller;
 
-class DeleteBebasPustaka extends Controller
+class DeleteBebasSuratPinjam extends Controller
 {
     public function __construct()
     {

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Datatables\BebasPustaka;
+use App\Http\Controllers\Datatables\SuratBebasPinjam;
 use App\Http\Controllers\Datatables\BukuPaket;
 use App\Http\Controllers\Datatables\BukuPelajaran;
 use App\Http\Controllers\Datatables\BukuUmum;
@@ -36,5 +36,5 @@ Route::post('/peminjaman-buku-umum', PeminjamanBukuUmum::class)
     ->name('peminjaman-buku-umum');
 Route::post('/hibah-buku', HibahBuku::class)
     ->name('hibah-buku');
-Route::post('/bebas-pustaka', BebasPustaka::class)
+Route::post('/bebas-pustaka', SuratBebasPinjam::class)
     ->name('bebas-pustaka');
