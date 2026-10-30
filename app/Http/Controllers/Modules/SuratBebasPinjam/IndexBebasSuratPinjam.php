@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Modules\BebasSuratPinjam;
+namespace App\Http\Controllers\Modules\SuratBebasPinjam;
 
 use App\Http\Controllers\Controller;
 

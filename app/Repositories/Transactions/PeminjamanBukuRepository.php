@@ -130,4 +130,77 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
             ->whereNull('trans_peminjaman_buku.deleted_at')
             ->get();
     }
+
+    public function dtHistoryPeminjamanSiswa(int $idRefSiswa, int $start = null, int $end = null, string $search = null)
+    {
+        $subQuery = $this->peminjamanBuku
+            ->newQuery()
+            ->select([
+                DB::raw('ROW_NUMBER() OVER (ORDER BY trans_peminjaman_buku.id ASC) AS row_num'),
+                'ref_siswa.nama_lengkap',
+                'ref_buku.judul',
+                'ref_jenis_peminjaman.jenis_peminjaman',
+                'trans_peminjaman_buku.id_ref_status_peminjaman',
+                'ref_status_peminjaman.status_peminjaman',
+                'trans_peminjaman_buku.tanggal_mulai_pinjam',
+                'trans_peminjaman_buku.tanggal_akhir_pinjam',
+                'trans_peminjaman_buku.tanggal_pengembalian',
+            ])
+            ->selectSub(function ($query) {
+                $query->from('mapping_trans_penempatan_siswa')
+                    ->selectRaw("concat(kelas, ' ', kejuruan, ' (', kode_kelas, ')')")
+                    ->whereColumn('mapping_trans_penempatan_siswa.id_ref_siswa', 'ref_siswa.id')
+                    ->whereRaw('trans_peminjaman_buku.tanggal_mulai_pinjam between tanggal_mulai and tanggal_akhir');
+            }, 'kelas_saat_peminjaman')
+            ->join('ref_buku', 'trans_peminjaman_buku.id_ref_buku', '=', 'ref_buku.id')
+            ->join('ref_jenis_peminjaman', 'trans_peminjaman_buku.id_ref_jenis_peminjaman', '=', 'ref_jenis_peminjaman.id')
+            ->join('ref_siswa', 'trans_peminjaman_buku.id_ref_siswa', '=', 'ref_siswa.id')
+            ->join('ref_status_peminjaman', 'trans_peminjaman_buku.id_ref_status_peminjaman', '=', 'ref_status_peminjaman.id')
+            ->where('id_ref_siswa', $idRefSiswa);
+
+        if ($search !== null) {
+            $subQuery->where(function ($query) use ($search) {
+                $query->whereRaw("lower(nama_lengkap) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(judul) like ?", ["%".$search."%"]);
+            });
+        }
+
+        $query = DB::query()->fromSub($subQuery, 't');
+
+        if ($start !== null && $end !== null) {
+            $query->whereBetween('row_num', [$start, $end]);
+        }
+
+        return $query->get();
+    }
+
+    public function getPeminjamanBelumKembali(int $idRefSiswa)
+    {
+        return $this->peminjamanBuku
+            ->newQuery()
+            ->select([
+                'ref_siswa.nama_lengkap',
+                'ref_buku.judul',
+                'ref_jenis_peminjaman.jenis_peminjaman',
+                'trans_peminjaman_buku.id_ref_status_peminjaman',
+                'ref_status_peminjaman.status_peminjaman',
+                'trans_peminjaman_buku.tanggal_mulai_pinjam',
+                'trans_peminjaman_buku.tanggal_akhir_pinjam',
+                'trans_peminjaman_buku.tanggal_pengembalian',
+            ])
+            ->selectSub(function ($query) {
+                $query->from('mapping_trans_penempatan_siswa')
+                    ->selectRaw("concat(kelas, ' ', kejuruan, ' (', kode_kelas, ')')")
+                    ->whereColumn('mapping_trans_penempatan_siswa.id_ref_siswa', 'ref_siswa.id')
+                    ->whereRaw('trans_peminjaman_buku.tanggal_mulai_pinjam between tanggal_mulai and tanggal_akhir');
+            }, 'kelas_saat_peminjaman')
+            ->join('ref_buku', 'trans_peminjaman_buku.id_ref_buku', '=', 'ref_buku.id')
+            ->join('ref_jenis_peminjaman', 'trans_peminjaman_buku.id_ref_jenis_peminjaman', '=', 'ref_jenis_peminjaman.id')
+            ->join('ref_siswa', 'trans_peminjaman_buku.id_ref_siswa', '=', 'ref_siswa.id')
+            ->join('ref_status_peminjaman', 'trans_peminjaman_buku.id_ref_status_peminjaman', '=', 'ref_status_peminjaman.id')
+            ->where('id_ref_siswa', $idRefSiswa)
+            ->where('id_ref_status_peminjaman', 1)
+            ->orWhere('id_ref_status_peminjaman', 3)
+            ->get();
+    }
 }

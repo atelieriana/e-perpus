@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Modules\BebasSuratPinjam;
+namespace App\Http\Controllers\Modules\SuratBebasPinjam;
 
 use App\Http\Controllers\Controller;
 
-class UpdateBebasSuratPinjam extends Controller
+class DeleteBebasSuratPinjam extends Controller
 {
     public function __construct()
-    {}
+    {
+    }
 
     public function index()
     {

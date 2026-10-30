@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="text-sm-end">
-                                <a href="{{ route('buku-paket.create') }}">
+                                <a href="{{ route('surat-bebas-pinjam.create') }}">
                                     <button type="button" class="btn btn-primary btn-rounded waves-effect waves-light addContact-modal mb-2">
                                         <i class="mdi mdi-plus me-1"></i> Tambah Surat Bebas Pinjam
                                     </button>
@@ -46,9 +46,6 @@
                             <th class="align-middle">No</th>
                             <th class="align-middle">Nomor Induk</th>
                             <th class="align-middle">Nama</th>
-                            <th class="align-middle">Kelas</th>
-                            <th class="align-middle">Kode Kelas</th>
-                            <th class="align-middle">Tahun Ajaran</th>
                             <th class="align-middle">Tanggal Surat Bebas Pinjam</th>
                             <th class="align-middle">Aksi</th>
                         </tr>
@@ -88,18 +85,6 @@
                     {
                         data: 'nama_lengkap',
                         name: 'nama_lengkap'
-                    },
-                    {
-                        data: 'kelas',
-                        name: 'kelas'
-                    },
-                    {
-                        data: 'kode_kelas',
-                        name: 'kode_kelas'
-                    },
-                    {
-                        data: 'tahun_ajar',
-                        name: 'tahun_ajar'
                     },
                     {
                         data: 'tanggal_surat',

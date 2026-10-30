@@ -25,27 +25,32 @@ class SuratBebasPinjam extends Controller
             $request->merge(['start' => 1]);
         }
 
-        $dataBukuPaket = $this->bebasSuratPinjamService->getDatatablesBebasPustaka($startData, $endData, $searchData);
-        $totalBukuPaket = $this->bebasSuratPinjamService->getDatatablesBebasPustaka(null, null, $searchData)->count();
-        return DataTables::of($dataBukuPaket)
+        $dataBebasPinjam = $this->bebasSuratPinjamService->getDatatablesBebasPustaka($startData, $endData, $searchData);
+        $totalDataBebasPinjam = $this->bebasSuratPinjamService->getDatatablesBebasPustaka(null, null, $searchData)->count();
+        return DataTables::of($dataBebasPinjam)
             ->addIndexColumn()
             ->addColumn('aksi', function ($dataBukuPaket) {
                 return '<div class="row">
-                            <div class="col-md-6">
-                                <a href="'.route('buku-paket.update',['uuid' => $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Ubah">
+                            <div class="col-md-3">
+                                <a href="'.route('surat-bebas-pinjam.update',['uuid' => $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
-                            <div class="col-md-6">
-                                <a href="'.route('buku-paket.delete',['uuid' =>  $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Hapus">
+                            <div class="col-md-3">
+                                <a href="'.route('surat-bebas-pinjam.delete',['uuid' =>  $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-3">
+                                <a href="'.route('surat-bebas-pinjam.cetak',['uuid' =>  $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Cetak">
+                                    <i class="mdi mdi-printer text-info"></i>
                                 </a>
                             </div>
                         </div>';
             })
             ->rawColumns(['aksi'])
-            ->setFilteredRecords($totalBukuPaket)
-            ->setTotalRecords($totalBukuPaket)
+            ->setFilteredRecords($totalDataBebasPinjam)
+            ->setTotalRecords($totalDataBebasPinjam)
             ->make();
     }
 }

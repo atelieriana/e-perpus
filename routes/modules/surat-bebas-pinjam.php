@@ -1,10 +1,10 @@
 <?php
 
-use App\Http\Controllers\Modules\BebasSuratPinjam\CetakBebasSuratPinjam;
-use App\Http\Controllers\Modules\BebasSuratPinjam\CreateBebasSuratPinjam;
-use App\Http\Controllers\Modules\BebasSuratPinjam\DeleteBebasSuratPinjam;
-use App\Http\Controllers\Modules\BebasSuratPinjam\IndexBebasSuratPinjam;
-use App\Http\Controllers\Modules\BebasSuratPinjam\UpdateBebasSuratPinjam;
+use App\Http\Controllers\Modules\SuratBebasPinjam\CetakBebasSuratPinjam;
+use App\Http\Controllers\Modules\SuratBebasPinjam\CreateBebasSuratPinjam;
+use App\Http\Controllers\Modules\SuratBebasPinjam\DeleteBebasSuratPinjam;
+use App\Http\Controllers\Modules\SuratBebasPinjam\IndexBebasSuratPinjam;
+use App\Http\Controllers\Modules\SuratBebasPinjam\UpdateBebasSuratPinjam;
 
 Route::get('/', [IndexBebasSuratPinjam::class,'index'])
     ->name('index');

@@ -95,7 +95,7 @@ Route::middleware(SessionLoginExist::class)
             ->group(__DIR__ . '/modules/hibah-buku.php');
 
         #Routing Hibah Buku
-        Route::prefix('bebas-surat-pinjman')
-            ->name('bebas-surat-pinjman.')
-            ->group(__DIR__ . '/modules/bebas-surat-pinjam.php');
+        Route::prefix('surat-bebas-pinjam')
+            ->name('surat-bebas-pinjam.')
+            ->group(__DIR__ . '/modules/surat-bebas-pinjam.php');
     });

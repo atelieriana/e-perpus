@@ -11,6 +11,7 @@ use App\Services\KelasService;
 use App\Services\KodeKelasService;
 use App\Services\PeminjamanBukuUmumService;
 use App\Services\SiswaService;
+use App\Services\TahunAjarServices;
 
 class CreatePeminjamanBukuUmum extends Controller
 {
@@ -22,7 +23,8 @@ class CreatePeminjamanBukuUmum extends Controller
         private BukuService $bukuService,
         private KodeKelasService $kodeKelasService,
         private SiswaService $siswaService,
-        private PeminjamanBukuUmumService $peminjamanBukuUmumService
+        private PeminjamanBukuUmumService $peminjamanBukuUmumService,
+        private TahunAjarServices $tahunAjarService,
     )
     {}
 
@@ -30,6 +32,7 @@ class CreatePeminjamanBukuUmum extends Controller
     {
         $listKelas = $this->kelasService->getAllRecord();
         $listKejuruan = $this->kejuruanService->getAllRecord();
+        $listTahunAjar = $this->tahunAjarService->getAllRecord();
         $listBuku = $this->bukuService->getBukuByJenisBuku(self::JENIS_BUKU_UMUM);
         $listKodeKelas = null;
         $listSiswa = null;
@@ -43,7 +46,7 @@ class CreatePeminjamanBukuUmum extends Controller
         {
             $listSiswa = $this->siswaService->getSiswaByKelasDanKodeKejuruan(old('uuid-ref-kelas'), old('uuid-ref-kejuruan'));
         }
-        return view('modules.peminjaman-buku-umum.create', compact('listKelas', 'listKejuruan', 'listBuku','listKodeKelas','listSiswa'));
+        return view('modules.peminjaman-buku-umum.create', compact('listKelas', 'listKejuruan', 'listBuku','listKodeKelas','listSiswa','listTahunAjar'));
     }
 
     public function onSubmit(CreateRequest $request)
