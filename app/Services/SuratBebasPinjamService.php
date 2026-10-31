@@ -57,4 +57,18 @@ readonly class SuratBebasPinjamService
             throw new BusinessException("Terjadi kesalahan saat melakukan update surat bebas pinjam");
         }
     }
+
+    public function deleteRecord(array $requestData)
+    {
+        $dataSuratBebasPinjam = $this->bebasPustaka->findByUuid($requestData['uuid-trans-surat-bebas-pinjam']);
+        try
+        {
+            $this->bebasPustaka->delete($dataSuratBebasPinjam->id);
+        }
+        catch (QueryException $exception)
+        {
+            Log::error($exception->getMessage());
+            throw new BusinessException("Terjadi kesalahan saat melakukan hapus surat bebas pinjam");
+        }
+    }
 }
