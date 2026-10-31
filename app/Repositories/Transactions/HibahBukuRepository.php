@@ -46,4 +46,11 @@ class HibahBukuRepository extends BaseRepository implements HibahBukuInterface
 
         return $query->get();
     }
+
+    public function checkHibahByIdSiswa(int $idSiswa)
+    {
+        return $this->hibahBuku->newQuery()
+            ->where('id_ref_siswa', $idSiswa)
+            ->count();
+    }
 }

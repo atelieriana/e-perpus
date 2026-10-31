@@ -55,6 +55,17 @@
                             </div>
                         </div>
                         <div class="fv-row row mb-4">
+                            <label for="tahun-ajar" class="col-sm-3 col-form-label">Tahun Ajar<span class="text-danger">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control select2" id="tahun-ajar" name="uuid-ref-tahun-ajar">
+                                    <option value="">--- Pilih Kode Kelas ---</option>
+                                    @foreach($listTahunAjar as $tahunAjar)
+                                        <option value="{{ $tahunAjar->uuid }}" @selected(old('uuid-ref-tahun-ajar') === $tahunAjar->uuid)>{{ $tahunAjar->tahun_ajar }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="fv-row row mb-4">
                             <label for="kode-kelas" class="col-sm-3 col-form-label">Kode Kelas<span class="text-danger">*</span></label>
                             <div class="col-sm-9">
                                 <select class="form-control select2" id="kode-kelas" name="uuid-ref-kode-kelas">
@@ -147,6 +158,7 @@
             $("#kelas").select2();
             $("#kejuruan").select2();
             $("#kode-kelas").select2();
+            $("#tahun-ajar").select2();
             $("#siswa").select2();
             $("#buku-1").select2();
             $("#buku-2").select2();
@@ -180,12 +192,14 @@
             $("#kode-kelas").on('change',(e)=>{
                 let kelas = $("#kelas").val()
                 let kejuruan = $("#kejuruan").val()
+                let tahunAjar = $("#tahun-ajar").val()
                 axios({
-                    url: '/async/siswa-kelas-kejuruan',
+                    url: '/async/siswa-kelas-kejuruan-tahun',
                     method: 'POST',
                     data: {
                         'uuid-ref-kelas': kelas,
-                        'uuid-ref-kejuruan': kejuruan
+                        'uuid-ref-kejuruan': kejuruan,
+                        'uuid-ref-tahun-ajar': tahunAjar
                     }
                 }).then((response)=>{
                     let listSiswa = response.data
@@ -233,6 +247,11 @@
                             }
                         },
                         'uuid-ref-kode-kelas': {
+                            validators: {
+                                notEmpty: { message: messageNotEmpty }
+                            }
+                        },
+                        'uuid-ref-tahun-ajar': {
                             validators: {
                                 notEmpty: { message: messageNotEmpty }
                             }

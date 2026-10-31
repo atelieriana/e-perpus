@@ -65,6 +65,11 @@ readonly class SiswaService
         return $this->refSiswaInterface->findByUUID($uuid);
     }
 
+    public function findById(int $idSiswa)
+    {
+        return $this->refSiswaInterface->find($idSiswa);
+    }
+
     /**
      * @param string $uuidTahunAjar
      * @return mixed
@@ -92,6 +97,11 @@ readonly class SiswaService
         $dataKejuruan = $this->refKejuruanInterface->findByUUID($uuidRefKejuruan);
         $dataTahunAjar = $this->refTahunAjarInterface->findByUUID($uuidRefTahunAjar);
         return $this->penempatanSiswaInterface->getSiswaByKelasKejuruanDanTahunAjar($dataKelas->id, $dataKejuruan->id, $dataTahunAjar->id);
+    }
+
+    public function getLatestKelasSiswa(int $idRefSiswa)
+    {
+        return $this->refSiswaInterface->latestKelasSiswa($idRefSiswa);
     }
 
     /**

@@ -2,12 +2,16 @@
 
 use App\Http\Controllers\Modules\Dashboard\Dashboard;
 use App\Http\Controllers\Modules\Landing\Landing;
+use App\Http\Controllers\Modules\ValidasiSurat\ValidasiSurat;
 use App\Http\Middleware\SessionLoginExist;
 use App\Http\Middleware\SessionNotLoginExist;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Landing::class, 'index'])
     ->name('landing');
+
+Route::get('/validasi-surat/{uuid}', ValidasiSurat::class)
+    ->name('validasi-surat');
 
 Route::prefix('auth')
     ->name('auth.')
@@ -93,4 +97,9 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('hibah-buku')
             ->name('hibah-buku.')
             ->group(__DIR__ . '/modules/hibah-buku.php');
+
+        #Routing Hibah Buku
+        Route::prefix('surat-bebas-pinjam')
+            ->name('surat-bebas-pinjam.')
+            ->group(__DIR__ . '/modules/surat-bebas-pinjam.php');
     });

@@ -34,7 +34,7 @@ class PustakawanMenu
             ],
             [
                 'name' => 'Bebas Perpustakaan',
-                'route' => route('dashboard'),
+                'route' => route('surat-bebas-pinjam.index'),
                 'icon' => 'bx bx-book',
             ],
         ];

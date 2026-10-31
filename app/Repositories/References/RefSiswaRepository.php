@@ -223,4 +223,24 @@ class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
             throw new BusinessException('Terjadi kesalahan saat melakukan proses kelulusan');
         }
     }
+
+    public function latestKelasSiswa(int $idSiswa): mixed
+    {
+        return $this->refSiswa
+            ->newQuery()
+            ->select(
+                'ref_siswa.uuid',
+                'ref_siswa.nomor_induk',
+                'ref_siswa.nama_lengkap',
+                'ref_kelas.kelas',
+                'ref_kode_kelas.kode_kelas'
+            )
+            ->join('trans_penempatan_siswa', 'ref_siswa.id', '=', 'trans_penempatan_siswa.id_ref_siswa')
+            ->join('ref_kode_kelas', 'trans_penempatan_siswa.id_ref_kode_kelas', '=', 'ref_kode_kelas.id')
+            ->join('ref_kelas', 'ref_kode_kelas.id_ref_kelas', '=', 'ref_kelas.id')
+            ->where('ref_siswa.id', $idSiswa)
+            ->orderBy('ref_siswa.nama_lengkap')
+            ->orderByDesc('ref_kelas.id')
+            ->first();
+    }
 }
