@@ -65,6 +65,11 @@ readonly class SiswaService
         return $this->refSiswaInterface->findByUUID($uuid);
     }
 
+    public function findById(int $idSiswa)
+    {
+        return $this->refSiswaInterface->find($idSiswa);
+    }
+
     /**
      * @param string $uuidTahunAjar
      * @return mixed

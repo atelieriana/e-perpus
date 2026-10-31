@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Datatables;
 
 use App\Http\Controllers\Controller;
 use App\Services\SuratBebasPinjamService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -29,6 +30,10 @@ class SuratBebasPinjam extends Controller
         $totalDataBebasPinjam = $this->bebasSuratPinjamService->getDatatablesBebasPustaka(null, null, $searchData)->count();
         return DataTables::of($dataBebasPinjam)
             ->addIndexColumn()
+            ->editColumn('tanggal_surat', function ($dataBebasPinjam) {
+                Carbon::setLocale('id');
+                return Carbon::parse($dataBebasPinjam->tanggal_surat)->translatedFormat('d F Y');
+            })
             ->addColumn('aksi', function ($dataBukuPaket) {
                 return '<div class="row">
                             <div class="col-md-3">

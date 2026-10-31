@@ -12,7 +12,7 @@ class UpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,7 +23,23 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'uuid-trans-surat-bebas-pinjam' => ['required','uuid'],
+            'tanggal-surat-bebas-peminjaman' => ['required','date'],
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            '*.required' => ':attribute wajib diisi.',
+            '*.uuid' => ':attribute tidak valid.',
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'tanggal-surat-bebas-peminjaman' => 'Tanggal surat bebas peminjaman'
         ];
     }
 }

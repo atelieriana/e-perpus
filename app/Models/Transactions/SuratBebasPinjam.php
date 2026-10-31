@@ -3,10 +3,18 @@
 namespace App\Models\Transactions;
 
 use App\Models\References\RefSiswa;
+use App\Traits\AuditTransaction;
+use App\Traits\LogTransaction;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class SuratBebasPinjam extends Model
+class SuratBebasPinjam extends Model implements Auditable
 {
+    use SoftDeletes,
+        AuditTransaction,
+        LogTransaction;
+
     protected $table = 'trans_surat_bebas_pinjam';
     protected $primaryKey = 'id';
     protected $fillable = [

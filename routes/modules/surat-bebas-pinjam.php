@@ -16,12 +16,12 @@ Route::post('/create/submit', [CreateBebasSuratPinjam::class,'onSubmit'])
 
 Route::get('/update/{uuid}', [UpdateBebasSuratPinjam::class,'index'])
     ->name('update');
-Route::get('/update/submit', [UpdateBebasSuratPinjam::class,'onSubmit'])
+Route::post('/update/submit', [UpdateBebasSuratPinjam::class,'onSubmit'])
     ->name('update.submit');
 
 Route::get('/delete/{uuid}', [DeleteBebasSuratPinjam::class,'index'])
     ->name('delete');
-Route::get('/delete/submit', [DeleteBebasSuratPinjam::class,'onSubmit'])
+Route::post('/delete/submit', [DeleteBebasSuratPinjam::class,'onSubmit'])
     ->name('delete.submit');
 
 Route::get('/cetak/{uuid}', CetakBebasSuratPinjam::class)

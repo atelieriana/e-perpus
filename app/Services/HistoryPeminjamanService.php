@@ -35,10 +35,6 @@ readonly class HistoryPeminjamanService
         $dataJenisBebasPinjam = $this->jenisBebasPinjamInterface->findByUuid($requestData['uuid-ref-jenis-bebas-pinjam']);
         $listPeminjaman = $this->peminjamanBukuInterface->getPeminjamanBelumKembali($dataSiswa->id);
         $hibahBuku = $this->hibahBukuInterface->checkHibahByIdSiswa($dataSiswa->id);
-        if ($hibahBuku == 0)
-        {
-            throw new BusinessException('Siswa belum melakukan hibah buku');
-        }
         if ($listPeminjaman->count() != 0)
         {
             throw new BusinessException("Terdapat peminjaman yang belum dikembalikan");
@@ -60,6 +56,11 @@ readonly class HistoryPeminjamanService
                 Log::error($exception->getMessage());
                 throw new BusinessException("Terjadi kesalahan saat menyimpan data");
             }
+        }
+
+        if ($hibahBuku == 0)
+        {
+            throw new BusinessException('Siswa belum melakukan hibah buku');
         }
     }
 }
