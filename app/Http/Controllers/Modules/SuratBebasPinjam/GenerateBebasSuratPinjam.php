@@ -14,7 +14,7 @@ use PhpOffice\PhpWord\Exception\CreateTemporaryFileException;
 use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Component\Process\Process;
 
-class CetakBebasSuratPinjam extends Controller
+class GenerateBebasSuratPinjam extends Controller
 {
     const DIRECTORY_NAME = 'surat-bebas-perpus';
 
@@ -66,14 +66,12 @@ class CetakBebasSuratPinjam extends Controller
         }
         flush();
 
-        // Generate docx
         $currentDate = explode('-',Carbon::now()->format('Y-m-d'));
         $filenameDocx = self::DIRECTORY_NAME.'/'.$currentDate[0].'/'.$currentDate[1].'/'.$currentDate[2].'/'.$uuidSuratBebasPinjam.'.docx';
         $filenamePdf = self::DIRECTORY_NAME.'/'.$currentDate[0].'/'.$currentDate[1].'/'.$currentDate[2].'/'.$uuidSuratBebasPinjam.'.pdf';
         $templateProcessor->saveAs(storage_path('generated/'. $uuidSuratBebasPinjam . '.docx'));
         Storage::disk('s3')->put($filenameDocx,file_get_contents(storage_path('generated/'. $uuidSuratBebasPinjam . '.docx')));
 
-        // Generate PDF
         $process = new Process([
             'soffice',
             '--headless',
@@ -95,9 +93,14 @@ class CetakBebasSuratPinjam extends Controller
         unlink(storage_path('generated/'. $uuidSuratBebasPinjam.'.docx'));
         unlink(storage_path('generated/'. $uuidSuratBebasPinjam.'.pdf'));
 
-        // 3. Download
+        $requestData = [
+            'uuid-trans-surat-bebas-pinjam' => $uuidSuratBebasPinjam,
+            'path-to-file' => $filenamePdf,
+        ];
+        $this->suratBebasPinjamService->updateFileLocation($requestData);
+
         return response()
-            ->redirectToRoute('surat-bebas-perpus.index')
+            ->redirectToRoute('surat-bebas-pinjam.index')
             ->with('success','Surat bebas pinjam berhasil digenerate.');
     }
 }

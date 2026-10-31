@@ -22,6 +22,7 @@ class SuratBebasPinjam extends Model implements Auditable
         'uuid',
         'id_ref_siswa',
         'id_ref_jenis_bebas_pinjam',
+        'path_to_file',
         'tanggal_surat',
         'created_by',
         'updated_by',

@@ -34,21 +34,26 @@ class SuratBebasPinjam extends Controller
                 Carbon::setLocale('id');
                 return Carbon::parse($dataBebasPinjam->tanggal_surat)->translatedFormat('d F Y');
             })
-            ->addColumn('aksi', function ($dataBukuPaket) {
+            ->addColumn('aksi', function ($dataBebasPinjam) {
                 return '<div class="row">
-                            <div class="col-md-3">
-                                <a href="'.route('surat-bebas-pinjam.update',['uuid' => $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Ubah">
+                            <div class="col-md-2">
+                                <a href="'.route('surat-bebas-pinjam.update',['uuid' => $dataBebasPinjam->uuid]).'" data-toggle="tooltip" title="Ubah">
                                     <i class="mdi mdi-pen text-success"></i>
                                 </a>
                             </div>
-                            <div class="col-md-3">
-                                <a href="'.route('surat-bebas-pinjam.delete',['uuid' =>  $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Hapus">
+                            <div class="col-md-2">
+                                <a href="'.route('surat-bebas-pinjam.delete',['uuid' =>  $dataBebasPinjam->uuid]).'" data-toggle="tooltip" title="Hapus">
                                     <i class="mdi mdi-trash-can text-danger"></i>
                                 </a>
                             </div>
-                            <div class="col-md-3">
-                                <a href="'.route('surat-bebas-pinjam.cetak',['uuid' =>  $dataBukuPaket->uuid]).'" data-toggle="tooltip" title="Cetak">
-                                    <i class="mdi mdi-printer text-info"></i>
+                            <div class="col-md-2">
+                                <a href="'.route('surat-bebas-pinjam.generate',['uuid' =>  $dataBebasPinjam->uuid]).'" data-toggle="tooltip" title="Generate">
+                                    <i class="mdi mdi-file-pdf text-info"></i>
+                                </a>
+                            </div>
+                            <div class="col-md-2">
+                                <a href="'.route('surat-bebas-pinjam.download',['uuid' =>  $dataBebasPinjam->uuid]).'" data-toggle="tooltip" title="Download">
+                                    <i class="mdi mdi-download-box text-info"></i>
                                 </a>
                             </div>
                         </div>';

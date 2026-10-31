@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Modules\SuratBebasPinjam\CetakBebasSuratPinjam;
+use App\Http\Controllers\Modules\SuratBebasPinjam\DownloadBebasSuratPinjam;
+use App\Http\Controllers\Modules\SuratBebasPinjam\GenerateBebasSuratPinjam;
 use App\Http\Controllers\Modules\SuratBebasPinjam\CreateBebasSuratPinjam;
 use App\Http\Controllers\Modules\SuratBebasPinjam\DeleteBebasSuratPinjam;
 use App\Http\Controllers\Modules\SuratBebasPinjam\IndexBebasSuratPinjam;
@@ -24,5 +25,8 @@ Route::get('/delete/{uuid}', [DeleteBebasSuratPinjam::class,'index'])
 Route::post('/delete/submit', [DeleteBebasSuratPinjam::class,'onSubmit'])
     ->name('delete.submit');
 
-Route::get('/cetak/{uuid}', CetakBebasSuratPinjam::class)
-    ->name('cetak');
+Route::get('/generate/{uuid}', GenerateBebasSuratPinjam::class)
+    ->name('generate');
+
+Route::get('/download/{uuid}', DownloadBebasSuratPinjam::class)
+    ->name('download');
