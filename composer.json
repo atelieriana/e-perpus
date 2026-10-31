@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "endroid/qr-code": "^6.0",
         "intervention/validation": "^4.7",
         "laragear/turnstile": "^2.1",
         "laravel/framework": "^13.17",
@@ -14,6 +15,7 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "livewire/livewire": "^4.4",
         "owen-it/laravel-auditing": "^14.0",
+        "phpoffice/phpword": "^1.4",
         "predis/predis": "^3.6",
         "yajra/laravel-datatables": "^13.0"
     },

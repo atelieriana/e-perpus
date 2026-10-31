@@ -99,6 +99,11 @@ readonly class SiswaService
         return $this->penempatanSiswaInterface->getSiswaByKelasKejuruanDanTahunAjar($dataKelas->id, $dataKejuruan->id, $dataTahunAjar->id);
     }
 
+    public function getLatestKelasSiswa(int $idRefSiswa)
+    {
+        return $this->refSiswaInterface->latestKelasSiswa($idRefSiswa);
+    }
+
     /**
      * Service yang digunakan untuk melakukan create data siswa pada database
      * @param array $araryRequest

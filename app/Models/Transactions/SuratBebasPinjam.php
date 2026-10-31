@@ -2,6 +2,7 @@
 
 namespace App\Models\Transactions;
 
+use App\Models\References\RefJenisBebasPinjam;
 use App\Models\References\RefSiswa;
 use App\Traits\AuditTransaction;
 use App\Traits\LogTransaction;
@@ -30,5 +31,10 @@ class SuratBebasPinjam extends Model implements Auditable
     public function ref_siswa()
     {
         return $this->belongsTo(RefSiswa::class, 'id_ref_siswa');
+    }
+
+    public function ref_jenis_bebas_pinjam()
+    {
+        return $this->belongsTo(RefJenisBebasPinjam::class, 'id_ref_jenis_bebas_pinjam');
     }
 }

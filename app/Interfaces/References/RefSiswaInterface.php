@@ -17,6 +17,8 @@ interface RefSiswaInterface
      */
     public function dtSiswa(int $start = null, int $end = null, string $search = null): mixed;
 
+    public function latestKelasSiswa(int $idSiswa): mixed;
+
     /**
      * Digunakan untuk menyediakan data siswa tanpa kelas berdasarkan tahun ajar
      * @param string $uuidTahunAjar
