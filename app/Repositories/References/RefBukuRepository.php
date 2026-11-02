@@ -48,4 +48,14 @@ class RefBukuRepository extends BaseRepository implements RefBukuInterface
     {
         return $this->refBuku->where('id_ref_jenis_buku', $idJenisBuku)->get();
     }
+
+    public function getLatestKoleksiBuku()
+    {
+        return $this->refBuku
+            ->newQuery()
+            ->where('id_ref_jenis_buku', 1)
+            ->orderBy('created_by', 'desc')
+            ->limit(5)
+            ->get();
+    }
 }

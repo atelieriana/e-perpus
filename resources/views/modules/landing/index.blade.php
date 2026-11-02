@@ -22,7 +22,7 @@
                     <h5 style="color: #34C38F"><i class="fa fa-bookmark"></i> Koleksi Buku Terbaru</h5>
                 </div>
                 <div class="row">
-                    @for($i = 0; $i < 4; $i++)
+                    @foreach($listBuku as $buku)
                         <div class="card" style="background: #222736; border-radius: 15px; margin-bottom: 1em">
                             <div class="card-body">
                                 <div class="col-md-12">
@@ -31,16 +31,16 @@
                                             <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
                                         </div>
                                         <div class="col-md-11">
-                                            <h5>Judul Buku</h5>
-                                            <p>Pengarang</p>
-                                            <p>Tahun Terbit</p>
-                                            <p>Jumlah Halaman</p>
+                                            <h5>{{ $buku->judul }}</h5>
+                                            <p>{{ $buku->penulis }}</p>
+                                            <p>{{ $buku->tahun_terbit }}</p>
+                                            <p>{{ $buku->halaman }} halaman</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </div>

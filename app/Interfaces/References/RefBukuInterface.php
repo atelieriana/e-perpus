@@ -24,4 +24,6 @@ interface RefBukuInterface
      * @return mixed
      */
     public function findBukuByJenisBuku(int $idJenisBuku);
+
+    public function getLatestKoleksiBuku();
 }

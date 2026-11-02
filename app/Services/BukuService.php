@@ -42,6 +42,11 @@ readonly class BukuService
         return $this->refBukuInterface->dtDataByIdJenisBuku(self::BUKU_UMUM, $start, $end, $search);
     }
 
+    public function getLatestKoleksiBuku()
+    {
+        return $this->refBukuInterface->getLatestKoleksiBuku();
+    }
+
     /**
      * @param int $jenisBuku
      * @return mixed
