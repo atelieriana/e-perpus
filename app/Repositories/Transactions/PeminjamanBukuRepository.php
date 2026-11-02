@@ -203,4 +203,22 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
             ->orWhere('id_ref_status_peminjaman', 3)
             ->get();
     }
+
+    public function getPeminjamanTerbanyak()
+    {
+        return $this->peminjamanBuku
+            ->newQuery()
+            ->select(
+                DB::raw('count(trans_peminjaman_buku.id) as total_peminjaman'),
+                'trans_peminjaman_buku.id_ref_buku',
+                'ref_buku.judul',
+                'ref_buku.penulis'
+            )
+            ->join('ref_buku', 'trans_peminjaman_buku.id_ref_buku', '=', 'ref_buku.id')
+            ->where('id_ref_jenis_buku', 1)
+            ->groupBy('trans_peminjaman_buku.id_ref_buku', 'ref_buku.judul', 'ref_buku.penulis')
+            ->orderByDesc('total_peminjaman')
+            ->limit(4)
+            ->get();
+    }
 }

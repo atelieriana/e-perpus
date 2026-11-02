@@ -22,7 +22,7 @@
                     <h5 style="color: #34C38F"><i class="fa fa-bookmark"></i> Koleksi Buku Terbaru</h5>
                 </div>
                 <div class="row">
-                    @foreach($listBuku as $buku)
+                    @foreach($listKoleksiBukuBaru as $buku)
                         <div class="card" style="background: #222736; border-radius: 15px; margin-bottom: 1em">
                             <div class="card-body">
                                 <div class="col-md-12">
@@ -51,7 +51,7 @@
     <div class="row">
         <h3>Buku Bacaan Terfavorit</h3>
         <p>Buku bacaan yang paling sering dipinjam oleh siswa</p>
-        <div class="row">
+        @foreach($listPeminjamTerbanyak as $buku)
             <div class="col-md-6">
                 <div class="card" style="border-radius: 15px">
                     <div class="card-body">
@@ -60,133 +60,15 @@
                                 <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
                             </div>
                             <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Pengarang</p>
-                                <p>Jumlah Peminjaman</p>
+                                <p>{{ $buku->judul }}</p>
+                                <p>{{ $buku->penulis }}</p>
+                                <p>{{ $buku->total_peminjaman }} kali dipinjam</p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card" style="border-radius: 15px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
-                            </div>
-                            <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Pengarang</p>
-                                <p>Jumlah Peminjaman</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card" style="border-radius: 15px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
-                            </div>
-                            <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Pengarang</p>
-                                <p>Jumlah Peminjaman</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card" style="border-radius: 15px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
-                            </div>
-                            <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Pengarang</p>
-                                <p>Jumlah Peminjaman</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <h3>Jurnal Pilihan Utama</h3>
-        <p>Jurnal yang paling sering dijadikan referensi</p>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card" style="border-radius: 15px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
-                            </div>
-                            <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Penulis</p>
-                                <p>Tahun Terbit</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card" style="border-radius: 15px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
-                            </div>
-                            <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Penulis</p>
-                                <p>Tahun Terbit</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card" style="border-radius: 15px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
-                            </div>
-                            <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Penulis</p>
-                                <p>Tahun Terbit</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card" style="border-radius: 15px">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <img src="{{ asset('images/palceholder.jpg') }}" alt="cover-buku" class="img-fluid"/>
-                            </div>
-                            <div class="col-md-10">
-                                <p>Judul</p>
-                                <p>Penulis</p>
-                                <p>Tahun Terbit</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @endforeach
     </div>
     <div class="row">
         <p style="color: #34C38F; margin-bottom: 1em !important;"><i class="fa fa-check-circle"></i> Fitur Utama</p>

@@ -19,4 +19,6 @@ interface PeminjamanBukuInterface
     public function getPeminjamanBySiswaDanTanggalPinjam(int $idRefSiswa, string $tanggalPinjam);
 
     public function getPeminjamanBelumKembali(int $idRefSiswa);
+
+    public function getPeminjamanTerbanyak();
 }

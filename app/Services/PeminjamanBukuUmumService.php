@@ -26,6 +26,11 @@ readonly class PeminjamanBukuUmumService
     )
     {}
 
+    public function getPeminjamanBukuUmumTerbanyak()
+    {
+
+    }
+
     /**
      * @param int|null $start
      * @param int|null $end
@@ -140,5 +145,10 @@ readonly class PeminjamanBukuUmumService
     public function getPeminjamanBukuUmumByIdSiswaDanTanggalPinjam(int $idSiswa, string $tanggalPinjam)
     {
         return $this->peminjamanBukuInterface->getPeminjamanBySiswaDanTanggalPinjam($idSiswa, $tanggalPinjam);
+    }
+
+    public function getPeminjamanTerbanyak()
+    {
+        return $this->peminjamanBukuInterface->getPeminjamanTerbanyak();
     }
 }

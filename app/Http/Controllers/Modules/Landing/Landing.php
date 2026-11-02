@@ -16,6 +16,7 @@ class Landing extends Controller
 
     public function __construct(
         private BukuService $bukuService,
+        private PeminjamanBukuUmumService $peminjamanBukuUmumService
     )
     {
         $this->logAccess();
@@ -23,7 +24,8 @@ class Landing extends Controller
 
     public function index()
     {
-        $listBuku = $this->bukuService->getLatestKoleksiBuku();
-        return view('modules.landing.index', compact('listBuku'));
+        $listKoleksiBukuBaru = $this->bukuService->getLatestKoleksiBuku();
+        $listPeminjamTerbanyak = $this->peminjamanBukuUmumService->getPeminjamanTerbanyak();
+        return view('modules.landing.index', compact('listKoleksiBukuBaru','listPeminjamTerbanyak'));
     }
 }
