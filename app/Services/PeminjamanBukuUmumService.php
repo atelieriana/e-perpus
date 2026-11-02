@@ -85,6 +85,13 @@ readonly class PeminjamanBukuUmumService
                         ];
                     }
 
+                    if ($dataStatusPeminjaman->id == 1 && is_null($requestData['perpanjangan-pinjam'][$iteration]))
+                    {
+                        $arrayData = [
+                            'id_ref_status_peminjaman' => $dataStatusPeminjaman->id,
+                        ];
+                    }
+
                     if ($dataStatusPeminjaman->id == 2 || $dataStatusPeminjaman->id === 4)
                     {
                         $arrayData = [
