@@ -39,7 +39,7 @@
                         <h5 style="color: #34C38F"><i class="fa fa-bookmark"></i> History Peminjaman Buku</h5>
                     </div>
                     <div class="row">
-                        <table class="table table-bordered dt-responsive" id="table-history-peminjaman">
+                        <table class="table table-bordered dt-responsive" width="100%" id="table-history-peminjaman">
                             <thead class="table-light">
                             <tr>
                                 <th class="align-middle">No</th>
@@ -103,6 +103,8 @@
             processing: true,
             serverSide: true,
             destroy: true,
+            scrollX: true,
+            responsive: true,
             ajax: {
                 url: '/datatables/history-peminjaman',
                 method: 'POST',
