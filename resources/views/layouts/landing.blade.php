@@ -44,26 +44,39 @@
                         </span>
                     </a>
                 </div>
-                <div class="d-none d-lg-block ms-2">
-                    <a href="{{ route('landing') }}">
-                        <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
-                            <span key="t-megamenu">Beranda</span>
-                        </button>
-                    </a>
-                </div>
-                <div class="d-none d-lg-block ms-2">
-                    <a href="{{ route('katalog-buku') }}">
-                        <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
-                            <span key="t-megamenu">Katalog Buku</span>
-                        </button>
-                    </a>
-                </div>
-                <div class="d-none d-lg-block ms-2">
-                    <a href="{{ route('cek-peminjaman') }}">
-                        <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
-                            <span key="t-megamenu">Cek Peminjaman</span>
-                        </button>
-                    </a>
+                <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item waves-effect waves-light" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                    <i class="fa fa-fw fa-bars"></i>
+                </button>
+                <div class="topnav">
+                    <div class="container-fluid">
+                        <nav class="navbar navbar-dark navbar-expand-lg topnav-menu">
+                            <div class="navbar-collapse collapse" id="topnav-menu-content" style="">
+                                <ul class="navbar-nav active">
+                                    <li class="nav-item d-lg-block ms-2">
+                                        <a href="{{ route('landing') }}">
+                                            <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
+                                                <span key="t-megamenu" style="color: white">Beranda</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item d-lg-block ms-2">
+                                        <a href="{{ route('katalog-buku') }}">
+                                            <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
+                                                <span key="t-megamenu" style="color: white">Katalog Buku</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item d-lg-block ms-2">
+                                        <a href="{{ route('cek-peminjaman') }}">
+                                            <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
+                                                <span key="t-megamenu" style="color: white">Cek Peminjaman</span>
+                                            </button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +85,7 @@
     <!-- ============================================================== -->
     <!-- Start right Content here -->
     <!-- ============================================================== -->
-    <div class="main-content">
+    <div class="main-content mt-3">
         <div class="page-content">
             <div class="container-fluid">
                 @yield('content')
