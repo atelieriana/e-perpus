@@ -8,6 +8,7 @@
     <meta content="Kelompok 1 Capstone Project UT" name="author" />
     <link rel="shortcut icon" href="{{ asset('icon/favicon.ico') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('build/css/datatables.net-bs4/dataTables.bootstrap4.min.css') }}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/scss/bootstrap.scss')
     @vite('resources/scss/icons.scss')
     @vite('resources/scss/app.scss')
