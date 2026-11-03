@@ -12,6 +12,7 @@
     @vite('resources/scss/icons.scss')
     @vite('resources/scss/app.scss')
     <link rel="stylesheet" type="text/css" href="{{ asset('build/css/datatables.net-bs4/dataTables.bootstrap4.min.css') }}"/>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
         .is-invalid ~ .select2-container .select2-selection {
             border-color: #dc3545;
