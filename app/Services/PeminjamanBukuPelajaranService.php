@@ -88,6 +88,7 @@ readonly class PeminjamanBukuPelajaranService
                                 'id_ref_jenis_peminjaman' => self::ID_REF_JENIS_PEMINJAMAN_BUKU_PELAJARAN,
                                 'id_ref_siswa' => $this->refSiswaInterface->findByUUID($uuidPenempatanSiswa)->id,
                                 'id_ref_buku' => $this->refBukuInterface->findByUUID($uuidBukuPaket)->id,
+                                'tanggal_mulai_pinjam' => $dataTahunAjar->tanggal_mulai,
                                 'id_ref_status_peminjaman' => $idRefStatusPeminjaman,
                                 'tanggal_pengembalian' => now()->format('Y-m-d'),
                                 'created_by' => Session::get('access-data')['nama'],

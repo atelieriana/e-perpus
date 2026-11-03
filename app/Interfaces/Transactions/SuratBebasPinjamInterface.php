@@ -9,4 +9,10 @@ use Illuminate\Container\Attributes\Bind;
 interface SuratBebasPinjamInterface
 {
     public function dtBebasPustaka(int $start = null, int $end = null, string $search = null);
+
+    /**
+     * @param int $idSiswa
+     * @return mixed
+     */
+    public function findByIdSiswa(int $idSiswa);
 }

@@ -11,6 +11,13 @@ Route::get('/', [Landing::class, 'index'])
     ->name('landing');
 Route::get('/katalog-buku', [Landing::class, 'katalogBuku'])
     ->name('katalog-buku');
+Route::get('cek-peminjaman', [Landing::class, 'cekPeminjaman'])
+    ->name('cek-peminjaman');
+Route::get('/download/{nomorInduk}', [Landing::class, 'downloadSuratBebasPinjamSiswa'])
+    ->name('download');
+Route::prefix('datatables')
+    ->name('datatables.')
+    ->group(__DIR__.'/modules/datatables.php');
 
 
 Route::get('/validasi-surat/{uuid}', ValidasiSurat::class)
@@ -30,11 +37,6 @@ Route::middleware(SessionLoginExist::class)
         Route::prefix('async')
             ->name('async.')
             ->group(__DIR__.'/modules/async.php');
-
-        #Routing Datatables
-        Route::prefix('datatables')
-            ->name('datatables.')
-            ->group(__DIR__.'/modules/datatables.php');
 
         #Routing Referensi BukuPelajaran Pelajaran
         Route::prefix('buku-pelajaran')

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Exceptions\BusinessException;
+use App\Interfaces\References\RefSiswaInterface;
 use App\Interfaces\Transactions\SuratBebasPinjamInterface;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
@@ -11,12 +12,19 @@ readonly class SuratBebasPinjamService
 {
     public function __construct(
         private SuratBebasPinjamInterface $bebasPustaka,
+        private RefSiswaInterface $refSiswaInterface,
     )
     {}
 
     public function getDatatablesBebasPustaka(int $start = null, int $end = null, string $search = null)
     {
         return $this->bebasPustaka->dtBebasPustaka($start, $end, $search);
+    }
+
+    public function getByNomorInduk(string $nomorInduk): mixed
+    {
+        $dataSiswa = $this->refSiswaInterface->getByNomorInduk($nomorInduk);
+        return $this->bebasPustaka->findByIdSiswa($dataSiswa->id);
     }
 
     public function findByUUID(string $uuid)

@@ -44,4 +44,15 @@ class SuratBebasPinjamRepository extends BaseRepository implements SuratBebasPin
 
         return $query->get();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function findByIdSiswa(int $idSiswa)
+    {
+        return $this->bebasPustaka
+            ->newQuery()
+            ->where('id_ref_siswa', $idSiswa)
+            ->first();
+    }
 }

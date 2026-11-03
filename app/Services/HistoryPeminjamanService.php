@@ -25,7 +25,19 @@ readonly class HistoryPeminjamanService
 
     public function dtPeminjamanBukuByIdSiswa(string $uuidRefSiswa, int $start = null, int $end = null, string $search = null)
     {
-        $dataSiswa = $this->refSiswaInterface->findByUuid($uuidRefSiswa);
+        $dataParameter = Str::isUuid($uuidRefSiswa);
+        if ($dataParameter)
+        {
+            $dataSiswa = $this->refSiswaInterface->findByUuid($uuidRefSiswa);
+        }
+        else
+        {
+            $dataSiswa = $this->refSiswaInterface->getByNomorInduk($uuidRefSiswa);
+            if (is_null($dataSiswa))
+            {
+                throw new BusinessException('Data tidak ditemukan');
+            }
+        }
         return $this->peminjamanBukuInterface->dtHistoryPeminjamanSiswa($dataSiswa->id, $start, $end, $search);
     }
 

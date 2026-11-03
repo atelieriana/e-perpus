@@ -53,4 +53,14 @@ class HibahBukuRepository extends BaseRepository implements HibahBukuInterface
             ->where('id_ref_siswa', $idSiswa)
             ->count();
     }
+
+    public function getHibahBukuByIdSiswa(int $idSiswa)
+    {
+        return $this->hibahBuku
+            ->newQuery()
+            ->join('ref_siswa', 'ref_siswa.id', '=', 'trans_hibah_buku.id_ref_siswa')
+            ->join('ref_buku', 'ref_buku.id', '=', 'trans_hibah_buku.id_ref_buku')
+            ->where('id_ref_siswa', $idSiswa)
+            ->first();
+    }
 }

@@ -26,6 +26,12 @@ readonly class HibahBukuService
         return $this->hibahBukuInterface->dtHibahBuku($start, $length, $search);
     }
 
+    public function getHibahBukuByNomorInduk(string $nomorInduk): mixed
+    {
+        $dataSiswa = $this->refSiswaInterface->getByNomorInduk($nomorInduk);
+        return $this->hibahBukuInterface->getHibahBukuByIdSiswa($dataSiswa->id);
+    }
+
     public function findHibahBuku(string $uuidHibahBuku)
     {
         return $this->hibahBukuInterface->findByUuid($uuidHibahBuku)

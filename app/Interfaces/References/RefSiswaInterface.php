@@ -17,7 +17,17 @@ interface RefSiswaInterface
      */
     public function dtSiswa(int $start = null, int $end = null, string $search = null): mixed;
 
+    /**
+     * @param int $idSiswa
+     * @return mixed
+     */
     public function latestKelasSiswa(int $idSiswa): mixed;
+
+    /**
+     * @param string $nomorInduk
+     * @return mixed
+     */
+    public function getByNomorInduk(string $nomorInduk): mixed;
 
     /**
      * Digunakan untuk menyediakan data siswa tanpa kelas berdasarkan tahun ajar

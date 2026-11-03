@@ -52,7 +52,7 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
             return DB::transaction(function () use ($arrayData){
                 return $this->peminjamanBuku
                     ->newQuery()
-                    ->upsert($arrayData, ['id_ref_buku','id_ref_jenis_peminjaman','id_ref_siswa'],[
+                    ->upsert($arrayData, ['id_ref_buku','id_ref_jenis_peminjaman','id_ref_siswa','tanggal_mulai_pinjam'],[
                         'id_ref_status_peminjaman' => $arrayData['id_ref_status_peminjaman'],
                         'tanggal_pengembalian' => (isset($arrayData['tanggal_pengembalian'])) ? $arrayData['tanggal_pengembalian'] : null,
                     ]);

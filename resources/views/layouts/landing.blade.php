@@ -7,6 +7,7 @@
     <meta content="E-Perpustakaan" name="description" />
     <meta content="Kelompok 1 Capstone Project UT" name="author" />
     <link rel="shortcut icon" href="{{ asset('icon/favicon.ico') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('build/css/datatables.net-bs4/dataTables.bootstrap4.min.css') }}"/>
     @vite('resources/scss/bootstrap.scss')
     @vite('resources/scss/icons.scss')
     @vite('resources/scss/app.scss')
@@ -25,7 +26,7 @@
         <div class="navbar-header">
             <div class="d-flex">
                 <div class="navbar-brand-box">
-                    <a href="index.html" class="logo logo-dark">
+                    <a href="{{ route('dashboard') }}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="22">
                         </span>
@@ -33,7 +34,7 @@
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="44">
                         </span>
                     </a>
-                    <a href="index.html" class="logo logo-light">
+                    <a href="{{ route('dashboard') }}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="22">
                         </span>
@@ -57,7 +58,7 @@
                     </a>
                 </div>
                 <div class="d-none d-lg-block ms-2">
-                    <a href="#">
+                    <a href="{{ route('cek-peminjaman') }}">
                         <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
                             <span key="t-megamenu">Cek Peminjaman</span>
                         </button>
@@ -93,6 +94,8 @@
     </div>
 </div>
 <script src="{{ asset('build/js/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('build/js/datatables.net/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('build/js/datatables.net-bs4/dataTables.bootstrap4.min.js') }}"></script>
 @vite('resources/js/extension.js')
 @vite('resources/libs/bootstrap/js/bootstrap.bundle.min.js')
 @vite('resources/js/app.js')

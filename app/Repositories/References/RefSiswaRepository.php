@@ -243,4 +243,15 @@ class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
             ->orderByDesc('ref_kelas.id')
             ->first();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getByNomorInduk(string $nomorInduk): mixed
+    {
+        return $this->refSiswa
+            ->newQuery()
+            ->where('ref_siswa.nomor_induk', $nomorInduk)
+            ->first();
+    }
 }
