@@ -77,6 +77,7 @@
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="{{ route('peminjaman-buku-pelajaran.create.submit') }}">
+                    @csrf
                     <input type="hidden" name="uuid-ref-kelas" value="{{ request()->input('uuid-ref-kelas') }}"/>
                     <input type="hidden" name="uuid-ref-kejuruan" value="{{ request()->input('uuid-ref-kejuruan') }}"/>
                     <input type="hidden" name="uuid-ref-kode-kelas" value="{{ request()->input('uuid-ref-kode-kelas') }}"/>
