@@ -10,14 +10,6 @@
     <div class="row">
         <div class="card" style="border-radius: 15px">
             <div class="card-body">
-                <div class="row mb-3">
-                    <div class="input-group">
-                        <div class="input-group-text">
-                            <i class="fa fa-search"></i>
-                        </div>
-                        <input type="text" class="form-control" name="pencarian-buku" id="pencarian-buku" placeholder="Cari judul buku, penulis, atau penerbit">
-                    </div>
-                </div>
                 <div class="row">
                     <h5 style="color: #34C38F"><i class="fa fa-bookmark"></i> Koleksi Buku Terbaru</h5>
                 </div>

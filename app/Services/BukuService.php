@@ -66,6 +66,11 @@ readonly class BukuService
         return $this->refBukuInterface->findByUUID($uuid);
     }
 
+    public function getBukuByParam(string $param)
+    {
+        return $this->refBukuInterface->getKoleksiBuku($param);
+    }
+
     /**
      * Service yang digunakan untuk menciptakan record buku
      * @param array $requestData

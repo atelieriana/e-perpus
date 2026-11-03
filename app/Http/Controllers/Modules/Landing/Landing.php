@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Services\BukuService;
 use App\Services\PeminjamanBukuUmumService;
 use App\Traits\AuditAccess;
+use Illuminate\Http\Request;
 
 class Landing extends Controller
 {
@@ -27,5 +28,15 @@ class Landing extends Controller
         $listKoleksiBukuBaru = $this->bukuService->getLatestKoleksiBuku();
         $listPeminjamTerbanyak = $this->peminjamanBukuUmumService->getPeminjamanTerbanyak();
         return view('modules.landing.index', compact('listKoleksiBukuBaru','listPeminjamTerbanyak'));
+    }
+
+    public function katalogBuku(Request $request)
+    {
+        $listBuku = null;
+        if (!is_null($request->input('pencarian')))
+        {
+            $listBuku = $this->bukuService->getBukuByParam(strtolower($request->input('pencarian')));
+        }
+        return view('modules.landing.katalog-buku', compact('listBuku'));
     }
 }

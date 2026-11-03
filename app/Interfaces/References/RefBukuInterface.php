@@ -26,4 +26,6 @@ interface RefBukuInterface
     public function findBukuByJenisBuku(int $idJenisBuku);
 
     public function getLatestKoleksiBuku();
+
+    public function getKoleksiBuku(string $param);
 }

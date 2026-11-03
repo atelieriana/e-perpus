@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [Landing::class, 'index'])
     ->name('landing');
+Route::get('/katalog-buku', [Landing::class, 'katalogBuku'])
+    ->name('katalog-buku');
+
 
 Route::get('/validasi-surat/{uuid}', ValidasiSurat::class)
     ->name('validasi-surat');
