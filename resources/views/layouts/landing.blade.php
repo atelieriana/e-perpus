@@ -43,14 +43,14 @@
                     </a>
                 </div>
                 <div class="d-none d-lg-block ms-2">
-                    <a href="#">
+                    <a href="{{ route('landing') }}">
                         <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
                             <span key="t-megamenu">Beranda</span>
                         </button>
                     </a>
                 </div>
                 <div class="d-none d-lg-block ms-2">
-                    <a href="#">
+                    <a href="{{ route('katalog-buku') }}">
                         <button type="button" class="btn header-item waves-effect" aria-haspopup="false" aria-expanded="false">
                             <span key="t-megamenu">Katalog Buku</span>
                         </button>

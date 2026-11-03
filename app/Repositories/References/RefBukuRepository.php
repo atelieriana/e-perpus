@@ -58,4 +58,15 @@ class RefBukuRepository extends BaseRepository implements RefBukuInterface
             ->limit(5)
             ->get();
     }
+
+    public function getKoleksiBuku(string $param)
+    {
+        return $this->refBuku
+            ->newQuery()
+            ->whereRaw('lower(judul) like ?', ['%'.$param.'%'])
+            ->orWhereRaw('lower(penulis) like ?', ['%'.$param.'%'])
+            ->orWhereRaw('lower(penerbit) like ?', ['%'.$param.'%'])
+            ->paginate(10)
+            ->withQueryString();
+    }
 }
