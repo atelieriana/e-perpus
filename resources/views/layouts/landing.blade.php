@@ -27,7 +27,7 @@
         <div class="navbar-header">
             <div class="d-flex">
                 <div class="navbar-brand-box">
-                    <a href="{{ route('dashboard') }}" class="logo logo-dark">
+                    <a href="{{ route('landing') }}" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="22">
                         </span>
@@ -35,7 +35,7 @@
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="44">
                         </span>
                     </a>
-                    <a href="{{ route('dashboard') }}" class="logo logo-light">
+                    <a href="{{ route('landing') }}" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="{{ asset('images/branding-2.png') }}" alt="" height="22">
                         </span>
