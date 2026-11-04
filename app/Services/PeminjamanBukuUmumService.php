@@ -31,6 +31,11 @@ readonly class PeminjamanBukuUmumService
         return $this->peminjamanBukuInterface->getPeminjamanByJenisPeminjaman(self::JENIS_PEMINJAMAN_PRIBADI);
     }
 
+    public function dtPeminjamanBukuUmumMendekatiBatasAkhir(int $start = null, int $end = null, string $search = null)
+    {
+        return $this->peminjamanBukuInterface->getPeminjamanBukuMendekatiBatasAkhir(self::JENIS_PEMINJAMAN_PRIBADI, $start, $end, $search);
+    }
+
     /**
      * @param int|null $start
      * @param int|null $end

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Datatables\HistoryPeminjaman;
+use App\Http\Controllers\Datatables\PeminjamanMendekatiBatasAkhir;
 use App\Http\Controllers\Datatables\SuratBebasPinjam;
 use App\Http\Controllers\Datatables\BukuPaket;
 use App\Http\Controllers\Datatables\BukuPelajaran;
@@ -41,3 +42,5 @@ Route::post('/bebas-pustaka', SuratBebasPinjam::class)
     ->name('bebas-pustaka');
 Route::post('/history-peminjaman', HistoryPeminjaman::class)
     ->name('history-peminjaman');
+Route::post('/peminjaman-mendekati-batas-akhir', PeminjamanMendekatiBatasAkhir::class)
+    ->name('peminjaman-mendekati-batas-akhir');

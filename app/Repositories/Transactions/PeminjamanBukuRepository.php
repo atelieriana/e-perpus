@@ -231,4 +231,40 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
             ->get()
             ->count();
     }
+
+    public function getPeminjamanBukuMendekatiBatasAkhir($idRefJenisPinjaman, int $start = null, int $end = null, string $search = null)
+    {
+        $subQuery = $this->peminjamanBuku
+            ->newQuery()
+            ->select([
+                DB::raw('ROW_NUMBER() OVER (ORDER BY trans_peminjaman_buku.id ASC) AS row_num'),
+                'ref_siswa.nomor_induk',
+                'ref_siswa.nama_lengkap',
+                'ref_buku.judul',
+                'trans_peminjaman_buku.tanggal_mulai_pinjam',
+                'trans_peminjaman_buku.tanggal_akhir_pinjam',
+            ])
+            ->join('ref_siswa','trans_peminjaman_buku.id_ref_siswa','=','ref_siswa.id')
+            ->join('ref_buku','trans_peminjaman_buku.id_ref_buku','=','ref_buku.id')
+            ->where('id_ref_jenis_peminjaman', $idRefJenisPinjaman)
+            ->where('id_ref_status_peminjaman', 1)
+            ->where('tanggal_akhir_pinjam', '<=', now()->addDays(3))
+            ->where('tanggal_akhir_pinjam', '<=', now());
+
+        if ($search !== null) {
+            $subQuery->where(function ($query) use ($search) {
+                $query->whereRaw("lower(nama_lengkap) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(judul) like ?", ["%".$search."%"])
+                    ->orWhereRaw("lower(nomor_induk) like ?", ["%".$search."%"]);
+            });
+        }
+
+        $query = DB::query()->fromSub($subQuery, 't');
+
+        if ($start !== null && $end !== null) {
+            $query->whereBetween('row_num', [$start, $end]);
+        }
+
+        return $query->get();
+    }
 }

@@ -23,4 +23,6 @@ interface PeminjamanBukuInterface
     public function getPeminjamanTerbanyak();
 
     public function getPeminjamanByJenisPeminjaman(int $idRefJenisPinjaman);
+
+    public function getPeminjamanBukuMendekatiBatasAkhir($idRefJenisPinjaman);
 }

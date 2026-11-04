@@ -26,7 +26,7 @@ class Dashboard extends Controller
         if ($accessRole === "Admin")
             return $this->adminDashboard();
         else if ($accessRole === "Pustakawan")
-            return null;
+            return $this->pustkawanDashboard();
     }
 
     private function adminDashboard()
@@ -36,6 +36,16 @@ class Dashboard extends Controller
         $dataPeminjamanBukuUmum = $this->peminjamanBukuUmumService->getTotalPeminjamanBukuUmum();
         $dataPeminjamanBukuPelajaran = $this->peminjamanBukuPelajaranService->getTotalPeminjamanBukuPelajaran();
         $totalPeminjaman = $dataPeminjamanBukuPelajaran+$dataPeminjamanBukuUmum+$dataPeminjamanBukuUmum;
-        return view('modules.dashboard.index', compact('dataSiswa','dataBuku','totalPeminjaman'));
+        return view('modules.dashboard.admin', compact('dataSiswa','dataBuku','totalPeminjaman'));
+    }
+
+    private function pustkawanDashboard()
+    {
+        $dataSiswa = $this->siswaServices->getSiswaAktif()->count();
+        $dataBuku = $this->bukuServices->getTotalBuku();
+        $dataPeminjamanBukuUmum = $this->peminjamanBukuUmumService->getTotalPeminjamanBukuUmum();
+        $dataPeminjamanBukuPelajaran = $this->peminjamanBukuPelajaranService->getTotalPeminjamanBukuPelajaran();
+        $totalPeminjaman = $dataPeminjamanBukuPelajaran+$dataPeminjamanBukuUmum+$dataPeminjamanBukuUmum;
+        return view('modules.dashboard.pustkawan', compact('dataSiswa','dataBuku','totalPeminjaman'));
     }
 }
