@@ -33,6 +33,11 @@ readonly class PeminjamanBukuPelajaranService
     )
     {}
 
+    public function getTotalPeminjamanBukuPelajaran()
+    {
+        return $this->peminjamanBukuServiceInterface->getPeminjamanByJenisPeminjaman(self::ID_REF_JENIS_PEMINJAMAN_BUKU_PELAJARAN);
+    }
+
     public function getRecordByKodeKelasAndTahunAjar(string $uuidRefKodeKelas, string $uuidRefTahunAjar)
     {
         $dataKodeKelas = $this->refKodeKelasInterface->findByUuid($uuidRefKodeKelas);

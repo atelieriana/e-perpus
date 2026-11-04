@@ -18,6 +18,11 @@ readonly class BukuService
     )
     {}
 
+    public function getTotalBuku()
+    {
+        return $this->refBukuInterface->all()->count();
+    }
+
     /**
      * Digunakan untuk menyediakan data buku pelajaran dalam format datatables
      * @param int|null $start

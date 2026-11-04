@@ -25,6 +25,11 @@ readonly class SiswaService
     )
     {}
 
+    public function getSiswaAktif()
+    {
+        return $this->refSiswaInterface->getSiswaAktif();
+    }
+
     /**
      * Service yang digunakan untuk mendapatkan data siswa untuk datatables
      * @param int|null $start

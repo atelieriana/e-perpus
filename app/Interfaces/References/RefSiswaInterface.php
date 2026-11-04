@@ -56,4 +56,6 @@ interface RefSiswaInterface
      * @return mixed
      */
     public function massRollbackSiswaLulusByTahunAjar(int $idTahunAjar);
+
+    public function getSiswaAktif();
 }

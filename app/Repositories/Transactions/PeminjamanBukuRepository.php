@@ -221,4 +221,14 @@ class PeminjamanBukuRepository extends BaseRepository implements PeminjamanBukuI
             ->limit(4)
             ->get();
     }
+
+    public function getPeminjamanByJenisPeminjaman(int $idRefJenisPinjaman)
+    {
+        return $this->peminjamanBuku
+            ->newQuery()
+            ->select('id')
+            ->where('id_ref_jenis_peminjaman', $idRefJenisPinjaman)
+            ->get()
+            ->count();
+    }
 }

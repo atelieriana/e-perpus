@@ -26,9 +26,9 @@ readonly class PeminjamanBukuUmumService
     )
     {}
 
-    public function getPeminjamanBukuUmumTerbanyak()
+    public function getTotalPeminjamanBukuUmum()
     {
-
+        return $this->peminjamanBukuInterface->getPeminjamanByJenisPeminjaman(self::JENIS_PEMINJAMAN_PRIBADI);
     }
 
     /**

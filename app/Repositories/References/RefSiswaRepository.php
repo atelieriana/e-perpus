@@ -254,4 +254,12 @@ class RefSiswaRepository extends BaseRepository implements RefSiswaInterface
             ->where('ref_siswa.nomor_induk', $nomorInduk)
             ->first();
     }
+
+    public function getSiswaAktif()
+    {
+        return $this->refSiswa
+            ->newQuery()
+            ->scopes(['aktif'])
+            ->get();
+    }
 }

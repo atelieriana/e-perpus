@@ -21,4 +21,6 @@ interface PeminjamanBukuInterface
     public function getPeminjamanBelumKembali(int $idRefSiswa);
 
     public function getPeminjamanTerbanyak();
+
+    public function getPeminjamanByJenisPeminjaman(int $idRefJenisPinjaman);
 }
