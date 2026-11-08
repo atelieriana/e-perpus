@@ -31,7 +31,7 @@ class CreateRequest extends FormRequest
             'uuid-ref-buku.0' => ['required','uuid'],
             'uuid-ref-buku.*' => ['nullable','uuid'],
             'tanggal-pinjam' => ['required','date', Rule::date()->afterOrEqual(today())],
-            'tanggal-terakhir-pinjam' => ['required','date', Rule::date()->afterOrEqual(today())->beforeOrEqual(today()->addWeeks(2))],
+            'tanggal-terakhir-pinjam' => ['required','date', Rule::date()->afterOrEqual(today())->beforeOrEqual(today()->addWeeks())],
         ];
     }
 

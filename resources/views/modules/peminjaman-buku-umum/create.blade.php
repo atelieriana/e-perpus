@@ -288,10 +288,10 @@
                                     max: () => {
                                         const d = new Date();
                                         d.setHours(0, 0, 0, 0);
-                                        d.setDate(d.getDate() + 14);
+                                        d.setDate(d.getDate() + 7);
                                         return d;
                                     },
-                                    message: 'Tidak boleh lebih dari 2 minggu',
+                                    message: 'Tidak boleh lebih dari 1 minggu',
                                 },
                             }
                         },
