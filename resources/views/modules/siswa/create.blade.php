@@ -8,7 +8,8 @@
                 <div class="page-title-right">
                     <ol class="breadcrumb m-0">
                         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active">Siswa</li>
+                        <li class="breadcrumb-item"><a href="{{ route('siswa.index') }}">Siswa</a></li>
+                        <li class="breadcrumb-item active">Tambah</li>
                     </ol>
                 </div>
 
@@ -25,7 +26,7 @@
                     <div class="col-sm-4">
                         <div class="search-box me-2 mb-2 d-inline-block">
                             <div class="position-relative">
-                                <h4>Tambah Buku Umum</h4>
+                                <h4>Tambah Data Siswa</h4>
                             </div>
                         </div>
                     </div>
