@@ -86,7 +86,7 @@ class RefUser extends Model implements Auditable
 
     public function roles()
     {
-        return $this->belongsToMany(RefRole::class, RefRoleDetail::class, 'id_ref_user', 'id');
+        return $this->belongsToMany(RefRole::class, RefRoleDetail::class, 'id_ref_user', 'id_ref_role');
     }
 
     public function roles_detail()
