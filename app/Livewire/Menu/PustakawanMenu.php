@@ -13,6 +13,27 @@ class PustakawanMenu
                 'icon' => 'bx bx-home-circle',
             ],
             [
+                'name' => 'Master Data',
+                'route' => '#',
+                'icon' => 'bx bx-folder-open',
+                'child' => [
+                    [
+                        'name' => 'Buku',
+                        'route' => '#',
+                        'child' => [
+                            [
+                                'name' => 'Buku Pelajaran',
+                                'route' => route('buku-pelajaran.index'),
+                            ],
+                            [
+                                'name' => 'Buku Umum',
+                                'route' => route('buku-umum.index'),
+                            ]
+                        ],
+                    ],
+                ],
+            ],
+            [
                 'name' => 'Peminjaman',
                 'route' => '#',
                 'icon' => 'bx bx-folder-open',

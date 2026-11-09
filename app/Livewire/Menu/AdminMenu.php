@@ -71,21 +71,21 @@ class AdminMenu
                     ],
                 ]
             ],
-            [
-                'name' => 'Audit',
-                'route' => '#',
-                'icon' => 'bx bx-home-circle',
-                'child' => [
-                    [
-                        'name' => 'Audit Akses',
-                        'route' => '#',
-                    ],
-                    [
-                        'name' => 'Audit Trail',
-                        'route' => '#',
-                    ],
-                ]
-            ]
+//            [
+//                'name' => 'Audit',
+//                'route' => '#',
+//                'icon' => 'bx bx-home-circle',
+//                'child' => [
+//                    [
+//                        'name' => 'Audit Akses',
+//                        'route' => '#',
+//                    ],
+//                    [
+//                        'name' => 'Audit Trail',
+//                        'route' => '#',
+//                    ],
+//                ]
+//            ]
         ];
     }
 }
